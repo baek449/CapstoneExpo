@@ -1,0 +1,19 @@
+{
+	"name": "Hotel1114",
+    "version": "0.1.0",
+    "description": "Hotel1114",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+    },
+    "author": "",
+    "license": "MIT",
+    "readmeFilename": "README.md",
+    "dependencies": {
+    	"express": "~4.13.1",
+        "express-session":"~1.15.2",
+        "mongodb":"~2.2.26",
+        "assert":"~1.4.1",
+    	"ejs": "~2.4.1"
+    }
+}
