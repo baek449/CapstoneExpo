@@ -1,8 +1,13 @@
 module.exports = function(app)
 {
-	require('./routerAccount')(app);
+	// 여기에서 라우터를 불러옵니다
+	require('./routerMember')(app);
+	require('./routerProject')(app);
+	require('./routerPost')(app);
+	require('./routerImage')(app);
 	
-	// Basic page render
+	/*
+	// TODO Additional page render
      app.get('/',function(req,res){
         res.render('index.html');
      });
@@ -10,4 +15,5 @@ module.exports = function(app)
      app.get('/error',function(req,res){
     	 res.render('error.html');
      });
+     */
 };
