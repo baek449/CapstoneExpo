@@ -1,30 +1,30 @@
 var express = require('express');
-var app_ = express();
-app_.use(express.static('public'));
+var http = require('http');
+var https = require('https');
+var bodyParser = require('body-parser');
+var app = express();
 
 // Session Use
 var session = require('express-session');
-app_.use(session({
+app.use(session({
  secret: '*2fe790890UQF#f3d3#$5(dEWgeG#f^7',
  resave: false,
  saveUninitialized: true
 }));
 
-// Configuring view directory and engine
-app_.set('views', __dirname + '/views'); // View pages are in /views directory
-app_.set('view engine', 'ejs'); // Use EJS as view engine
-app_.engine('html', require('ejs').renderFile);
+// BodyParser
+app.use(bodyParser.json());
 
+// Mongoose & Schema
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/capstoneExpo');
+var Schema = mongoose.Schema;
 
-var dao_=require('./dao/dao');
-dao_.init(app_,function(app,dao){
-	
-	// Configure Router
-	require('./router/router')(app,dao);
+// Public Resource Folder
+app.use(express.static('public'));
 
-	// Run server
-	var server = app.listen(23400, function(){
-	    console.log("Server Started 23400");
-	});
+// Routing
+require('router/router')(app);
 
-});
+// Run the server!
+app.listen (3000, function() {console.log("Listening on port #3000")});

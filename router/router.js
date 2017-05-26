@@ -1,11 +1,6 @@
-module.exports = function(app,dao)
+module.exports = function(app)
 {
-	// Main Page - http://localhost:23400/
-	// Login Page - http://localhost:23400/login
-	// Member Page - http://localhost:23400/memberPage
-	// Error Page - http://localhost:23400/error
-	
-	require('./routerAccount')(app,dao);
+	require('./routerAccount')(app);
 	
 	// Basic page render
      app.get('/',function(req,res){
