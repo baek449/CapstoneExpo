@@ -12,4 +12,4 @@ var evaluationSchema = new Schema({
 
 });
 
-module.exports = mongoose.model('Project', projectSchema);
+module.exports = mongoose.model('Evaluation', evaluationSchema);
