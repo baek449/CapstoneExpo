@@ -1,7 +1,7 @@
 
-var projectController=function(Model){
+var ProjectController=function(Model){
 	return {
-		//newProject: 새로운 프로젝트를 추가합니다. 결과를 인자로 받는 콜백 함수를 부릅니다.
+		//[Could] newProject: 새로운 프로젝트를 추가합니다. 결과를 인자로 받는 콜백 함수를 부릅니다.
 		newProject:function(callback){
 			(new Model.Project()).save(function(err){
 		        if(err){
@@ -12,7 +12,7 @@ var projectController=function(Model){
 		        callback({result: 1});
 		    });
 		},
-		//updateProject: 프로젝트의 정보를 변경합니다. 결과를 인자로 받는 콜백 함수를 부릅니다.
+		//[Could] updateProject: 프로젝트의 정보를 변경합니다. project는 결과를 인자로 받는 콜백 함수를 부릅니다.
 		updateProject:function(project,callback){
 			project.save(function(err){
 		        if(err){
@@ -26,4 +26,4 @@ var projectController=function(Model){
 	};
 };
 
-module.exports=projectController;
+module.exports=ProjectController;
