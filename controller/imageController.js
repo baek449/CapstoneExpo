@@ -4,10 +4,10 @@ var ImageController={
 		(new Model.Project()).save(function(err){
 	        if(err){
 	            console.error(err);
-	            callback({result: 0});
+	            callback({result: 1});
 	            return;
 	        }
-	        callback({result: 1});
+	        callback({result: 0});
 	    });
 	},
 	//[Must] uploadImage: 이미지를 업로드합니다. 결과를 인자로 받는 콜백 함수를 부릅니다.
@@ -15,10 +15,10 @@ var ImageController={
 		project.save(function(err){
 	        if(err){
 	            console.error(err);
-	            callback({result: 0});
+	            callback({result: 1});
 	            return;
 	        }
-	        callback({result: 1});
+	        callback({result: 0});
 	    });
 	}
 };

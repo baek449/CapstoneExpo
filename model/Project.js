@@ -10,21 +10,22 @@ var projectSchema = new Schema({
 	  endDate:		Date,
 	  field:		[String],
 	  keyword:		[String],
-	  prevProject:	Schema.Types.ObjectID,
-	  image:		Schema.Types.ObjectId,
+	  prevProject:	{ type: Schema.Types.ObjectId, ref: 'Project' },
+	  image:		{ type: Schema.Types.ObjectId, ref: 'Image' },
 	  like:			Number,
 	  view:			Number
   },
   affiliation:{
-	  school:		Schema.Types.ObjectID,
-	  course:		Schema.Types.ObjectID,
+	  school:		{ type: Schema.Types.ObjectId, ref: 'School' },
+	  course:		{ type: Schema.Types.ObjectId, ref: 'Course' },
 	  semester:		String
   },
   members:{
-	  assistant:	[Schema.Types.ObjectId],
-	  student:		[Schema.Types.ObjectId],
-	  company:		[Schema.Types.ObjectId],
-	  leader:		Schema.Types.ObjectId
+	  professor:	[{ type: Schema.Types.ObjectId, ref: 'Member' }],
+	  assistant:	[{ type: Schema.Types.ObjectId, ref: 'Member' }],
+	  student:		[{ type: Schema.Types.ObjectId, ref: 'Member' }],
+	  company:		[{ type: Schema.Types.ObjectId, ref: 'Member' }],
+	  leader:		{ type: Schema.Types.ObjectId, ref: 'Member' }
   }
 });
 

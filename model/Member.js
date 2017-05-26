@@ -5,7 +5,7 @@ var memberSchema = new Schema({
 	type:		Number,
 	email:		String,
 	name:		String,
-	school:		mongoose.model('School').schema,
+	school:		{ type: Schema.Types.ObjectId, ref: 'School' },
 	field:		[String],
 	image:		String,
 	major:		String,
