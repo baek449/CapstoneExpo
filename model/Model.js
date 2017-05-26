@@ -1,12 +1,13 @@
 var Model={};
 
 // TODO 여기에 모델을 추가합니다.
-Model.Course=require('./School');
+Model.School=require('./School');
 Model.Course=require('./Course');
-Model.Course=require('./Member');
-Model.Course=require('./Project');
-Model.Course=require('./Post');
-Model.Course=require('./Evaluation');
-Model.Course=require('./Image');
+Model.Member=require('./Member');
+Model.Project=require('./Project');
+Model.Post=require('./Post');
+Model.Evaluation=require('./Evaluation');
+Model.Image=require('./Image');
+Model.File=require('./File');
 
 module.exports=Model;

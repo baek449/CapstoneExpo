@@ -4,7 +4,7 @@ module.exports = function(app,Model)
 	
 	/* 이번에 구현 안 함
 	app.get('/member/new',function(req,res){
-		// TODO 회원 가입
+		// TODO 회원 가입 
 	});
 	app.get('/member/delete',function(req,res){
 		// TODO 탈퇴
