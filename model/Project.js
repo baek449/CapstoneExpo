@@ -10,22 +10,21 @@ var projectSchema = new Schema({
 	  endDate:		Date,
 	  field:		[String],
 	  keyword:		[String],
-	  prevProject:	ObjectID,
-	  image:		String,
+	  prevProject:	Schema.Types.ObjectID,
+	  image:		Schema.Types.ObjectId,
 	  like:			Number,
 	  view:			Number
   },
   affiliation:{
-	  school:		ObjectID,
-	  course:		ObjectID,
+	  school:		Schema.Types.ObjectID,
+	  course:		Schema.Types.ObjectID,
 	  semester:		String
   },
   members:{
-	  professor:	[mongoose.model('Member').schema],
-	  assistant:	[mongoose.model('Member').schema],
-	  student:		[mongoose.model('Member').schema],
-	  company:		[mongoose.model('Member').schema],
-	  leader:		mongoose.model('Member').schema
+	  assistant:	[Schema.Types.ObjectId],
+	  student:		[Schema.Types.ObjectId],
+	  company:		[Schema.Types.ObjectId],
+	  leader:		Schema.Types.ObjectId
   }
 });
 
