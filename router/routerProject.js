@@ -1,5 +1,6 @@
-module.exports = function(app)
+module.exports = function(app,Model)
 {
+	const ProjectController=require('../controller/projectController');
 	// 프로젝트에 관한 라우터
 	app.get('/project/new',function(req,res){
 		// TODO 새로운 프로젝트를 생성합니다.

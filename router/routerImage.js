@@ -1,4 +1,4 @@
-module.exports = function(app)
+module.exports = function(app,Model)
 {
 	// 이미지에 관한 라우터
 	app.get('/image/:id',function(req,res){

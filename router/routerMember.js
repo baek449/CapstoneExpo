@@ -1,4 +1,4 @@
-module.exports = function(app)
+module.exports = function(app,Model)
 {
 	// 멤버에 관한 라우터
 	

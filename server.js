@@ -24,7 +24,7 @@ var Schema = mongoose.Schema;
 app.use(express.static('public'));
 
 // Routing
-require('router/router')(app);
+require('router/router')(app,require('../model/Model'));
 
 // Run the server!
 app.listen (3000, function() {console.log("Listening on port #3000")});

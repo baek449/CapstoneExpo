@@ -1,10 +1,10 @@
-module.exports = function(app)
+module.exports = function(app,Model)
 {
 	// 여기에서 라우터를 불러옵니다
-	require('./routerMember')(app);
-	require('./routerProject')(app);
-	require('./routerPost')(app);
-	require('./routerImage')(app);
+	require('./routerMember')(app,Model);
+	require('./routerProject')(app,Model);
+	require('./routerPost')(app,Model);
+	require('./routerImage')(app,Model);
 	
 	/*
 	// TODO Additional page render
