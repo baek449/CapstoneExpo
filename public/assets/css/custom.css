@@ -1,1 +1,52 @@
 /* Add here all your css styles (customizations) */
+
+.cbp-filter-item-active,
+.cbp-filter-item:hover {
+	color: #72c02c !important;
+}
+
+.cbp-filter-item-active {
+	font-weight: 400 !important;
+}
+
+.project_title {
+    position: relative;
+	color: #555;
+	font-size: 20px;
+	font-weight: 200;
+    margin-bottom: 20px;
+}
+
+.project_title:after {
+	left: 1px;
+	z-index: 1;
+	width: 30px;
+	height: 2px;
+	content: " ";
+	bottom: -6px;
+	position: absolute;
+	background: #72c02c;
+}
+
+/*Project Tag*/
+.project-box small.project-tag {
+  display: block;
+  font-size: 12px;
+}
+
+.project-box small.project-tag,
+.project-box small.project-tag a {
+  color: #999;
+}
+
+.project-box small.project-tag i {
+  margin-right: 5px;
+}
+
+.project-box small.project-tag a:hover {
+  color: #72c02c;
+}
+
+.project-box p {
+  margin-top: 5px;
+}
