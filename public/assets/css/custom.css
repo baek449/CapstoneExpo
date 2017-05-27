@@ -51,6 +51,50 @@
   margin-top: 5px;
 }
 
-.no-bottom-padding {
-	padding-bottom: 0px !important;
+/*******************************jisu*******************************/
+
+/**************timeline**************/
+
+.jisu_right_border_gray {
+	border-right: 1px solid #eee;
 }
+
+.jisu_timeline_icon{
+	color: #ffffff;
+	width: 30px;
+	height: 30px;
+	padding: 7px;
+	margin: 5px 5px 5px 5px;
+	font-size: 16px;
+	background: #5fb611;
+	text-align: center;
+	display: inline-block;
+	float:right;
+}
+
+.jisu_edit_button{
+	background-color:#f3f3f3;
+	color:#555;
+}
+
+.jisu_edit_link{
+	color:#999;
+	float:right;
+	font-size:10px;
+	text-decoration:none;
+}
+
+.jisu_new_button_div{
+	height:40px;
+	margin:0px 0px -20px 20px;
+	float:left;
+}
+
+.jisu_timeline_new_link{
+	color:#999;
+	float:right;
+	font-size:15px;
+	text-decoration:none;
+}
+
+/**************timeline**************/
