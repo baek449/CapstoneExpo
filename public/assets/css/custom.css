@@ -50,3 +50,7 @@
 .project-box p {
   margin-top: 5px;
 }
+
+.no-bottom-padding {
+	padding-bottom: 0px !important;
+}

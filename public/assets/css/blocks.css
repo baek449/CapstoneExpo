@@ -5486,6 +5486,8 @@
 .tab-v1 .nav-tabs a {
 	font-size: 14px;
 	padding: 5px 15px;
+	background: #fff;
+	border: none;
 }
 
 .tab-v1 .nav-tabs > .active > a,
