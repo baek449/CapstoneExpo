@@ -83,6 +83,36 @@
 	margin-right: 30px;
 }
 
+.progress.progress-u.vertical.bottom {
+	margin-bottom: 10px;
+}
+
+.my-progress-icon {
+	width: 40px !important;
+	margin-right: 10px;
+}
+
+.progress-bar-idea {
+	background: #c6bfe8;
+}
+
+.progress-bar-leader {
+	background: #9ae1a6;
+}
+
+.progress-bar-skills {
+	background: #a0d6e7;
+}
+
+.progress-bar-team {
+	background: #ffc0b4;
+}
+
+.no-bottom-margin {
+	maring-bottom: 0px !important;
+}
+
+
 /*******************************jisu*******************************/
 
 /**************timeline**************/
