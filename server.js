@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 
 // Mongoose & Schema
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/capstoneExpo');
 var Schema = mongoose.Schema;
 
@@ -24,7 +25,7 @@ var Schema = mongoose.Schema;
 app.use(express.static('public'));
 
 // Routing
-require('router/router')(app,require('../model/Model'));
+require('./router/router')(app,require('./model/Model'));
 
 // Run the server!
 app.listen (3000, function() {console.log("Listening on port #3000")});

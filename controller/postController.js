@@ -14,24 +14,24 @@ var PostController=function(Model){
 		},
 		//[Must] read: 게시글 ID에 대한 게시글을 불러옵니다. 결과를 인자로 받는 콜백 함수를 부릅니다.
 		read:function(id,callback){
-			Model.Post.findOne({_id:id}, function(err){
+			Model.Post.findOne({_id:id}, function(err,data){
 		        if(err){
 		            console.error(err);
 		            callback({result: 1});
 		            return;
 		        }
-		        callback({result: 0});
+		        callback({result: data});
 		    });
 		},
 		//[Must] readAll: 프로젝트 ID에 대한 모든 게시글을 불러옵니다. 결과를 인자로 받는 콜백 함수를 부릅니다.
 		readAll:function(projectId,callback){
-			Model.Post.find({projectId:projectId},function(err){
+			Model.Post.find({},function(err,data){ //{projectId:projectId}
 		        if(err){
 		            console.error(err);
 		            callback({result: 1});
 		            return;
 		        }
-		        callback({result: 0});
+		        callback({result: data});
 		    });
 		},
 		//[Should] update: 게시글의 정보를 변경합니다. 결과를 인자로 받는 콜백 함수를 부릅니다.

@@ -8,7 +8,7 @@ var evaluationSchema = new Schema({
 	  toMember:		{ type: Schema.Types.ObjectId, ref: 'Member' },
 	  eval:			String,
 	  message:		String,
-	  writeTime:	Timestamp
+	  writeTime:	Date
 
 });
 

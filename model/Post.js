@@ -8,11 +8,10 @@ var postSchema = new Schema({
 	  contents:		String,
 	  image:		Schema.Types.ObjectId,
 	  writer:		Schema.Types.ObjectId,
-	  writeTime:	Timestamp,
-	  editTime: 	Timestamp,
+	  writeTime:	{ type: Date, default: Date.now },
+	  editTime: 	{ type: Date, default: Date.now },
 	  type:			String,
-	  attend_member	[Schema.Types.ObjectId]
-  }
+	  attend_member:[Schema.Types.ObjectId]
 });
 
-module.exports = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Post', postSchema);

@@ -6,12 +6,12 @@ module.exports = function(app,Model)
 	require('./routerPost')(app,Model);
 	require('./routerImage')(app,Model);
 	
-	/*
+	
 	// TODO Additional page render
      app.get('/',function(req,res){
         res.render('index.html');
      });
-     
+    /* 
      app.get('/error',function(req,res){
     	 res.render('error.html');
      });

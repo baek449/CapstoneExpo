@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		// /post/new로 데이터를 보내는 예시입니다.
+		// 전송할 데이터는 Model을 보시고 맞는 형태의 JSON으로 만들어 올려야 합니다.
+		// /post/new는 새로운 게시글을 올리는 것이므로, 게시글에 대한 Model을 참조합니다.
+		/* 예시: model/Post.js
+			  project:		Schema.Types.ObjectId,
+			  title:		String,
+			  contents:		String,
+			  image:		Schema.Types.ObjectId,
+			  writer:		Schema.Types.ObjectId,
+			  writeTime:	{ type: Date, default: Date.now },
+			  editTime: 	{ type: Date, default: Date.now },
+			  type:			String,
+			  attend_member:[Schema.Types.ObjectId]
+		*/
+		// 폼에 입력된 값들을 기본적으로 이 형태로 변환하면 됩니다. (image나 type와 같이)항목들은 생략될 수 있습니다.
+		var testdata={projectId:1234,title:'제목 없음',contents:'내용 없음'};
+		// 다른 객체의 objectID를 참조해야 한다면, 페이지의 다른 곳에서 데이터를 이미 불러왔을 확률이 높습니다. 이 경우 그냥 가져다 쓰면 됩니다.
+		// 예를 들어 출석의 경우 양식을 생성하기 위해 팀원들의 목록을 이미 가져와서 보여주었을 것이므로, 그 때 가져왔던 팀원들의 ID를 이용합니다.
+		// 만일 그렇지 않다면 testread.html에서 설명하고 있는 $.getJSON으로 서버에 질의해서 값을 불러옵니다.
+		
+		// post 함수는 서버에 JSON으로 값을 보내는 함수입니다.
+		// 접근 주소(여기서 /post/new)는 프로토콜 파일의 접근 주소 란을 참고합니다.
+		$.post('http://'+document.location.host+'/post/new',testdata,function(res){
+			// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+			alert(JSON.stringify(res.result));
+		});
+		
+	});
+	</script>
+</head>
+<body>
+	<div>
+	  <p>This is the index page. </p>
+	</div>
+</body>
+</html>

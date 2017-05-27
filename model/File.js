@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var fileSchema = new Schema({
-	name:		Stinrg,
+	name:		String,
 	extension:	String
 });
 
