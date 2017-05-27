@@ -10,4 +10,5 @@ Model.Evaluation=require('./Evaluation');
 Model.Image=require('./Image');
 Model.File=require('./File');
 
+Model.id=require('mongoose').Types.ObjectId;
 module.exports=Model;

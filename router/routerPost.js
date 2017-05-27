@@ -69,7 +69,7 @@ module.exports = function(app,Model)
 		});
 	});
 	app.post('eval/download',function(req,res){
-		// 평가를 올리거나 갱신합니다.
+		// 평가 목록을 가져옵니다.
 		// postID, fromMember는 필수입니다.
 		var key={postID:	req.query.postID,
 				fromMember:	req.query.fromMember};
