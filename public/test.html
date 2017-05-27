@@ -4,6 +4,19 @@
 	<script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
+		/* 알려진 id값 목록
+		프로젝트: 5929ad4cf8394ac09021cc07
+		평가: 5929aeb5f8394ac09021cc09
+		포스트: 5929ade6f8394ac09021cc08
+		멤버: 5929ab79f8394ac09021cc06
+		*/
+		
+		//가져오기 예시
+		$.getJSON('http://'+document.location.host+'/timeline/5929ad4cf8394ac09021cc07',function(res){
+			alert(JSON.stringify(res.result));
+		});
+	});
+	var a=function(){
 		// /post/new로 데이터를 보내는 예시입니다.
 		// 전송할 데이터는 Model을 보시고 맞는 형태의 JSON으로 만들어 올려야 합니다.
 		// /post/new는 새로운 게시글을 올리는 것이므로, 게시글에 대한 Model을 참조합니다.
@@ -31,7 +44,7 @@
 			alert(JSON.stringify(res.result));
 		});
 		
-	});
+	};
 	</script>
 </head>
 <body>
