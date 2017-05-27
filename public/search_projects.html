@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="assets/plugins/animate.css">
 	<link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css">
 	<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
+	<link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
 	<link rel="stylesheet" href="assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.css">
 	<link rel="stylesheet" href="assets/plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css">
 	
@@ -86,7 +88,7 @@
 								<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">전체</div>
 								<div data-filter=".mech" class="cbp-filter-item">기계/항공</div>
 								<div data-filter=".elec" class="cbp-filter-item">전기/전자</div>
-								<div data-filter=".comp" class="cbp-filter-item">컴퓨터</div>
+								<div data-filter=".comp" class="cbp-filter-item">웹/앱</div>
 								<div data-filter=".arch" class="cbp-filter-item">건축/환경</div>
 								<div data-filter=".ener" class="cbp-filter-item">화공/에너지</div>
 								<div data-filter=".scie" class="cbp-filter-item">자연과학</div>
@@ -111,8 +113,24 @@
 											<h4 class="modal-title" id="myModalLabel4">신규 프로젝트 등록</h4>
 										</div>
 
-										<div class="panel-body">
-											<form class="form-horizontal" role="form">
+										<div class="panel-body sky-form">
+											<form class="form-horizontal sky-form no-border" role="form">
+											
+												<div class="form-group">
+													<label for="inputCategory" class="col-lg-2 control-label">분야</label>
+													<div class="col-lg-10 inline-group jen-checkbox">
+														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" checked><i></i>기계/항공</label>
+														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>전기/전자</label>
+														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>웹/앱</label>
+														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>건축/환경</label>
+														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>화공/에너지</label>
+														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>자연과학</label>
+														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>예술/디자인</label>
+														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>생활/교육</label>
+														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>기타</label>
+													</div>
+												</div>											
+
 												<div class="form-group">
 													<label for="inputTitle" class="col-lg-2 control-label">프로젝트명:</label>
 													<div class="col-lg-10">
@@ -127,42 +145,38 @@
 												</div>
 												<div class="form-group">
 													<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
-													<div class="col-lg-10">
+													<div class="col-lg-10 textarea">
 														<textarea id="inputDesc" class="form-control" rows="5" placeholder="프로젝트를 소개해주세요."></textarea>
 													</div>
 												</div>
 												<div class="form-group">
-													<div class="col-lg-offset-2 col-lg-10">
-														<div class="checkbox">
-															<label>
-																<input type="checkbox"> Remember me
+													<label for="inputDate" class="col-lg-2 control-label">기간:</label>
+													<div class="col-lg-10 inline-group">
+														<div class="col-4 date-picker">
+															<label class="input">
+																<i class="icon-append fa fa-calendar"></i>
+																<input type="text" name="start" id="start" placeholder="Start date">
+															</label>
+														</div>
+														<div class="col-4 date-picker">
+															<label class="input">
+																<i class="icon-append fa fa-calendar"></i>
+																<input type="text" name="finish" id="finish" placeholder="Expected finish date">
 															</label>
 														</div>
 													</div>
 												</div>
-
+												<div class="form-group">
+													<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
+													<div class="col-lg-10">
+														<label for="file" class="input input-file">
+															<div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+														</label>
+													</div>
+												</div>
 											</form>
 										</div>
-										
-										
-										
-<!-- 										<div class="modal-body">										
-											<div class="row">
-												<div class="col-md-12">
-													<p><input class="form-control" type="text" /></p>
-													<p><input class="form-control" type="text" /></p>
-													<p><input class="form-control" type="text" /></p>
-													<p><input class="form-control" type="text" /></p>
-													<p><input class="form-control" type="text" /></p>
-													<p><input class="form-control" type="text" /></p>
-												</div>
-												
-												
 
-
-
-											</div>
-										</div> -->
 										<div class="modal-footer">
 											<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
 											<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
@@ -427,7 +441,12 @@
 	<!-- JS Implementing Plugins -->
 	<script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
 	<script type="text/javascript" src="assets/plugins/smoothScroll.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/datepicker.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/validation.js"></script>
 	<!-- JS Customization -->
 	<script type="text/javascript" src="assets/js/custom.js"></script>
 	<!-- JS Page Level -->
@@ -436,6 +455,8 @@
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 			App.init();
+			Datepicker.initDatepicker();
+			Validation.initValidation();
 		});
 	</script>
 	<!--[if lt IE 9]>
