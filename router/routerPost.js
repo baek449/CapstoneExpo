@@ -43,7 +43,14 @@ module.exports = function(app,Model)
 		});
 	});
 	app.post('/post/reply/:id',function(req,res){
-		// TODO 해당 글에 대해 댓글을 올립니다.
+		// 해당 글에 대해 새로 댓글을 올립니다.
+		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
+		delete req.query['_id']; // 받아온 req.query에 _id가 있으면 제거합니다.
+		
+		PostController.create(req.query,function(x){
+			// x.result에는 새로운 댓글의 id값이 들어 있습니다.
+			res.send(x);
+		});
 	});
 	app.post('post/eval/:id',function(req,res){
 		// TODO 해당 글에 대해 평가를 올립니다.
