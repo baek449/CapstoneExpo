@@ -25,8 +25,8 @@
 .s-results .related-search h3 {
 	color: #999;
 	display: block;
-	font-size: 14px;
-	margin: 0 0 10px;
+	font-size: 16px;
+	margin: 0 0 20px;
 	line-height: 20px;
 	text-transform: uppercase;
 }
@@ -62,9 +62,11 @@
 
 /*Results-number*/
 .s-results .results-number {
-	color: #999;	
+	color: #999;
 	display: block;
-	margin-bottom: 10px;
+	font-size: 16px;
+	margin: 0 0 20px;
+	line-height: 20px;
 	text-transform: uppercase;
 }
 

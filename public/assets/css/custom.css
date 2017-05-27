@@ -51,6 +51,14 @@
   margin-top: 5px;
 }
 
+.no-bottom-padding {
+	padding-bottom: 0px !important;
+}
+
+.button-margin-right-5 {
+	margin-right: 5px;
+}
+
 /*******************************jisu*******************************/
 
 /**************timeline**************/
