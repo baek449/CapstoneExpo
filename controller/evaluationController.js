@@ -1,20 +1,21 @@
 
-var PostController=function(Model){
+var EvaluationController=function(Model){
 	return {
-		//[Must] create: 새로운 게시글을 추가합니다.
-		create:function(data,callback){
-			(new Model.Post(data)).save(function(err,data){
+		//[Must] save: 새로운 평가를 추가하거나 이미 있으면 갱신합니다.
+		// data는 postID, fromMember, toMember를 가지고 있어야 합니다.
+		save:function(data,newEval,callback){
+			Model.Evaluation.findOneAndUpdate(data, newEval, {upsert:true}, function(err, data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});
 		            return;
 		        }
-		        callback({result:data});
+		        callback({});
 		    });
 		},
-		//[Must] read: 게시글 ID에 대한 게시글을 불러옵니다.
-		read:function(id,callback){
-			Model.Post.findOne({_id:id}, function(err,data){
+		//[Must] get: 작성자와 게시글 ID에 대한 평가의 목록을 불러옵니다.
+		get:function(postID,fromMember,callback){
+			Model.Post.find({postID:postID,fromMember:fromMember}, function(err,data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});
@@ -48,4 +49,4 @@ var PostController=function(Model){
 	};
 };
 
-module.exports=PostController;
+module.exports=EvaluationController;

@@ -1,7 +1,9 @@
-const Post=require('../model/Model').Post;
-const PostController=require('../controller/postController')(require('../model/Model'));
 module.exports = function(app,Model)
 {
+	const Post=Model.Post;
+	const PostController=require('../controller/postController')(Model);
+	const EvaluationController=require('../controller/evaluationController')(Model);
+	
 	// 게시글에 관한 라우터
 	app.get('/post/:id',function(req,res){
 		// 해당 id의 게시글을 가져옵니다.
@@ -52,7 +54,32 @@ module.exports = function(app,Model)
 			res.send(x);
 		});
 	});
-	app.post('post/eval/:id',function(req,res){
-		// TODO 해당 글에 대해 평가를 올립니다.
+	app.post('eval/upload',function(req,res){
+		// 평가를 올리거나 갱신합니다.
+		// postID, fromMember, toMember는 필수입니다.
+		var key={postID:	req.query.postID,
+				fromMember:	req.query.fromMember,
+				toMember:	req.query.toMember};
+		var val={eval:	req.query.eval,
+				message: req.query.message};
+		
+		EvaluationController.save(key,val,function(x){
+			// x.result에는 새로운 댓글의 id값이 들어 있습니다.
+			res.send(x);
+		});
+	});
+	app.post('eval/download',function(req,res){
+		// 평가를 올리거나 갱신합니다.
+		// postID, fromMember는 필수입니다.
+		var key={postID:	req.query.postID,
+				fromMember:	req.query.fromMember};
+		
+		EvaluationController.get(key,function(x){
+			// x.result에는 여러 댓글이 있습니다. 이는 응답으로 넘어가기 전에 Mongoose 객체에서 일반 객체로 바뀌어야 합니다.
+			if(x.result)
+				for(i in x.result)
+					x.result[i]=x.result[i].toObject();
+			res.send(x);
+		});
 	});
 };
