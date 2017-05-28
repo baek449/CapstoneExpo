@@ -25,7 +25,7 @@ var ProjectController=function(Model){
 			    });
 			}
 		},
-		//[Could] create: 새로운 게시글을 추가합니다.
+		//[Could] create: 새로운 프로젝트를 추가합니다.
 		create:function(data,callback){
 			(new Model.Project(data)).save(function(err,data){
 		        if(err){
