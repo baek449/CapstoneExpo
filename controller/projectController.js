@@ -15,7 +15,7 @@ var ProjectController=function(Model){
 		        }
 		        callback(data);
 		    });
-		}
+		},
 		//[Must] get: 프로젝트 Object를 가져옵니다.
 		get:function(id, isMemberPopulated, callback){
 			if(isMemberPopulated){

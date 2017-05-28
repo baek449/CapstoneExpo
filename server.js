@@ -20,7 +20,7 @@ app.use(bodyParser({keepExtensions:true,uploadDir:__dirname+'/image'}));
 // Mongoose & Schema
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://capstone:cap12!34stone@localhost:27017/capstoneExpo');
+mongoose.connect('mongodb://capstone:cap12!34stone@52.79.198.177:27017/capstoneExpo');
 var Schema = mongoose.Schema;
 
 // Public Resource Folder
