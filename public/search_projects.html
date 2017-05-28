@@ -88,7 +88,7 @@
 								<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">전체</div>
 								<div data-filter=".mech" class="cbp-filter-item">기계/항공</div>
 								<div data-filter=".elec" class="cbp-filter-item">전기/전자</div>
-								<div data-filter=".comp" class="cbp-filter-item">웹/앱</div>
+								<div data-filter=".soft" class="cbp-filter-item">소프트웨어</div>
 								<div data-filter=".arch" class="cbp-filter-item">건축/환경</div>
 								<div data-filter=".ener" class="cbp-filter-item">화공/에너지</div>
 								<div data-filter=".scie" class="cbp-filter-item">자연과학</div>
@@ -195,7 +195,7 @@
 		<!--=== Cube-Portfdlio ===-->
 		<div class="cube-portfolio margin-bottom-60">
 			<div id="grid-container" class="cbp-l-grid-agency">
-				<div class="cbp-item mech comp">
+<!-- 				<div class="cbp-item mech comp">
 					<div class="cbp-caption margin-bottom-10">
 						<div class="cbp-caption-defaultWrap easy-block-v1 overflow-hidden">
 							<img class="img-responsive" src="assets/img/main/img1.jpg" alt="">
@@ -404,7 +404,7 @@
 						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
 						<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
 					</div>
-				</div>
+				</div> -->
 			</div><!--/end Grid Container-->
 		</div>
 		<!--=== End Cube-Portfdlio ===-->
@@ -457,10 +457,71 @@
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-3.js"></script>
 	<script type="text/javascript">
+	function map_one(fieldName){
+		switch(fieldName) {
+		case "기계/항공":
+			return "mech";
+		case "전기/전자":
+			return "elec";
+		case "소프트웨어":
+			return "soft";
+		case "건축/환경":
+			return "arch";
+		case "화공/에너지":
+			return "ener";
+		case "자연과학":
+			return "scie";
+		case "예술/디자인":
+			return "desi";
+		case "생활/교육":
+			return "educ";
+		case "기타":
+			return "misc";
+
+		}
+	}
+
+	function map(fields,func){
+		var result='';
+		for(i in fields) result+=' '+func(fields[i]);
+	}
+	
+
 		jQuery(document).ready(function() {
 			App.init();
 			Datepicker.initDatepicker();
 			Validation.initValidation();
+			
+			$.getJSON('http://'+document.location.host+'/project/all/view', function(res){
+				var projects=res.result;
+				for(p in projects){
+					var htmlFragment=
+					'<div class="cbp-item'+ map(p.projectSummary.field,map_one)+'">'+
+					'<div class="cbp-caption margin-bottom-10">'+
+						'<div class="cbp-caption-defaultWrap easy-block-v1">'+
+							'<img src="assets/img/main/img1.jpg" alt="">'+
+						'</div>'+
+						'<div class="cbp-caption-activeWrap">'+
+							'<div class="cbp-l-caption-alignCenter">'+
+								'<div class="cbp-l-caption-body">'+
+									'<ul class="link-captions no-bottom-space">'+
+									'<li><a href="portfolio_single_item.html?id='+p._id'"><i class="rounded-x fa fa-search-plus"></i></a></li>'+
+									'</ul>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="cbp-title-dark project-box">'+
+						'<div class="headline-left margin-bottom-10 project_title">'+p.projectSummary.name+'</div>'+
+							'<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">'+map(p.projectSummary.field,function(a){return a+', '})+'</a></small>'+
+							'<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>'+
+							'<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>'+
+						'</div>'+
+					'</div>';
+
+					$(".grid-container").append(htmlFragment);
+				}
+			});
 		});
 	</script>
 	<!--[if lt IE 9]>
