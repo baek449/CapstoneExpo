@@ -27,7 +27,7 @@
 	// 이미지를 내려받는 코드입니다. ?time=... 은 캐싱을 방지하기 위해 넣은 부분으로, 생략해도 됩니다.
 	function download(response){
 		if(response.error) alert('Image Error');
-		else $("#img").attr("src", "/image/download/"+response.result+"?time="+new Date().getTime());
+		else $("#img").attr("src", "/image/download/"+response.result);
 	}
 
 	$(document).ready(function(){

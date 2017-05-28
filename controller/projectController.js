@@ -10,12 +10,12 @@ var ProjectController=function(Model){
 			Model.Project.find({}).sort(sortCondition).exec(function(err,data){
 		        if(err){
 		            console.error(err);
-		            callback({result: 1});
+		            callback({error: 1});
 		            return;
 		        }
-		        callback(data);
+		        callback({result:data});
 		    });
-		}
+		},
 		//[Must] get: 프로젝트 Object를 가져옵니다.
 		get:function(id, isMemberPopulated, callback){
 			if(isMemberPopulated){
@@ -24,19 +24,19 @@ var ProjectController=function(Model){
 				.exec(function(err,data){
 			        if(err){
 			            console.error(err);
-			            callback({result: 1});
+			            callback({error: 1});
 			            return;
 			        }
-			        callback(data);
+			        callback({result:data});
 			    });
 			}else{
 				Model.Project.findOne({_id:id},function(err,data){
 			        if(err){
 			            console.error(err);
-			            callback({result: 1});
+			            callback({error: 1});
 			            return;
 			        }
-			        callback(data);
+			        callback({result:data});
 			    });
 			}
 		},

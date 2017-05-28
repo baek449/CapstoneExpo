@@ -1,6 +1,6 @@
 module.exports = function(app,Model)
 {
-	const ProjectController=require('../controller/projectController');
+	const ProjectController=require('../controller/projectController')(Model);
 	// 프로젝트에 관한 라우터
 	app.get('/project/new',function(req,res){
 		// TODO 새로운 프로젝트를 생성합니다.
@@ -16,19 +16,29 @@ module.exports = function(app,Model)
 		// 모든 프로젝트의 요약 정보를 최신순으로 가져옵니다.
 		ProjectController.getAll("new",function(x){
 			// x.result에는 populate되지 않은 프로젝트 목록이 있습니다. 이는 응답으로 넘어가기 전에 요약 정보만을 추출해야 합니다.
-			if(x.result)
-				for(i in x.result)
-					x.result[i]=x.result[i].toObject().projectSummary;
+			if(x.result){
+				for(i in x.result){
+					x.result[i]=x.result[i].toObject();
+					x.result[i].projectSummary._id=x.result[i]._id;
+					x.result[i]=x.result[i].projectSummary;
+				}
+			}
 			res.send(x);
 		});
 	});
 	app.get('/project/all/view',function(req,res){
+		console.log('view');
 		// 모든 프로젝트의 요약 정보를 view순으로 가져옵니다.
 		ProjectController.getAll("view",function(x){
 			// x.result에는 populate되지 않은 프로젝트 목록이 있습니다. 이는 응답으로 넘어가기 전에 요약 정보만을 추출해야 합니다.
-			if(x.result)
-				for(i in x.result)
-					x.result[i]=x.result[i].toObject().projectSummary;
+			console.log(x);
+			if(x.result){
+				for(i in x.result){
+					x.result[i]=x.result[i].toObject();
+					x.result[i].projectSummary._id=x.result[i]._id;
+					x.result[i]=x.result[i].projectSummary;
+				}
+			}
 			res.send(x);
 		});
 	});

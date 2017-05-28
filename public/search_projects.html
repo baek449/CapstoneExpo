@@ -88,16 +88,15 @@
 								<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">전체</div>
 								<div data-filter=".mech" class="cbp-filter-item">기계/항공</div>
 								<div data-filter=".elec" class="cbp-filter-item">전기/전자</div>
-								<div data-filter=".comp" class="cbp-filter-item">웹/앱</div>
+								<div data-filter=".soft" class="cbp-filter-item">소프트웨어</div>
 								<div data-filter=".arch" class="cbp-filter-item">건축/환경</div>
 								<div data-filter=".ener" class="cbp-filter-item">화공/에너지</div>
 								<div data-filter=".scie" class="cbp-filter-item">자연과학</div>
 								<div data-filter=".desi" class="cbp-filter-item">예술/디자인</div>
 								<div data-filter=".educ" class="cbp-filter-item">생활/교육</div>
 								<div data-filter=".misc" class="cbp-filter-item">기타 </div>
-							</div>
-							<!-- <hr> -->
-							<hr>
+							</div>							
+							<hr><!-- <hr> -->
 							<h3>Sort by</h3>
 							<div id="filters-container" class="cbp-l-filters-text list-unstyled">
 								<div class="cbp-filter-item-active cbp-filter-item">조회수 많은 순</div>
@@ -110,332 +109,99 @@
 					<span class="results-number">총 1000 프로젝트
 					<button class="btn-u pull-right" type="button" data-toggle="modal" data-target="#responsive">신규 프로젝트 등록</button>
 					</span>
-
-							<div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-											<h4 class="modal-title" id="myModalLabel4">신규 프로젝트 등록</h4>
-										</div>
-
-										<div class="panel-body sky-form">
-											<form class="form-horizontal sky-form no-border" role="form">
-											
-												<div class="form-group">
-													<label for="inputCategory" class="col-lg-2 control-label">분야</label>
-													<div class="col-lg-10 inline-group jen-checkbox">
-														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" checked><i></i>기계/항공</label>
-														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>전기/전자</label>
-														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>웹/앱</label>
-														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>건축/환경</label>
-														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>화공/에너지</label>
-														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>자연과학</label>
-														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>예술/디자인</label>
-														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>생활/교육</label>
-														<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>기타</label>
-													</div>
-												</div>											
-
-												<div class="form-group">
-													<label for="inputTitle" class="col-lg-2 control-label">프로젝트명:</label>
-													<div class="col-lg-10">
-														<input type="text" class="form-control" id="inputTitle" placeholder="프로젝트명">
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="inputIntro" class="col-lg-2 control-label">요약글:</label>
-													<div class="col-lg-10">
-														<input type="text" class="form-control" id="inputIntro" placeholder="한 줄 소개">
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
-													<div class="col-lg-10 textarea">
-														<textarea id="inputDesc" class="form-control" rows="5" placeholder="프로젝트를 소개해주세요."></textarea>
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="inputDate" class="col-lg-2 control-label">기간:</label>
-													<div class="col-lg-10 inline-group">
-														<div class="col-4 date-picker">
-															<label class="input">
-																<i class="icon-append fa fa-calendar"></i>
-																<input type="text" name="start" id="start" placeholder="Start date">
-															</label>
-														</div>
-														<div class="col-4 date-picker">
-															<label class="input">
-																<i class="icon-append fa fa-calendar"></i>
-																<input type="text" name="finish" id="finish" placeholder="Expected finish date">
-															</label>
-														</div>
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
-													<div class="col-lg-10">
-														<label for="file" class="input input-file">
-															<div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
-														</label>
-													</div>
-												</div>
-											</form>
-										</div>
-
-										<div class="modal-footer">
-											<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
-											<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
-										</div>
-									</div>
-								</div>
-							</div>
-					
-
-		<!--=== Cube-Portfdlio ===-->
-		<div class="cube-portfolio margin-bottom-60">
-			<div id="grid-container" class="cbp-l-grid-agency">
-				<div class="cbp-item mech comp">
-					<div class="cbp-caption margin-bottom-10">
-						<div class="cbp-caption-defaultWrap easy-block-v1 overflow-hidden">
-							<img class="img-responsive" src="assets/img/main/img1.jpg" alt="">
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>										
-									</ul>
-								</div>
-							</div>
-						</div>
+					<!--=== Cube-Portfdlio ===-->
+					<div class="cube-portfolio margin-bottom-60">
+						<div id="grid-container" class="cbp-l-grid-agency">			
+						</div><!--/end Grid Container-->
 					</div>
-					<div class="cbp-title-dark project-box">
-						<div class="headline-left margin-bottom-10 project_title">SAWADiCap</div>
-						<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-						<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-					</div>
-				</div>
-				<div class="cbp-item elec ener desi">
-					<div class="cbp-caption margin-bottom-10">
-						<div class="cbp-caption-defaultWrap easy-block-v1">
-							<img src="assets/img/main/img1.jpg" alt="">
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>									
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cbp-title-dark project-box">
-						<div class="headline-left margin-bottom-10 project_title">NoiseWAND</div>
-						<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">Technology</a>, <a href="#">Business</a></small>
-						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2017/03~2017/06</small>
-						<p>차량 내에서 발생하는 소음을 빠르고 정확하게 탐지</p>
-					</div>
-				</div>
-				<div class="cbp-item edu manage material multi">
-					<div class="cbp-caption margin-bottom-10">
-						<div class="cbp-caption-defaultWrap easy-block-v1">
-							<img src="assets/img/main/img1.jpg" alt="">
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cbp-title-dark project-box">
-						<div class="headline-left margin-bottom-10 project_title">SAWADiCap</div>
-						<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-						<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-					</div>
-				</div>
-				<div class="cbp-item human science archi mechanic">
-					<div class="cbp-caption margin-bottom-10">
-						<div class="cbp-caption-defaultWrap easy-block-v1">
-							<img src="assets/img/main/img1.jpg" alt="">
-							
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>
-										
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cbp-title-dark project-box">
-						<div class="headline-left margin-bottom-10 project_title">SAWADiCap</div>
-						<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-						<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-					</div>
-				</div>
-				<div class="cbp-item art design energy elec">
-					<div class="cbp-caption margin-bottom-10">
-						<div class="cbp-caption-defaultWrap easy-block-v1">
-							<img src="assets/img/main/img1.jpg" alt="">
-							
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>
-										
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cbp-title-dark project-box">
-						<div class="headline-left margin-bottom-10 project_title">SAWADiCap</div>
-						<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-						<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-					</div>
-				</div>
-				<div class="cbp-item misc agri medic comp multi">
-					<div class="cbp-caption margin-bottom-10">
-						<div class="cbp-caption-defaultWrap easy-block-v1">
-							<img src="assets/img/main/img1.jpg" alt="">
-							
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>
-										
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cbp-title-dark project-box">
-						<div class="headline-left margin-bottom-10 project_title">SAWADiCap</div>
-						<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-						<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-					</div>
-				</div>
-				<div class="cbp-item human design medic material mechanic">
-					<div class="cbp-caption margin-bottom-10">
-						<div class="cbp-caption-defaultWrap easy-block-v1">
-							<img src="assets/img/main/img1.jpg" alt="">
-							
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>
-										
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cbp-title-dark project-box">
-						<div class="headline-left margin-bottom-10 project_title">SAWADiCap</div>
-						<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-						<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-					</div>
-				</div>
-				<div class="cbp-item art agri manage archi elec">
-					<div class="cbp-caption margin-bottom-10">
-						<div class="cbp-caption-defaultWrap easy-block-v1">
-							<img src="assets/img/main/img1.jpg" alt="">
-							
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>
-										
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cbp-title-dark project-box">
-						<div class="headline-left margin-bottom-10 project_title">SAWADiCap</div>
-						<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-						<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-					</div>
-				</div>
-				<div class="cbp-item misc edu art elec mechanic">
-					<div class="cbp-caption margin-bottom-10">
-						<div class="cbp-caption-defaultWrap easy-block-v1">
-							<img src="assets/img/main/img1.jpg" alt="">
-							
-						</div>
-						<div class="cbp-caption-activeWrap">
-							<div class="cbp-l-caption-alignCenter">
-								<div class="cbp-l-caption-body">
-									<ul class="link-captions no-bottom-space">
-										<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>
-										
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="cbp-title-dark project-box">
-						<div class="headline-left margin-bottom-10 project_title">SAWADiCap</div>
-						<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-						<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-						<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-					</div>
-				</div>
-			</div><!--/end Grid Container-->
-		</div>
-		<!--=== End Cube-Portfdlio ===-->
-		
-		
-		
-		
-					<!-- Begin Inner Results -->
-
-					<div class="margin-bottom-30"></div>
-
-					<div class="text-left">
-						<ul class="pagination">
-							<li><a href="#">«</a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">...</a></li>
-							<li><a href="#">157</a></li>
-							<li><a href="#">158</a></li>
-							<li><a href="#">»</a></li>
-						</ul>
-					</div>
+					<!--=== End Cube-Portfdlio ===-->
+					<div class="margin-bottom-30"></div>			
 				</div><!--/col-md-10-->
-			</div>
+			</div><!-- row -->
 		</div><!--/container-->
-		<!--=== End Search Results ===-->
-
-
 	</div><!--/End Wrapepr-->
 
+	<!-- 신규 프로젝트 등록 팝업 -->
+	<div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel4">신규 프로젝트 등록</h4>
+				</div>
+
+				<div class="panel-body sky-form">
+					<form class="form-horizontal sky-form no-border" role="form">
+					
+						<div class="form-group">
+							<label for="inputCategory" class="col-lg-2 control-label">분야</label>
+							<div class="col-lg-10 inline-group jen-checkbox">
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" checked><i></i>기계/항공</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>전기/전자</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>웹/앱</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>건축/환경</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>화공/에너지</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>자연과학</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>예술/디자인</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>생활/교육</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>기타</label>
+							</div>
+						</div>											
+
+						<div class="form-group">
+							<label for="inputTitle" class="col-lg-2 control-label">프로젝트명:</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" id="inputTitle" placeholder="프로젝트명">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputIntro" class="col-lg-2 control-label">요약글:</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" id="inputIntro" placeholder="한 줄 소개">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
+							<div class="col-lg-10 textarea">
+								<textarea id="inputDesc" class="form-control" rows="5" placeholder="프로젝트를 소개해주세요."></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputDate" class="col-lg-2 control-label">기간:</label>
+							<div class="col-lg-10 inline-group">
+								<div class="col-4 date-picker">
+									<label class="input">
+										<i class="icon-append fa fa-calendar"></i>
+										<input type="text" name="start" id="start" placeholder="Start date">
+									</label>
+								</div>
+								<div class="col-4 date-picker">
+									<label class="input">
+										<i class="icon-append fa fa-calendar"></i>
+										<input type="text" name="finish" id="finish" placeholder="Expected finish date">
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
+							<div class="col-lg-10">
+								<label for="file" class="input input-file">
+									<div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+								</label>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
+					<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End 프로젝트 등록 팝업 -->
 
 
 	<!-- JS Global Compulsory -->
@@ -457,10 +223,78 @@
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-3.js"></script>
 	<script type="text/javascript">
+	function map_one(fieldName) {
+		switch(fieldName) {
+		case "기계/항공":
+			return "mech";
+		case "전기/전자":
+			return "elec";
+		case "소프트웨어":
+			return "soft";
+		case "건축/환경":
+			return "arch";
+		case "화공/에너지":
+			return "ener";
+		case "자연과학":
+			return "scie";
+		case "예술/디자인":
+			return "desi";
+		case "생활/교육":
+			return "educ";
+		case "기타":
+			return "misc";
+		}
+		return "";
+	}
+
+	function map(fields,func){
+		var result='';
+		for(i in fields){
+			alert(fields[i]);
+			alert(func(fields[i]));
+			result+=func(fields[i])+' ';
+		}
+		return result;
+	}
+	
+
 		jQuery(document).ready(function() {
 			App.init();
 			Datepicker.initDatepicker();
 			Validation.initValidation();
+			
+			$.getJSON('http://'+document.location.host+'/project/all/view', function(res){
+				var projects=res.result;
+				for(p in projects){
+					alert(JSON.stringify(projects[p]));
+					var htmlFragment=
+					'<div class="cbp-item'+ map(projects[p].field,map_one)+'">'+
+					'<div class="cbp-caption margin-bottom-10">'+
+						'<div class="cbp-caption-defaultWrap easy-block-v1">'+
+							'<img src="assets/img/main/img1.jpg" alt="">'+
+						'</div>'+
+						'<div class="cbp-caption-activeWrap">'+
+							'<div class="cbp-l-caption-alignCenter">'+
+								'<div class="cbp-l-caption-body">'+
+									'<ul class="link-captions no-bottom-space">'+
+									'<li><a href="portfolio_single_item.html?id='+projects[p]._id+'"><i class="rounded-x fa fa-search-plus"></i></a></li>'+
+									'</ul>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</div>'+
+					'<div class="cbp-title-dark project-box">'+
+						'<div class="headline-left margin-bottom-10 project_title">'+projects[p].name+'</div>'+
+							'<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">'+map(projects[p].field,function(a){return a+', '})+'</a></small>'+
+							'<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>'+
+							'<p>'+projects[p].shortIntro+'</p>'+
+						'</div>'+
+					'</div>';
+
+					alert(htmlFragment);
+					$("#grid-container").append($(htmlFragment));
+				}
+			});
 		});
 	</script>
 	<!--[if lt IE 9]>
