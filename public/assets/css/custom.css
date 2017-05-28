@@ -14,7 +14,7 @@
 	color: #555;
 	font-size: 20px;
 	font-weight: 200;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .project_title:after {
@@ -23,7 +23,7 @@
 	width: 30px;
 	height: 2px;
 	content: " ";
-	bottom: -6px;
+	bottom: -4px;
 	position: absolute;
 	background: #72c02c;
 }
