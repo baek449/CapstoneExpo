@@ -43,6 +43,7 @@
 .header-v6 {
 	z-index: 99;
 	position: relative;
+	border-bottom: solid 2px #eee;
 }
 
 @media (max-width: 991px) {
@@ -509,9 +510,9 @@
 	}
 
 	.header-v6 .dropdown .dropdown-submenu > a { 
-		font-size: 13px;
+		/* font-size: 13px; */
 		color: #555 !important;
-		text-transform: uppercase;
+		/* text-transform: uppercase; */
 	}
 }
 
