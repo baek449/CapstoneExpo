@@ -6,7 +6,7 @@ var postSchema = new Schema({
 	  project:		{ type: Schema.Types.ObjectId, ref: 'Project' },
 	  title:		String,
 	  contents:		String,
-	  image:		{ type: Schema.Types.ObjectId, ref: 'Image' },
+	  image:		{ type: String, ref: 'Image' },
 	  writer:		{ type: Schema.Types.ObjectId, ref: 'Member' },
 	  writeTime:	{ type: Date, default: Date.now },
 	  editTime: 	{ type: Date, default: Date.now },

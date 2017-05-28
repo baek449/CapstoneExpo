@@ -11,7 +11,7 @@ var projectSchema = new Schema({
 	  field:		[String],
 	  keyword:		[String],
 	  prevProject:	{ type: Schema.Types.ObjectId, ref: 'Project' },
-	  image:		{ type: Schema.Types.ObjectId, ref: 'Image' },
+	  image:		{ type: String, ref: 'Image' },
 	  like:			Number,
 	  view:			Number
   },

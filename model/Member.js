@@ -7,7 +7,7 @@ var memberSchema = new Schema({
 	name:		String,
 	school:		{ type: Schema.Types.ObjectId, ref: 'School' },
 	field:		[String],
-	image:		String,
+	image:		{ type: String, ref: 'Image' },
 	major:		String,
 	evaluation:{
 		badges:				[{name:String,count:Number}],
