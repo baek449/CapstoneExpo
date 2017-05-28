@@ -764,12 +764,16 @@
 			App.init();
 			StyleSwitcher.initStyleSwitcher();
 			
-			var id;
-			$.getJSON('http://'+document.location.host+'/timeline/'+'id',function(res) {
+			var id = "592a7c6ff8bc6d93b34216f1";
+			$.getJSON('http://'+document.location.host+'/timeline/'+id,function(res) {
+				alert(JSON.stringify(res));
 				for(i in res.result){
 					var date = res.result[i].writeTime;
+					var month = date.getMonth + 1;
+					var subject = res.result[i].title;
 					var image = res.result[i].image;
 					image = "/image/download/"+image;
+					var content = res.result[i].contents;
 					var num = i;
 					var html = '<li class="equal-height-columns">';
 					html += '<div class="cbp_tmtime equal-height-column"><span>'+date+'</span> <span>'+month+'</span></div>';
@@ -782,7 +786,7 @@
 					html += '<img class="img-responsive" src="'+image+'" alt="">';
 					html += '<div class="md-margin-bottom-20"></div>';
 					html += '</div>';
-					html += '<div class="col-md-8">';
+					html += '<div style="color:black" class="col-md-8">';
 					html += content;
 					
 					html += '<i class="rounded-x icon-heart jisu_timeline_icon"></i>';
@@ -818,7 +822,7 @@
 					$('.timeline-v2').append(html);
 				}
 			});
-			
+			/*
 			
 				var num = "4";
 				var date = "05/23/2017";
@@ -872,7 +876,7 @@
 				
 				$('.timeline-v2').append(html);	
 			});
-			
+			*/
 			
 			$('.jisu_timeline_new_link').mouseenter(function(){
 				$(this).css('color','#72c02c');

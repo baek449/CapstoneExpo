@@ -35,10 +35,11 @@ module.exports = function(app,Model)
 		});
 	});
 	app.get('/timeline/:projectId',function(req,res){
-		console.log(1);
+		console.log(req.params.projectId);
 		// 해당 프로젝트에서 작성된, 타임라인에 표시할 모든 게시글을 가져옵니다.
 		PostController.readAll(req.params.projectId,function(x){
 			// x.result에는 여러 게시글이 있습니다. 이는 응답으로 넘어가기 전에 Mongoose 객체에서 일반 객체로 바뀌어야 합니다.
+			console.log(x);
 			if(x.result)
 				for(i in x.result)
 					x.result[i]=x.result[i].toObject();
