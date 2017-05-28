@@ -12,6 +12,26 @@ module.exports = function(app,Model)
 			res.send(x);
 		});
 	});
+	app.get('/project/all/new',function(req,res){
+		// 모든 프로젝트의 요약 정보를 최신순으로 가져옵니다.
+		ProjectController.getAll("new",function(x){
+			// x.result에는 populate되지 않은 프로젝트 목록이 있습니다. 이는 응답으로 넘어가기 전에 요약 정보만을 추출해야 합니다.
+			if(x.result)
+				for(i in x.result)
+					x.result[i]=x.result[i].toObject().projectSummary;
+			res.send(x);
+		});
+	});
+	app.get('/project/all/view',function(req,res){
+		// 모든 프로젝트의 요약 정보를 view순으로 가져옵니다.
+		ProjectController.getAll("view",function(x){
+			// x.result에는 populate되지 않은 프로젝트 목록이 있습니다. 이는 응답으로 넘어가기 전에 요약 정보만을 추출해야 합니다.
+			if(x.result)
+				for(i in x.result)
+					x.result[i]=x.result[i].toObject().projectSummary;
+			res.send(x);
+		});
+	});
 	app.get('/project/summary/:id',function(req,res){
 		// 프로젝트의 요약 정보를 가져옵니다.
 		ProjectController.get(req.param.id,false,function(x){
