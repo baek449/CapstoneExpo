@@ -25,7 +25,7 @@ var PostController=function(Model){
 		},
 		//[Must] readAll: 프로젝트 ID에 대한 모든 게시글을 불러옵니다.
 		readAll:function(projectId,callback){
-			Model.Post.find({projectId:projectId},function(err,data){
+			Model.Post.find({projectId:Model.id(projectId)},function(err,data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});
