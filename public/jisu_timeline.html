@@ -771,6 +771,41 @@
 			App.init();
 			StyleSwitcher.initStyleSwitcher();
 			
+			var date = "05/23/2017";
+			var month = "May";
+			var subject = "조모임 하다가 축제 즐기러!!";
+			var image = "assets/img/Capstone-image/KakaoTalk_20170523.jpg";
+			var content = "<p>9시쯤 만나서 시작한 조모임.</p><p>조모임 주제 : web프로그래밍을 시작했기 때문에 서로의 진행 사항을 파악하고, backend프로그래밍에 대한 정보를 얻기 위해 만났다.</p><p>조모임을 하다가 11시에 시작하는 에일리 공연을 보기 위해 조원들과 다 함께 축제를 즐기러 갔다.</p><p>프로그래밍을 하러 왔다가 주점에서 다같이 술을 마심. 승근이는 처음으로 밤 12시를 넘게까지 술을 마신 색다른 경험!!</p>";
+			var html = '<li class="equal-height-columns">';
+			html += '<div class="cbp_tmtime equal-height-column"><span>'+date+'</span> <span>'+month+'</span></div>';
+			html += '<i class="cbp_tmicon rounded-x hidden-xs"></i>';
+			html += '<div class="cbp_tmlabel equal-height-column">';
+			html += '<h2><a href="blog_large_full_width_item1.html">'+subject+'</a>';
+			html += '<a href="blog_large_full_width_item1_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a></h2>';
+			html += '<div class="row">';
+			html += '<div class="col-md-4">';
+			html += '<img class="img-responsive" src="'+image+'" alt="">';
+			html += '<div class="md-margin-bottom-20"></div>';
+			html += '</div>';
+			html += '<div class="col-md-8">';
+			html += content;
+			html += '<i class="rounded-x icon-heart jisu_timeline_icon"></i>';
+			//html += '<i class="rounded-x icon-share jisu_timeline_icon" data-toggle="modal" data-target=".bs-example-modal-sm"></i>';
+			//html += '<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">';
+			//html += '<div class="modal-dialog modal-sm">';
+			//html += '<div class="modal-content">';
+			//html += '<div class="modal-header">';
+			//html += '<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>';
+			//html += '<h4 id="myLargeModalLabel3" class="modal-title">Sarge Modal</h4>';
+			//html += '</div>';
+			//html += '<div class="modal-body">';
+			//html += '</div></div></div></div>';
+			html += '<i class="rounded-x icon-speech jisu_timeline_icon" data-toggle="modal" data-target=".bs-example-modal-lg"></i>';
+			html += '</div></div></div></li>';
+			
+			
+			$('.timeline-v2').append(html);
+			
 			$('.jisu_timeline_new_link').mouseenter(function(){
 				$(this).css('color','#72c02c');
 				$(this).css('font-size','17px');
