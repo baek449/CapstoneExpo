@@ -43,6 +43,10 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
+	
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	
 </head>
 
 <body>
@@ -65,7 +69,7 @@
 		<!--=== End Search Block Version 2 ===-->
 
 		<!--=== Search Results ===-->
-		<div class="container s-results margin-bottom-50">
+		<div class="container s-results margin-bottom-50" ng-app="searchApp">
 			<div class="row">
 				<div class="col-md-2 col-sm-12 hidden-xs related-search">
 
@@ -92,67 +96,25 @@
 					</div>
 
 				</div><!--/col-md-2-->
-				<div class="col-md-10 col-sm-12">
-					<span class="results-number">총 1000 프로젝트
+				<div class="col-md-10 col-sm-12" ng-controller="ProjectDisplayController">
+					<span class="results-number">총 {{count}} 프로젝트
 					<button class="btn-u pull-right" type="button" data-toggle="modal" data-target="#responsive">신규 프로젝트 등록</button>
 					</span>					
 					
 					<ul class="list-unstyled row portfolio-box">
-						<li class="col-sm-4 md-margin-bottom-50 project-box">
-							<a class="thumbnail fancybox" data-rel="gallery" title="Project One" href="assets/img/main/img9.jpg">
+						<li ng-repeat="p in projects" class="col-sm-4 md-margin-bottom-50 project-box">
+							<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="assets/img/main/img9.jpg">
 								<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
 								<span class="portfolio-box-in rounded-x">
 									<i class="icon-magnifier-add"></i>
 								</span>
 							</a>
-							<div class="headline-left project_title">Project One</div>
-							<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
+							<div class="headline-left project_title">{{p.name}}</div>
+							<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">{{map(p.field,comma)}}</a></small>
 							<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-							<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-						</li>
-						<li class="col-sm-4 md-margin-bottom-50 project-box">
-							<a class="thumbnail fancybox" data-rel="gallery" title="Project Two" href="assets/img/main/img22.jpg">
-								<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
-								<span class="portfolio-box-in rounded-x">
-									<i class="icon-magnifier-add"></i>
-								</span>
-							</a>
-							<div class="headline-left project_title">Project Two</div>
-							<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-							<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-							<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-						</li>
-						<li class="col-sm-4 project-box">
-							<a class="thumbnail fancybox" data-rel="gallery" title="Project Three" href="assets/img/main/img18.jpg">
-								<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
-								<span class="portfolio-box-in rounded-x">
-									<i class="icon-magnifier-add"></i>
-								</span>
-							</a>
-							<div class="headline-left margin-bottom-10 project_title">Project Three</div>
-							<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-							<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-							<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
-						</li>
-						<li class="col-sm-4 project-box">
-							<a class="thumbnail fancybox" data-rel="gallery" title="Project Three" href="assets/img/main/img18.jpg">
-								<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
-								<span class="portfolio-box-in rounded-x">
-									<i class="icon-magnifier-add"></i>
-								</span>
-							</a>
-							<div class="headline-left margin-bottom-10 project_title">Project Three</div>
-							<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">기계/항공</a></small>
-							<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-							<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>
+							<p>{{p.shortIntro}}</p>
 						</li>
 					</ul>
-
-
-
-
-					
-
 				</div><!--/col-md-10-->
 			</div>
 		</div><!--/container-->
@@ -260,39 +222,57 @@
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-3.js"></script>
 	<script type="text/javascript">
-		function map_one(fieldName){
-			switch(fieldName) {
-			case "기계/항공":
-				return "mech";
-			case "전기/전자":
-				return "elec";
-			case "소프트웨어":
-				return "soft";
-			case "건축/환경":
-				return "arch";
-			case "화공/에너지":
-				return "ener";
-			case "자연과학":
-				return "scie";
-			case "예술/디자인":
-				return "desi";
-			case "생활/교육":
-				return "educ";
-			case "기타":
-				return "misc";
-			}
-			return "";
-		}
-	
-		function map(fields,func){
-			var result='';
-			for(i in fields){
-				alert(fields[i]);
-				alert(func(fields[i]));
-				result+=' '+func(fields[i]);
-			}
-			return result;
-		}
+
+	angular.module('searchApp', []).controller('ProjectDisplayController', function($scope,$http) {
+		$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
+			$scope.projects=res.data.result;
+			$scope.count=res.data.result.length;
+			$scope.map_one=function(fieldName){
+				switch(fieldName) {
+				case "기계/항공":
+					return "mech";
+				case "전기/전자":
+					return "elec";
+				case "소프트웨어":
+					return "soft";
+				case "건축/환경":
+					return "arch";
+				case "화공/에너지":
+					return "ener";
+				case "자연과학":
+					return "scie";
+				case "예술/디자인":
+					return "desi";
+				case "생활/교육":
+					return "educ";
+				case "기타":
+					return "misc";
+				}
+				return "";
+			};
+			$scope.comma=function(a){
+				return a+',';
+			};
+
+			$scope.map=function(fields,func){
+				var result='';
+				for(i in fields)
+					result+=' '+func(fields[i]);
+				return result;
+			};
+		});
+		});
+		/*.directive('gridContainer', ['$timeout', function ($timeout) {
+		    return {
+		        link: function ($scope, element, attrs) {
+		            $scope.$on('dataloaded', function () {
+		                $timeout(function () { // You might need this timeout to be sure its run after DOM render.
+		                    alert("Directive");
+		                }, 0, false);
+		            })
+		        }
+		    };
+		}]);*/
 	
 
 		jQuery(document).ready(function() {
