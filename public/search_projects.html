@@ -477,13 +477,18 @@
 			return "educ";
 		case "기타":
 			return "misc";
-
 		}
+		return "";
 	}
 
 	function map(fields,func){
 		var result='';
-		for(i in fields) result+=' '+func(fields[i]);
+		for(i in fields){
+			alert(fields[i]);
+			alert(func(fields[i]));
+			result+=' '+func(fields[i]);
+		}
+		return result;
 	}
 	
 
@@ -495,8 +500,9 @@
 			$.getJSON('http://'+document.location.host+'/project/all/view', function(res){
 				var projects=res.result;
 				for(p in projects){
+					alert(JSON.stringify(projects[p]));
 					var htmlFragment=
-					'<div class="cbp-item'+ map(p.projectSummary.field,map_one)+'">'+
+					'<div class="cbp-item'+ map(projects[p].field,map_one)+'">'+
 					'<div class="cbp-caption margin-bottom-10">'+
 						'<div class="cbp-caption-defaultWrap easy-block-v1">'+
 							'<img src="assets/img/main/img1.jpg" alt="">'+
@@ -505,21 +511,22 @@
 							'<div class="cbp-l-caption-alignCenter">'+
 								'<div class="cbp-l-caption-body">'+
 									'<ul class="link-captions no-bottom-space">'+
-									'<li><a href="portfolio_single_item.html?id='+p._id'"><i class="rounded-x fa fa-search-plus"></i></a></li>'+
+									'<li><a href="portfolio_single_item.html?id='+projects[p]._id+'"><i class="rounded-x fa fa-search-plus"></i></a></li>'+
 									'</ul>'+
 								'</div>'+
 							'</div>'+
 						'</div>'+
 					'</div>'+
 					'<div class="cbp-title-dark project-box">'+
-						'<div class="headline-left margin-bottom-10 project_title">'+p.projectSummary.name+'</div>'+
-							'<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">'+map(p.projectSummary.field,function(a){return a+', '})+'</a></small>'+
+						'<div class="headline-left margin-bottom-10 project_title">'+projects[p].name+'</div>'+
+							'<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">'+map(projects[p].field,function(a){return a+', '})+'</a></small>'+
 							'<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>'+
-							'<p>수동 휠체어에 탈 부착 가능한 전동 보조 기구</p>'+
+							'<p>'+projects[p].shortIntro+'</p>'+
 						'</div>'+
 					'</div>';
 
-					$(".grid-container").append(htmlFragment);
+					alert(htmlFragment);
+					$("#grid-container").append($(htmlFragment));
 				}
 			});
 		});
