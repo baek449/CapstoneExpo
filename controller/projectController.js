@@ -2,8 +2,12 @@
 var ProjectController=function(Model){
 	return {
 		//[Must] getAll: 모든 프로젝트 Object를 가져옵니다.
-		getAll:function(callback){
-			Model.Project.find({},function(err,data){
+		getAll:function(option,callback){
+			var sortCondition={};
+			if(option==="new") sortCondition={"projectSummary.startDate":-1};
+			else if(option==="view") sortCondition={"projectSummary.view":-1};
+			
+			Model.Project.find({}).sort(sortCondition).exec(function(err,data){
 		        if(err){
 		            console.error(err);
 		            callback({result: 1});
