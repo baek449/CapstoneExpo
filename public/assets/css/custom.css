@@ -32,6 +32,7 @@
 .project-box small.project-tag {
   display: block;
   font-size: 12px;
+  line-height: 14px;
 }
 
 .project-box small.project-tag,
@@ -49,6 +50,7 @@
 
 .project-box p {
   margin-top: 5px;
+  margin-bottom: 30px;
 }
 
 .no-bottom-padding {
@@ -62,6 +64,32 @@
 .no-border {
 	border: none !important;
 }
+
+.filters-list-jen {
+  margin-bottom: 30px;
+  /* text-align: center; */
+  font: 400 12px/21px "Lato", sans-serif;
+  color: #DADADA;
+  /* padding: 0 15px; */ }
+  
+.filters-list-jen .filter-item-jen {
+    color: #949494;
+    cursor: pointer;
+    font: 400 13px/18px "Lato", sans-serif;
+    position: relative;
+    overflow: visible;
+    margin: 0 0 10px;
+    display: block;
+    -webkit-transition: color .3s ease-in-out;
+    transition: color .3s ease-in-out; }
+}
+
+.filters-list-jen .filter-item-jen:hover {
+  color: #2D2C2C; }
+
+.filters-list-jen .filter-item-jen.filter-item-active {
+  color: #70c12c;
+  cursor: default; }
 
 
 /* form-checkbox */
