@@ -1,6 +1,17 @@
 
 var ProjectController=function(Model){
 	return {
+		//[Must] getAll: 모든 프로젝트 Object를 가져옵니다.
+		getAll:function(callback){
+			Model.Project.find({},function(err,data){
+		        if(err){
+		            console.error(err);
+		            callback({result: 1});
+		            return;
+		        }
+		        callback(data);
+		    });
+		}
 		//[Must] get: 프로젝트 Object를 가져옵니다.
 		get:function(id, isMemberPopulated, callback){
 			if(isMemberPopulated){
