@@ -19,7 +19,7 @@ var ProjectController=function(Model){
 		//[Must] get: 프로젝트 Object를 가져옵니다.
 		get:function(id, isMemberPopulated, callback){
 			if(isMemberPopulated){
-				Model.Project.findOne({_id:id})
+				Model.Project.findOne({_id:Model.id(id)})
 				.populate('members.professor members.assistant members.student members.company members.leader')
 				.exec(function(err,data){
 			        if(err){
@@ -30,7 +30,7 @@ var ProjectController=function(Model){
 			        callback({result:data});
 			    });
 			}else{
-				Model.Project.findOne({_id:id},function(err,data){
+				Model.Project.findOne({_id:Model.id(id)},function(err,data){
 			        if(err){
 			            console.error(err);
 			            callback({error: 1});
