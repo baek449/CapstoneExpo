@@ -264,7 +264,7 @@
 							</button>
 							<ul class="dropdown-menu" role="menu">
 								<li>
-									<a href="jisu_timeline_new.html">timeline</a>
+									<a href="#" data-toggle="modal" data-target="#responsive">timeline</a>
 								</li>
 								<li>
 									<a href="jisu_midterm_report.html">midterm report</a>
@@ -738,7 +738,63 @@
 		</div>
 		<!--=== End Footer v1 ===-->
 		
+	<!-- modal -->
+	<div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel4">타임라인 등록</h4>
+				</div>
+
+				<div class="panel-body sky-form">
+					<form class="form-horizontal sky-form no-border" role="form">
 		
+
+						<div class="form-group">
+							<label for="inputTitle" class="col-lg-2 control-label">제목:</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" id="inputTitle" placeholder="프로젝트명">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputDate" class="col-lg-2 control-label">날짜:</label>
+							<div class="col-lg-10 inline-group">
+								<div class="col-4 date-picker">
+									<label class="input">
+										<i class="icon-append fa fa-calendar"></i>
+										<input type="text" name="start" id="start" placeholder="Start date">
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputDesc" class="col-lg-2 control-label">내용:</label>
+							<div class="col-lg-10 textarea">
+								<textarea id="inputDesc" class="form-control" rows="5" placeholder="프로젝트를 소개해주세요."></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputImage" class="col-lg-2 control-label">사진:</label>
+							<div class="col-lg-10">
+								<label for="file" class="input input-file">
+									<div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+								</label>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
+					<button type="submit" class="btn-u btn-u-primary">등록</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end 신규 프로젝트 생성 -->
 		
 	</div><!--/End Wrapepr-->
 
