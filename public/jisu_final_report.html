@@ -158,7 +158,8 @@
 				<div class="col-md-9 mb-margin-bottom-30">
 
 					<p>제출을 완료한 이후에는 취소가 되지 않으므로 주의하기 바랍니다.</p><br/>
-					<form action="assets/php/sky-forms-pro/demo-contacts-process.php" method="post" id="sky-form3" class="sky-form contact-style">
+					<!-- <form action="assets/php/sky-forms-pro/demo-contacts-process.php" method="post" id="sky-form3" class="sky-form contact-style"> -->
+					<form id="ajaxform" action="./saveFileTest.do" method="post" enctype="multipart/form-data">
 						<fieldset class="no-padding">
 							<label>Name <span class="color-red">*</span></label>
 							<div class="row sky-space-20">
@@ -181,28 +182,28 @@
 							<label>File input<span class="color-red">*</span></label>
 							<div class="row sky-space-20">
 								<label for="file" class="input input-file col-md-7 col-md-offset-0">
-									<div style="margin-right:15px" class="button">
-										<input type="file" id="file" onchange="this.parentNode.nextSibling.value=this.value">
-										Browse
+									<div style="margin-right:15px" class="button" text="보고서 찾기">
+										<input type="file" name="file" onchange="this.parentNode.nextSibling.value=this.value">										
 									</div>
-									<input type="text" readonly>
 								</label>
 							</div>
+							
+				
 
 							<label>Message <span class="color-red">*</span></label>
 							<div class="row sky-space-20">
 								<div class="col-md-11 col-md-offset-0">
 									<div>
-										<textarea rows="8" name="message" id="message" class="form-control"></textarea>
+										<textarea rows="8"  name="evalContents" class="form-control"></textarea>
 									</div>
 								</div>
 							</div>
 
-							<p><button type="submit" class="btn-u">Send Message</button></p>
+							<p><button type="submit" class="btn-u" id="submitButton">Send Message</button></p>
 						</fieldset>
 
 						<div class="message">
-							<i class="rounded-x fa fa-check"></i>
+							<i class="rounded-x fa fa-check" aria-hidden="true"></i>
 							<p>Your message was successfully sent!</p>
 						</div>
 					</form>
@@ -302,12 +303,63 @@
 			ContactForm.initContactForm();
 			OwlCarousel.initOwlCarousel();
 			StyleSwitcher.initStyleSwitcher();
+			
+			
+			
+			/*
+			
+			var evalArray = new Array();
+         	var evalInfo = new Object();
+	           
+         	
+	          alert(jsonInfo);
+	          
+	          var submitBtn = document.getElementById('submitButton');
+			  //add event listener
+			  submitBtn.addEventListener('click', function(event) {
+				 evalInfo.name = document.getElementById('name');
+		         evalInfo.email = document.getElementById('email');
+		         evalInfo.evalContents = document.getElementById('evalContents');
+			             
+			     evalArray.push(evalInfo);
+			        
+			     var jsonInfo = JSON.stringify(evalInfo);
+			     console.log(jsonInfo); //브라우저 f12개발자 모드에서 confole로 확인 가능
+				 alert(jsonInfo);
+			    //window.location.href='Students.html';
+			    // 이 부분에 함수 정의
+			  });
+			  */
+			  
+			  $(function(){
+				  $("#ajaxform").submit(function(event){
+					  event.preventDefault();
+				   var formData = new FormData();
+				   formData.append("name", $("input[name=name]").text());				   
+				   formData.append("email", $("input[name=email]").text());
+				   formData.append("file", $("input[name=file]").files[0]);
+				   formData.append("evalContents", $("textarea[name=evalContents]").text());
+				   console.log(formData);
+				   
+				   $.ajax({
+				   url: './saveFileTest.do',
+				   data: formData,
+				   processData: false,
+				   contentType: false,
+				   type: 'POST',
+				   success: function(data){4
+				   alert("EE"); 
+				  }
+				   }); 
+				  }); 
+				  });
+
 		});
 
 		// Google Map
 		function initMap() {
 			GoogleMap.initGoogleMap();
-		}
+		} 
 	</script>
 	<!--[if lt IE 9]>
 	<script src="assets/plugins/respond.js"></script>
