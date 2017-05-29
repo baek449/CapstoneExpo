@@ -17,9 +17,8 @@ module.exports = function(app,Model)
 	app.post('/post/new',function(req,res){
 		// 작성한 새로운 게시글을 올립니다.
 		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
-		delete req.query['_id']; // 받아온 req.query에 _id가 있으면 제거합니다.
 		
-		PostController.create(req.query,function(x){
+		PostController.create(req.body,function(x){
 			// x.result에는 새로운 게시글의 id값이 들어 있습니다.
 			res.send(x);
 		});
@@ -27,9 +26,7 @@ module.exports = function(app,Model)
 	app.post('/post/update/:id',function(req,res){
 		// 변경한 게시글을 올립니다.
 		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
-		delete req.query['_id']; // 받아온 req.query에 _id가 있으면 제거합니다.
-		
-		PostController.update(req.params.id,req.query,function(x){
+		PostController.update(req.params.id,req.body,function(x){
 			// x.result 값은 존재하지 않습니다. 오류가 있을 때에만 오류코드가 넘어갑니다.
 			res.send(x);
 		});
@@ -49,10 +46,9 @@ module.exports = function(app,Model)
 	app.post('/post/reply/:id',function(req,res){
 		// 해당 글에 대해 새로 댓글을 올립니다.
 		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
-		delete req.query['_id']; // 받아온 req.query에 _id가 있으면 제거합니다.
 		
 		// TODO 미완료
-		PostController.create(req.query,function(x){
+		PostController.create(req.body,function(x){
 			// x.result에는 새로운 댓글의 id값이 들어 있습니다.
 			res.send(x);
 		});
@@ -60,11 +56,11 @@ module.exports = function(app,Model)
 	app.post('eval/upload',function(req,res){
 		// 평가를 올리거나 갱신합니다.
 		// postID, fromMember, toMember는 필수입니다.
-		var key={postID:	req.query.postID,
-				fromMember:	req.query.fromMember,
-				toMember:	req.query.toMember};
-		var val={eval:	req.query.eval,
-				message: req.query.message};
+		var key={postID:	req.body.postID,
+				fromMember:	req.body.fromMember,
+				toMember:	req.body.toMember};
+		var val={eval:	req.body.eval,
+				message: req.body.message};
 		
 		EvaluationController.save(key,val,function(x){
 			// x.result에는 새로운 댓글의 id값이 들어 있습니다.
@@ -74,8 +70,8 @@ module.exports = function(app,Model)
 	app.post('eval/download',function(req,res){
 		// 평가 목록을 가져옵니다.
 		// postID, fromMember는 필수입니다.
-		var key={postID:	req.query.postID,
-				fromMember:	req.query.fromMember};
+		var key={postID:	req.body.postID,
+				fromMember:	req.body.fromMember};
 		
 		EvaluationController.get(key,function(x){
 			// x.result에는 여러 댓글이 있습니다. 이는 응답으로 넘어가기 전에 Mongoose 객체에서 일반 객체로 바뀌어야 합니다.

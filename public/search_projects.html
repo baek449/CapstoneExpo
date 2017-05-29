@@ -104,7 +104,7 @@
 					<ul class="list-unstyled row portfolio-box">
 						<li ng-repeat="p in projects" class="col-sm-4 md-margin-bottom-50 project-box">
 							<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="assets/img/main/img9.jpg">
-								<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
+								<img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
 								<span class="portfolio-box-in rounded-x">
 									<i class="icon-magnifier-add"></i>
 								</span>
@@ -183,11 +183,13 @@
 								</div>
 							</div>
 						</div>
+						</form>
+						<form id="imageForm" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
 							<div class="col-lg-10">
 								<label for="file" class="input input-file">
-									<div class="button"><input type="file" id="file" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+									<div class="button"><input type="file" id="uploadFile" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
 								</label>
 							</div>
 						</div>
@@ -263,23 +265,14 @@
 			};
 		});
 		});
-		/*.directive('gridContainer', ['$timeout', function ($timeout) {
-		    return {
-		        link: function ($scope, element, attrs) {
-		            $scope.$on('dataloaded', function () {
-		                $timeout(function () { // You might need this timeout to be sure its run after DOM render.
-		                    alert("Directive");
-		                }, 0, false);
-		            })
-		        }
-		    };
-		}]);*/
 		function upload(callback){
+			return function(event){
+			event.preventDefault();
 			$.ajax({
 				contentType: false,
 				processData: false,
-		        data: new FormData($('uploadFile')),
-		        type: 'POST',
+		        data: new FormData($(this)[0]),
+		        type: $(this).attr('method'),
 		        url: '/image/upload',
 		        success: function(response) {
 		        	if(response.error) alert(response.error);
@@ -288,17 +281,19 @@
 		        	}
 		        }
 		    });
-		}
+		}};
 
 
 		jQuery(document).ready(function() {
 			App.init();
 			Datepicker.initDatepicker();
 			Validation.initValidation();
-			$("#new-project-jen").submit(function(event){
-				event.preventDefault();
+			$("#imageForm").submit(upload(function(response){
+				if(response.error){
+					alert("Fail");
+					return;
+				}
 				var testdata={};
-				
 				testdata.projectSummary={};
 				testdata.projectSummary.name=$("#input-name").val();
 				testdata.projectSummary.shortIntro=$("#input-short-intro").val();
@@ -309,21 +304,13 @@
 				testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
 			        return $(el).attr('value');
 			    }).get();
-			    
+				testdata.projectSummary.image=response.result;
 				$.post('http://'+document.location.host+'/project/new',testdata,function(res){
 					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
-					alert(JSON.stringify(res.result));
+					//alert(JSON.stringify(res.result));
+					location.reload(true);
 				});
-				
-				  upload(function(img){
-					  testdata.projectSummary.image=img;
-						$.post('http://'+document.location.host+'/project/new',testdata,function(res){
-							// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
-							alert(JSON.stringify(res.result));
-						});
-					  
-				  });
-			});
+			}));
 		});
 	</script>
 	<!--[if lt IE 9]>
