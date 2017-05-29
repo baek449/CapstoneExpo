@@ -41,6 +41,18 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
+
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script type="text/javascript">
+	angular.module('searchApp', []).controller('ProjectDisplayController', function($scope,$http) {
+		var mid="592a7af2f8bc6d93b34216ef";
+		$http.get('http://'+document.location.host+'/member/get/'+mid).then(function(res){
+			$scope.member=res.data.result;
+		});
+	});
+
+	</script>
 </head>
 
 <body>
@@ -64,15 +76,15 @@
 			<div class="row about-me">
 				<div class="col-sm-4 shadow-wrapper md-margin-bottom-40">
 					<div class="box-shadow shadow-effect-2">
-						<img class="img-responsive img-bordered full-width" src="assets/img/Capstone-image/jisukang.jpg" alt="">
+						<img class="img-responsive img-bordered full-width" src="/image/download/{{member.image}}" alt="">
 					</div>
 				</div>
 
 				<div class="col-sm-8">
 					<div class="overflow-h">
 						<div class="pull-left">
-							<h2>강지수</h2>
-							<span>전기및전자공학부</span>
+							<h2>{{member.name}}</h2>
+							<span>{{member.major}}</span>
 						</div>
 						<ul class="social-icons pull-right">
 							<li><a class="rounded-x social_facebook" data-original-title="Facebook" href="#"></a></li>
@@ -81,7 +93,7 @@
 							<li><a class="rounded-x social_linkedin" data-original-title="Linkedin" href="#"></a></li>
 						</ul>
 					</div>
-					<p>카이스트 전기및전자공학부에 재학중이며 농구를 좋아하고 </p>
+					<p>{{member.description}} </p>
 				
 
 					<div class="row">
