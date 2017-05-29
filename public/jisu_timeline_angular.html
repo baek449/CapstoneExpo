@@ -59,94 +59,19 @@
 			});
 		});
 	});
-	module.directive('pageLoad', function() {
-	    return {
-	        restrict: 'A',
-	        link: function (scope, element, attr) {
-	            element.on('load', function(){
-						alert(1);
-				App.init();
-				StyleSwitcher.initStyleSwitcher();
-				Datepicker.initDatepicker();
-				Validation.initValidation();
-				$('.jisu_timeline_new_link').mouseenter(function(){
-					$(this).css('color','#72c02c');
-					$(this).css('font-size','17px');
-				});
-				
-				$('.jisu_timeline_new_link').mouseleave(function(){
-					$(this).css('color','#999');
-					$(this).css('font-size','15px');
-				});
-				
-				$('.jisu_edit_link').mouseenter(function(){
-					$(this).css('color','#72c02c');
-					$(this).css('font-size','11px');
-				});
-				
-				$('.jisu_edit_link').mouseleave(function(){
-					$(this).css('color','#999');
-					$(this).css('font-size','10px');
-				});
-				
-				$('.jisu_edit_button').mouseenter(function(){
-					$(this).css('color','#9c9c9c');
-					$(this).css('background-color','#f3f3f3');
-					$(this).css('transition','all 0.3s ease-in-out');
-				});
-				
-				$('.jisu_edit_button').mouseleave(function(){
-					$(this).css('color','#555');
-					$(this).css('background-color','#f3f3f3');
-				});
-				
-				$('.jisu_timeline_icon').mouseenter(function(){
-					$(this).css('color','#ffffff');
-					$(this).css('background-color','#4a9706');
-					$(this).css('transition','all 0.3s ease-in-out');
-				});
-				
-				$('.jisu_timeline_icon').mouseleave(function(){
-					$(this).css('color','#ffffff');
-					$(this).css('background-color','#5fb611');
-				});
-				
-				$('.jisu-evaluation-button').css('background-color','#A4A4A4');
-				$('.jisu-evaluation-button').width('50px');
-				$('.jisu-evaluation-button').children('p').css('margin-top','0px');
-				$('.jisu-evaluation-button').children('p').css('margin-bottom','0px');
-				$('.jisu-evaluation-button').children().css('color','#FFFFFF');
-				$('.dropdown-menu').css('min-width','200px');
-				
-				$('.jisu-excellent').click(function() {
-					$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-					$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Excellent<i class="fa fa-angle-down"></i></p>');
-				});
-				$('.jisu-good').click(function() {
-					$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-					$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Good<i class="fa fa-angle-down"></i></p>');
-				});
-				$('.jisu-soso').click(function() {
-					$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-					$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">So So<i class="fa fa-angle-down"></i></p>');
-				});
-				$('.jisu-bad').click(function() {
-					$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-					$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Bad<i class="fa fa-angle-down"></i></p>');
-				});
-				$('.jisu-verybad').click(function() {
-					$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-					$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Very Bad<i class="fa fa-angle-down"></i></p>');
-				});          	
-	            });
-	        }
-	    };
-	});
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
 	</script>
 </head>
 
 <body>
-	<div class="wrapper" ng-app="timelineApp" page-load="ready()">
+	<div class="wrapper" ng-app="timelineApp" ng-element-ready>
 	
 		<!--=== Header ===-->
 		<div class="header">
@@ -342,7 +267,7 @@
 					<br><br>
 				
 					<ul class="timeline-v2">
-						<li class="equal-height-columns" ng-repeat="p in posts">
+						<li class="equal-height-columns" ng-repeat="p in posts" print1>
 							<div class="cbp_tmtime equal-height-column"><span>{{p.date}}</span> <span>May</span></div>
 							<i class="cbp_tmicon rounded-x hidden-xs"></i>
 							<div class="cbp_tmlabel equal-height-column">
@@ -570,9 +495,9 @@
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
 	<script type="text/javascript">
-		//jQuery(document).ready(
+		//window.onload=(function(){
 				function ready() {
-					alert(1);
+					//alert(1);
 			App.init();
 			StyleSwitcher.initStyleSwitcher();
 			Datepicker.initDatepicker();
