@@ -39,24 +39,26 @@
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
 	
+	<!-- Angular JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
-	var module=angular.module('timelineApp', []);
-	module.controller('TimelineDisplayController', function($scope,$http) {
-		var id = "592a7c6ff8bc6d93b34216f1";
+	angular.module('timelineEditApp', []).controller('TimelineEditDisplayController', function($scope,$http) {
+		var id = "592aeab5ea92db1d4670aed0";
+		alert(1);
+		console.log(id);
 		// Bring the members into scope variable members
-		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
-			$scope.members = res1.data.result;
+		$http.get('http://'+document.location.host+'/post/'+id).then(function(res) {
+			alert(1);
+			console.log(id);
+			$scope.post = res.data.result;
 			// Bring the timeline into scope variable posts
-			$http.get('http://'+document.location.host+'/timeline/'+id).then(function(res) {
-				$scope.posts=res.data.result;
-			});
 		});
 	});
 	</script>
 </head>
 
 <body>
-	<div class="wrapper">
+	<div class="wrapper" ng-app="timelineEditApp" ng-element-ready>
 		<!--=== Header ===-->
 		<div class="header">
 			<div class="container">
@@ -87,11 +89,12 @@
 		<!--=== End Breadcrumbs v1 ===-->
 
 		<!--=== Blog Posts ===-->
-		<div class="bg-color-light">
+		<div class="bg-color-light" ng-controller="TimelineEditDisplayController" >
 			<div class="container content-sm">
 				<!-- News v3 -->
 				<div class="news-v3 bg-color-white margin-bottom-30">
 					<div id='image' style="height:500px" class="overflow-hidden">
+						<img class="img-responsive full-width" style="position:relative; top:-50%" class="img-responsive full-width" src="/image/download/{{post.image}}" alt="">
 					</div>
 					<div class="news-v3-in">
 					<button type="submit" class="btn-u">Edit</button>
@@ -103,13 +106,13 @@
 							<div class="row">
 								<section class="col col-6">
 									<label class="input">
-										<input type="text" name="subject" placeholder="Incredible standard post “IMAGE”">
+										<input type="text" name="subject" placeholder="{{post.title}}">
 									</label>
 								</section>
 								<section class="col col-6">
 									<label class="input">
 										<i class="icon-append fa fa-user"></i>
-										<input type="text" name="name" placeholder="Alexander Jenni">
+										<input type="text" name="name" placeholder="{{post.writer}}">
 									</label>
 								</section>
 							</div>
@@ -136,14 +139,15 @@
 								<section class="col col-6">
 									<label class="input">
 										<i id='calender' class="icon-append fa fa-calendar"></i>
-										<input type="text" name="start" id="start" placeholder="01.24.2015">
+										<input type="text" name="start" id="start" placeholder="{{post.writeTime|date:'yyyy.MM.dd'}}">
 									</label>
 								</section>
 							</div>
 
 							<section>
 								<label class="textarea">
-									<textarea id="text" rows="20" style="text-align:left" name="comment" placeholder="Tell us about your project">
+									<textarea id="text" rows="20" style="text-align:left; color:black" name="comment" placeholder="Tell us about your project">
+									{{post.content}}
 									</textarea>
 								</label>
 							</section>
@@ -355,18 +359,18 @@
 			
 			var id = '592aeab5ea92db1d4670aed0';
 			$.getJSON('http://'+document.location.host+'/post/'+id,function(res) {
-				alert(1);
+				//alert(1);
 				var content = res.result.contents;
-				var image = res.result.image;
-				var select = res.result.type;
-				var date = res.result.writeTime;
-				image = "/image/download/"+image;
-				$('#image').append('<img class="img-responsive full-width" style="position:relative; top:-50%" class="img-responsive full-width" src="assets/img/Capstone-image/KakaoTalk_20170523.jpg" alt="">');
-				$('#select').append(select);
+				//var select = res.result.type;
+				//var date = res.result.writeTime;
+				//var image = res.result.image;
+				//image = "/image/download/"+image;
+				//$('#image').append('<img class="img-responsive full-width" style="position:relative; top:-50%" class="img-responsive full-width" src="assets/img/Capstone-image/KakaoTalk_20170523.jpg" alt="">');
+				//$('#select').append(select);
 				//$('#calender').append('<input type="text" name="start" id="start" placeholder="'+date+'">');
 				$('#text').append(content);
 			});
-			
+		
 			App.init();
 			OrderForm.initOrderForm();
 			ReviewForm.initReviewForm();
