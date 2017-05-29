@@ -629,16 +629,36 @@
 				</h4>
 			</div>
 			<div id="collapse-One" class="panel-collapse collapse in">
-				<div id="sites" class="panel-body assess-group">
+<!-- 				<div id="sites" class="panel-body assess-group">
 				    <input class="assess-radio" type="radio" name="assess" id="idea" value="idea"/><label for="so" class="assess-button-label col-md-3"><span class="assess-button"><img src="assets/img/icons/assess/idea.png" class="assess-icon"/><img class="selected" src="assets/img/icons/assess/selected.png"></span></label>
 				    <input class="assess-radio" type="radio" name="assess" id="leader" value="leader" /><label for="so" class="assess-button-label col-md-3"><span class="assess-button"><img src="assets/img/icons/assess/leader.png" class="assess-icon"/></span></label>
 				    <input class="assess-radio" type="radio" name="assess" id="skill" value="skill" /><label for="so" class="assess-button-label col-md-3"><span class="assess-button"><img src="assets/img/icons/assess/skill.png" class="assess-icon"/></span></label>
 				    <input class="assess-radio" type="radio" name="assess" id="teamwork" value="teamwork" /><label for="so" class="assess-button-label col-md-3"><span class="assess-button"><img src="assets/img/icons/assess/teamwork.png" class="assess-icon"/></span></label>
 				    
-				</div>
+				</div> -->
 				
 
+				<form class="assess-form" id="1">
+				  <label class="assess-idea">
+				    <input type="radio" value="idea" name="assess" />
+				    <div class="radio-image"><img src="assets/img/icons/assess/idea.png" class="assess-icon"/><img class="selected" src="assets/img/icons/assess/selected.png"></div>
+				  </label>
+				  <label class="item2">
+				    <input type="assess-leader" value="leader" name="assess" />
+				    <div class="radio-image"><img src="assets/img/icons/assess/idea.png" class="assess-icon"/><img class="selected" src="assets/img/icons/assess/selected.png"></div>
+				  </label>
+				  <label class="item3">
+				    <input type="assess-skill" value="skill" name="assess" />
+				    <div class="radio-image"><img src="assets/img/icons/assess/idea.png" class="assess-icon"/><img class="selected" src="assets/img/icons/assess/selected.png"></div>
+				  </label>
+				  <label class="item4">
+				    <input type="assess-teamwork" value="teamwork" name="assess" />
+				    <div class="radio-image"><img src="assets/img/icons/assess/idea.png" class="assess-icon"/><img class="selected" src="assets/img/icons/assess/selected.png"></div>
+				  </label>
+				</form>
 
+				
+				<button id="finish">평가 완료하기</button>
 			</div>
 		</div>
 
@@ -881,6 +901,34 @@
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
 	<script type="text/javascript">
+	
+	$(document).ready(function() {
+		  $("#assess-finish").click(function() {
+		    var assessList = [];
+		    //Loop over all questions
+		    $(".assess-form").each(function() {
+
+		      var memberId = $(this).attr("id");
+		      var assessItem = $("input[name='assess']:checked", $(this)).val();
+
+		      //if Answer isnt provided do not update the answersList
+		      if (answer !== undefined) {
+		    	assessList.push({
+		          memberid: memberId,
+		          assessScore: assessItem
+		        });
+		      }
+		    });
+		    console.log(answersList);
+		  });
+		});
+	
+	$('#sites input:radio').addClass('input_hidden');
+	$('#sites label').click(function() {
+	    $(this).addClass('selected').siblings().removeClass('selected');
+	});
+	
+	
 		jQuery(document).ready(function() {
 			App.init();
 			StyleSwitcher.initStyleSwitcher();
