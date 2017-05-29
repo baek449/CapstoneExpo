@@ -14,10 +14,15 @@
 	color: #555;
 	font-size: 20px;
 	font-weight: 200;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #eee;
 }
 
-.project_title:after {
+/* .project_title:after {
 	left: 1px;
 	z-index: 1;
 	width: 30px;
@@ -26,31 +31,42 @@
 	bottom: -4px;
 	position: absolute;
 	background: #72c02c;
+} */
+
+.project-detail-title-box {
+	padding: 80px 0;
+	text-align: center;
+	position: relative;
+	margin-bottom: 20px;
+	background: url(../img/bg/7.jpg) 50% 100% repeat fixed;		
 }
 
 /*Project Tag*/
 .project-box small.project-tag {
-  display: block;
-  font-size: 12px;
-  line-height: 14px;
+	display: block;
+	font-size: 12px;
+	line-height: 14px;
 }
 
 .project-box small.project-tag,
 .project-box small.project-tag a {
-  color: #999;
+	color: #999;
 }
 
 .project-box small.project-tag i {
-  margin-right: 5px;
+	margin-right: 5px;
 }
 
 .project-box small.project-tag a:hover {
-  color: #72c02c;
+	color: #72c02c;
 }
 
-.project-box p {
-  margin-top: 5px;
-  margin-bottom: 30px;
+.project-box p.project-intro {
+	margin-top: 5px;
+	margin-bottom: 30px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .no-bottom-padding {
@@ -79,10 +95,10 @@
 .filters-list-jen .filter-item-jen {
     color: #949494;
     cursor: pointer;
-    font: 400 13px/18px "Lato", sans-serif;
+    font: 400 13px/12px "Lato", sans-serif;
     position: relative;
     overflow: visible;
-    margin: 0 0 10px;
+    margin: 0 0 10px !important;
     display: block;
     -webkit-transition: color .3s ease-in-out;
     transition: color .3s ease-in-out; }
@@ -142,6 +158,20 @@
 
 .no-bottom-margin {
 	maring-bottom: 0px !important;
+}
+
+.project-image-box {
+	position: relative;
+	width: 100%;
+}
+
+.project-image-box .img-responsive {
+	object-fit: cover !important;
+	object-position: 50% 50%;
+}
+
+.gray-background {
+  background: #f7f7f7;
 }
 
 

@@ -9,6 +9,7 @@ var memberSchema = new Schema({
 	field:		[String],
 	image:		{ type: String, ref: 'Image' },
 	major:		String,
+	description:String,
 	evaluation:{
 		badges:				[{name:String,count:Number}],
 		attend_rate:		Number,

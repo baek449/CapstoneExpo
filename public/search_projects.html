@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 
 	<!-- CSS Header and Footer -->
-	<link rel="stylesheet" href="assets/css/headers/header-default.css">
+	<link rel="stylesheet" href="assets/css/headers/header-v6.css">
 	<link rel="stylesheet" href="assets/css/footers/footer-v1.css">
 
 	<!-- CSS Implementing Plugins -->
@@ -49,16 +49,89 @@
 	
 </head>
 
-<body>
+<body class="header-fixed">
 	<div class="wrapper">
+		<!--=== Header v6 ===-->
+		<div class="header-v6 header-classic-white">
+			<!-- Navbar -->
+			<div class="navbar" role="navigation">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="menu-container">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
 
+						<!-- Navbar Brand -->
+						<div class="navbar-brand">
+							<a href="index.html">
+								<img class="shrink-logo" src="assets/img/icons/logo-2_s.png" alt="Logo">
+							</a>
+						</div>
+						<!-- ENd Navbar Brand -->
+
+
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse navbar-responsive-collapse">
+						<div class="menu-container">
+							<ul class="nav navbar-nav">
+								<!-- Home -->
+								<li class="active">
+									<a href="index.html">
+										Home
+									</a>
+								</li>
+								<!-- End Home -->
+								
+								<!-- Discover -->
+								<li>
+									<a href="search_projects.html">
+										Discover Projects
+									</a>
+								</li>
+								<!-- End Discover -->
+								
+								<!-- My Menu -->
+								<li class="dropdown">
+									<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+										My Menu
+									</a>
+									<ul class="dropdown-menu pull-right">
+										<li>
+											<a href="my_page.html">My Page</a>
+										</li>
+										<li class="dropdown-submenu">
+											<a href="javascript:void(0);">My Projects</a>
+											<ul class="dropdown-menu submenu-left">
+												<li><a href="project_details.html">CapstoneExpo</a></li>
+											</ul>
+										</li>
+										<li><a href="blog_timeline.html">Sign out</a></li>
+									</ul>
+								</li>
+								<!-- End My Menu -->
+
+							</ul>
+						</div>
+					</div><!--/navbar-collapse-->
+				</div>
+			</div>
+			<!-- End Navbar -->
+		</div>
+		<!--=== End Header v6 ===-->
+		
 		<!--=== Search Block Version 2 ===-->
-		<div class="search-block-v2">
+		<div class="search-block-v2 gray-background">
 			<div class="container">
 				<div class="col-md-6 col-md-offset-3">
-					<h2>프로젝트를 검색해보세요.</h2>
+					<h2>찾으시는 프로젝트를 검색해보세요.</h2>
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search words with regular expressions ...">
+						<input type="text" class="form-control" placeholder="프로젝트 명 검색">
 						<span class="input-group-btn">
 							<button class="btn-u" type="button"><i class="fa fa-search"></i></button>
 						</span>
@@ -74,26 +147,26 @@
 				<div class="col-md-2 col-sm-12 hidden-xs related-search">
 
 					<h3>Categories</h3>
-					<ul id="filters-jen" class="filters-list-jen list-unstyled">
-						<li id="all" class="filter-item-active filter-item-jen">전체</li>
-						<li id="mech" class="filter-item-jen">기계/항공</li>
-						<li id="elec" class="filter-item-jen">전기/전자</li>
-						<li id="soft" class="filter-item-jen">소프트웨어</li>
-						<li id="arch" class="filter-item-jen">건축/환경</li>
-						<li id="ener" class="filter-item-jen">화공/에너지</li>
-						<li id="scie" class="filter-item-jen">자연과학</li>
-						<li id="desi" class="filter-item-jen">예술/디자인</li>
-						<li id="educ" class="filter-item-jen">생활/교육</li>
-						<li id="misc" class="filter-item-jen">기타 </li>
+					<ul id="filters-jen" class="row filters-list-jen list-unstyled">
+						<li id="all" class="col-md-12 col-sm-4 filter-item-active filter-item-jen">전체</li>
+						<li id="mech" class="col-md-12 col-sm-4 filter-item-jen">기계/항공</li>
+						<li id="elec" class="col-md-12 col-sm-4 filter-item-jen">전기/전자</li>
+						<li id="soft" class="col-md-12 col-sm-4 filter-item-jen">소프트웨어</li>
+						<li id="arch" class="col-md-12 col-sm-4 filter-item-jen">건축/환경</li>
+						<li id="ener" class="col-md-12 col-sm-4 filter-item-jen">화공/에너지</li>
+						<li id="scie" class="col-md-12 col-sm-4 filter-item-jen">자연과학</li>
+						<li id="desi" class="col-md-12 col-sm-4 filter-item-jen">예술/디자인</li>
+						<li id="educ" class="col-md-12 col-sm-4 filter-item-jen">생활/교육</li>
+						<li id="misc" class="col-md-12 col-sm-4 filter-item-jen">기타 </li>
 					</ul>	
 
 							<!-- <hr> -->
 					<hr>
 					<h3>Sort by</h3>
-					<div id="filters-container" class="row cbp-l-filters-text list-unstyled">
-						<div class="col-md-12 col-sm-4 cbp-filter-item-active cbp-filter-item">조회수 많은 순</div>
-						<div class="col-md-12 col-sm-4 cbp-filter-item">최근 등록 순</div>
-					</div>
+					<ul id="sorting-jen" class="row filters-list-jen list-unstyled">
+						<li id="sort-view" class="col-md-12 col-sm-4 filter-item-active filter-item-jen">조회수 많은 순</li>
+						<li id="sort-recent" class="col-md-12 col-sm-4 filter-item-jen">최근 등록 순</li>
+					</ul>
 
 				</div><!--/col-md-2-->
 				<div class="col-md-10 col-sm-12" ng-controller="ProjectDisplayController">
@@ -102,17 +175,18 @@
 					</span>					
 					
 					<ul class="list-unstyled row portfolio-box">
-						<li ng-repeat="p in projects" class="col-sm-4 md-margin-bottom-50 project-box">
+						<li ng-repeat="p in projects" class="col-md-4 col-sm-6 md-margin-bottom-50 project-box">
 							<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="assets/img/main/img9.jpg">
-								<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
+								<div class="project-image-box"><img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
+								</div>
 								<span class="portfolio-box-in rounded-x">
 									<i class="icon-magnifier-add"></i>
 								</span>
 							</a>
 							<div class="headline-left project_title">{{p.name}}</div>
-							<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">{{map(p.field,comma)}}</a></small>
-							<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-							<p>{{p.shortIntro}}</p>
+							<small class="project-tag"><span class="color-green">분야: &nbsp;</span>{{map(p.field,comma)}}</small>
+							<small class="project-tag"><span class="color-green">기간: &nbsp;</span>{{p.startDate|date:'yyyy.MM.dd'}} ~ {{p.endDate|date:'yyyy.MM.dd'}}</small>
+							<p class="project-intro">{{p.shortIntro}}</p>
 						</li>
 					</ul>
 				</div><!--/col-md-10-->
@@ -131,39 +205,39 @@
 				</div>
 
 				<div class="panel-body sky-form">
-					<form class="form-horizontal sky-form no-border" role="form">
+					<form id="imageForm" class="form-horizontal sky-form no-border" role="form"  method="post" enctype="multipart/form-data">
 					
 						<div class="form-group">
 							<label for="inputCategory" class="col-lg-2 control-label">분야</label>
-							<div class="col-lg-10 inline-group jen-checkbox">
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" checked><i></i>기계/항공</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>전기/전자</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>웹/앱</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>건축/환경</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>화공/에너지</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>자연과학</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>예술/디자인</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>생활/교육</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>기타</label>
+							<div id="input-field" class="col-lg-10 inline-group jen-checkbox">
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기계/항공"><i></i>기계/항공</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="전기/전자"><i></i>전기/전자</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="소프트웨어"><i></i>소프트웨어</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="건축/환경"><i></i>건축/환경</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="화공/에너지"><i></i>화공/에너지</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="자연과학"><i></i>자연과학</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="예술/디자인"><i></i>예술/디자인</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="생활/교육"><i></i>생활/교육</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기타"><i></i>기타</label>
 							</div>
 						</div>											
 
 						<div class="form-group">
 							<label for="inputTitle" class="col-lg-2 control-label">프로젝트명:</label>
 							<div class="col-lg-10">
-								<input type="text" class="form-control" id="inputTitle" placeholder="프로젝트명">
+								<input type="text" class="form-control" id="input-name" name="name" placeholder="프로젝트명">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputIntro" class="col-lg-2 control-label">요약글:</label>
 							<div class="col-lg-10">
-								<input type="text" class="form-control" id="inputIntro" placeholder="한 줄 소개">
+								<input type="text" class="form-control" id="input-short-intro" name="shortIntro" placeholder="한 줄 소개">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
 							<div class="col-lg-10 textarea">
-								<textarea id="inputDesc" class="form-control" rows="5" placeholder="프로젝트를 소개해주세요."></textarea>
+								<textarea id="inputDesc" class="form-control" rows="5" id="input-intro" name="intro" placeholder="프로젝트를 소개해주세요."></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -172,32 +246,34 @@
 								<div class="col-4 date-picker">
 									<label class="input">
 										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="start" id="start" placeholder="Start date">
+										<input type="text" name="start" id="start" name="startDate" placeholder="프로젝트 시작">
 									</label>
 								</div>
 								<div class="col-4 date-picker">
 									<label class="input">
 										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="finish" id="finish" placeholder="Expected finish date">
+										<input type="text" name="finish" id="finish" name="endDate" placeholder="종료 예정일">
 									</label>
 								</div>
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
 							<div class="col-lg-10">
 								<label for="file" class="input input-file">
-									<div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+									<div class="button"><input type="file" id="uploadFile" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
 								</label>
 							</div>
+						</div>
+						<div class="modal-footer">
+						<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
+						<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
 						</div>
 					</form>
 				</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
-					<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
-				</div>
+
 			</div>
 		</div>
 	</div>
@@ -213,18 +289,38 @@
 	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
 	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
 	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/counter/waypoints.min.js"></script>
 	<script type="text/javascript" src="assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/datepicker.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/validation.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 	<!-- JS Customization -->
 	<script type="text/javascript" src="assets/js/custom.js"></script>
 	<!-- JS Page Level -->
 	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/datepicker.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/validation.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-3.js"></script>
 	<script type="text/javascript">
+	function open_win() {
+		var singleText = "single";
+		var s = window.location.search;
 
+		if (s.indexOf(singleText) == -1) {
+		    window.location.href += (s.substring(0,1) == "?") ? "&" : "?" + singleText;
+		}
+	}
+	
 	angular.module('searchApp', []).controller('ProjectDisplayController', function($scope,$http) {
-		$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
+		var sorting = '';
+        if($("#sort-recent").hasClass('filter-item-active')) {
+        	sorting = '/project/all/view';
+        } else {
+        	sorting = '/project/all/new';
+        }
+		
+		$http.get('http://'+document.location.host+sorting).then(function(res){
 			$scope.projects=res.data.result;
 			$scope.count=res.data.result.length;
 			$scope.map_one=function(fieldName){
@@ -251,34 +347,64 @@
 				return "";
 			};
 			$scope.comma=function(a){
-				return a+',';
+				return a+', ';
 			};
 
 			$scope.map=function(fields,func){
 				var result='';
 				for(i in fields)
-					result+=' '+func(fields[i]);
+					result+= func(fields[i])+' ';
 				return result;
 			};
 		});
 		});
-		/*.directive('gridContainer', ['$timeout', function ($timeout) {
-		    return {
-		        link: function ($scope, element, attrs) {
-		            $scope.$on('dataloaded', function () {
-		                $timeout(function () { // You might need this timeout to be sure its run after DOM render.
-		                    alert("Directive");
-		                }, 0, false);
-		            })
+		function upload(callback){
+			return function(event){
+			event.preventDefault();
+			$.ajax({
+				contentType: false,
+				processData: false,
+		        data: new FormData($(this)[0]),
+		        type: $(this).attr('method'),
+		        url: '/image/upload',
+		        success: function(response) {
+		        	if(response.error) alert(response.error);
+		        	else{
+		        		callback(response);
+		        	}
 		        }
-		    };
-		}]);*/
-	
+		    });
+		}};
+		
+		$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
 
 		jQuery(document).ready(function() {
 			App.init();
 			Datepicker.initDatepicker();
 			Validation.initValidation();
+			$("#imageForm").submit(upload(function(response){
+				if(response.error){
+					alert("Fail");
+					return;
+				}
+				var testdata={};
+				testdata.projectSummary={};
+				testdata.projectSummary.name=$("#input-name").val();
+				testdata.projectSummary.shortIntro=$("#input-short-intro").val();
+				testdata.projectSummary.intro=$("#input-intro").val();
+				testdata.projectSummary.status="신규";
+				testdata.projectSummary.startDate=$("#start").val();
+				testdata.projectSummary.endDate=$("#finish").val();
+				testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
+			        return $(el).attr('value');
+			    }).get();
+				testdata.projectSummary.image=response.result;
+				$.post('http://'+document.location.host+'/project/new',testdata,function(res){
+					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+					//alert(JSON.stringify(res.result));
+					location.reload(true);
+				});
+			}));
 		});
 	</script>
 	<!--[if lt IE 9]>
