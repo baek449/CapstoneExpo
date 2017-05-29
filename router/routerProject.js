@@ -61,6 +61,11 @@ module.exports = function(app,Model)
 	app.get('/project/member/:id',function(req,res){
 		// 프로젝트의 학생 멤버 정보를 가져옵니다.
 		ProjectController.get(req.params.id,true,function(x){
+<<<<<<< HEAD
+			console.log(req.params.id);
+			console.log(x);
+=======
+>>>>>>> branch 'master' of https://github.com/baek449/CapstoneExpo.git
 			// x.result에는 populate된 하나의 프로젝트가 있습니다. 이는 응답으로 넘어가기 전에 일반 객체로 바뀌어야 합니다.
 			if(x.result)
 				x.result=x.result.toObject().members.student;

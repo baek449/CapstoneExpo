@@ -74,17 +74,17 @@
 				<div class="col-md-2 col-sm-12 hidden-xs related-search">
 
 					<h3>Categories</h3>
-					<ul id="filters-jen" class="filters-list-jen list-unstyled">
-						<li id="all" class="filter-item-active filter-item-jen">전체</li>
-						<li id="mech" class="filter-item-jen">기계/항공</li>
-						<li id="elec" class="filter-item-jen">전기/전자</li>
-						<li id="soft" class="filter-item-jen">소프트웨어</li>
-						<li id="arch" class="filter-item-jen">건축/환경</li>
-						<li id="ener" class="filter-item-jen">화공/에너지</li>
-						<li id="scie" class="filter-item-jen">자연과학</li>
-						<li id="desi" class="filter-item-jen">예술/디자인</li>
-						<li id="educ" class="filter-item-jen">생활/교육</li>
-						<li id="misc" class="filter-item-jen">기타 </li>
+					<ul id="filters-jen" class="row filters-list-jen list-unstyled">
+						<li id="all" class="col-md-12 col-sm-4 filter-item-active filter-item-jen">전체</li>
+						<li id="mech" class="col-md-12 col-sm-4 filter-item-jen">기계/항공</li>
+						<li id="elec" class="col-md-12 col-sm-4 filter-item-jen">전기/전자</li>
+						<li id="soft" class="col-md-12 col-sm-4 filter-item-jen">소프트웨어</li>
+						<li id="arch" class="col-md-12 col-sm-4 filter-item-jen">건축/환경</li>
+						<li id="ener" class="col-md-12 col-sm-4 filter-item-jen">화공/에너지</li>
+						<li id="scie" class="col-md-12 col-sm-4 filter-item-jen">자연과학</li>
+						<li id="desi" class="col-md-12 col-sm-4 filter-item-jen">예술/디자인</li>
+						<li id="educ" class="col-md-12 col-sm-4 filter-item-jen">생활/교육</li>
+						<li id="misc" class="col-md-12 col-sm-4 filter-item-jen">기타 </li>
 					</ul>	
 
 							<!-- <hr> -->
@@ -102,9 +102,10 @@
 					</span>					
 					
 					<ul class="list-unstyled row portfolio-box">
-						<li ng-repeat="p in projects" class="col-sm-4 md-margin-bottom-50 project-box">
+						<li ng-repeat="p in projects" class="col-md-4 col-sm-6 md-margin-bottom-50 project-box">
 							<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="assets/img/main/img9.jpg">
-								<img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
+								<div class="project-image-box"><img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
+								</div>
 								<span class="portfolio-box-in rounded-x">
 									<i class="icon-magnifier-add"></i>
 								</span>
@@ -131,7 +132,7 @@
 				</div>
 
 				<div class="panel-body sky-form">
-					<form id="new-project-jen" class="form-horizontal sky-form no-border" role="form">
+					<form id="imageForm" class="form-horizontal sky-form no-border" role="form"  method="post" enctype="multipart/form-data">
 					
 						<div class="form-group">
 							<label for="inputCategory" class="col-lg-2 control-label">분야</label>
@@ -172,19 +173,18 @@
 								<div class="col-4 date-picker">
 									<label class="input">
 										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="start" id="input-start" name="startDate" placeholder="Start date">
+										<input type="text" name="start" id="start" name="startDate" placeholder="Start date">
 									</label>
 								</div>
 								<div class="col-4 date-picker">
 									<label class="input">
 										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="finish" id="input-finish" name="endDate" placeholder="Expected finish date">
+										<input type="text" name="finish" id="finish" name="endDate" placeholder="Expected finish date">
 									</label>
 								</div>
 							</div>
 						</div>
-						</form>
-						<form id="imageForm" method="post" enctype="multipart/form-data">
+
 						<div class="form-group">
 							<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
 							<div class="col-lg-10">
@@ -193,10 +193,10 @@
 								</label>
 							</div>
 						</div>
-										<div class="modal-footer">
-					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
-					<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
-				</div>
+						<div class="modal-footer">
+						<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
+						<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
+						</div>
 					</form>
 				</div>
 
@@ -216,13 +216,18 @@
 	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
 	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
 	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/counter/waypoints.min.js"></script>
 	<script type="text/javascript" src="assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/datepicker.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/validation.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 	<!-- JS Customization -->
 	<script type="text/javascript" src="assets/js/custom.js"></script>
 	<!-- JS Page Level -->
 	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/datepicker.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/validation.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-3.js"></script>
 	<script type="text/javascript">
 
@@ -282,7 +287,8 @@
 		        }
 		    });
 		}};
-
+		
+		$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
 
 		jQuery(document).ready(function() {
 			App.init();
@@ -297,10 +303,10 @@
 				testdata.projectSummary={};
 				testdata.projectSummary.name=$("#input-name").val();
 				testdata.projectSummary.shortIntro=$("#input-short-intro").val();
-				testdata.projectSummary.intro=$("#input-short-intro").val();
+				testdata.projectSummary.intro=$("#input-intro").val();
 				testdata.projectSummary.status="신규";
-				testdata.projectSummary.startDate=$("#input-start").val();
-				testdata.projectSummary.endDate=$("#input-finish").val();
+				testdata.projectSummary.startDate=$("#start").val();
+				testdata.projectSummary.endDate=$("#finish").val();
 				testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
 			        return $(el).attr('value');
 			    }).get();

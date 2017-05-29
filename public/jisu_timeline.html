@@ -823,11 +823,24 @@
 			Datepicker.initDatepicker();
 			Validation.initValidation();
 			
+			var monthNames = ["January", "February", "March", "April", "May", "June",
+				  "July", "August", "September", "October", "November", "December"
+				];
+			
 			var id = "592a7c6ff8bc6d93b34216f1";
 			
 			$.getJSON('http://'+document.location.host+'/project/member/'+id,function(res) {
 				alert(JSON.stringify(res));
-				var name = res.result.name;
+				var member = res.result;
+				for(k in member){
+					var image_sidebar = member[k].image;
+					image_sidebar = "/image/download/" + image_sidebar; 
+					var html='<dl class="dl-horizontal">';
+					html += '<dt><a href="#"><img src="'+image_sidebar+'" alt="" /></a></dt>';
+					html += '<dd><p><a href="#"><strong>'+member[k].name+'</strong><br>'+member[k].major+'</a></p></dd>';
+					html += '</dl>';
+					$('.margin-bottom-40').append(html);
+				}
 			
 				$.getJSON('http://'+document.location.host+'/timeline/'+id,function(res) {
 					alert(JSON.stringify(res));
@@ -838,18 +851,18 @@
 						var month = date.getMonth() + 1;
 						var day = date.getDate();
 						var date_string = month + '/' + day + '/' + year;
-						
 						var subject = res.result[i].title;
 						var image = res.result[i].image;
 						image = "/image/download/"+image;
 						var content = res.result[i].contents;
 						var num = i;
+						
 						var html = '<li class="equal-height-columns">';
-						html += '<div class="cbp_tmtime equal-height-column"><span>'+date_string+'</span> <span>'+month+'</span></div>';
+						html += '<div class="cbp_tmtime equal-height-column"><span>'+date_string+'</span> <span>'+monthNames[month-1]+'</span></div>';
 						html += '<i class="cbp_tmicon rounded-x hidden-xs"></i>';
 						html += '<div class="cbp_tmlabel equal-height-column">';
 						html += '<h2><a href="blog_large_full_width_item1.html">'+subject+'</a>';
-						html += '<a href="blog_large_full_width_item1_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a></h2>';
+						html += '<a href="jisu_timeline_item_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a></h2>';
 						html += '<div class="row">';
 						html += '<div class="col-md-4">';
 						html += '<img class="img-responsive" src="'+image+'" alt="">';
@@ -869,19 +882,19 @@
 						html += '<h4 id="myLargeModalLabel3" class="modal-title">Evaluation</h4>';
 						html += '</div>';
 						html += '<div class="modal-body">';
-						for(j in name){
+						for(j in member){
 							html += '<div class = "btn-group">';
 							html += '<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">';
-							html += '<p style="font-size:10px">'+name[j].name+'</p>';
+							html += '<p style="font-size:10px">'+member[j].name+'</p>';
 							html += '<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>';
 							html += '</button>';
 							html += '<ul class = "dropdown-menu" role="menu">';
 							html += '<li>';
 							html += '<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Excellent</button>';
-							html += '<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Excellent</button>';
-							html += '<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Excellent</button>';
-							html += '<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Excellent</button>';
-							html += '<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Excellent</button>';
+							html += '<button class="jisu-good btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Good</button>';
+							html += '<button class="jisu-soso btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">So So</button>';
+							html += '<button class="jisu-bad btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Bad</button>';
+							html += '<button class="jisu-verybad btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Very Bad</button>';
 							html += '</li>';
 							html +=	'</ul>';
 							html += '</div>';
@@ -909,8 +922,9 @@
 				});
 			
 			});
-			/*
 			
+<<<<<<< HEAD
+=======
 				var num = "4";
 				var date = "05/23/2017";
 				var month = "May";
@@ -1034,6 +1048,7 @@
 				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
 				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Very Bad<i class="fa fa-angle-down"></i></p>');
 			});
+>>>>>>> branch 'master' of https://github.com/baek449/CapstoneExpo.git
 		});
 	</script>
 	<!--[if lt IE 9]>
