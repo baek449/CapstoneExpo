@@ -43,27 +43,30 @@
 
 /*Project Tag*/
 .project-box small.project-tag {
-  display: block;
-  font-size: 12px;
-  line-height: 14px;
+	display: block;
+	font-size: 12px;
+	line-height: 14px;
 }
 
 .project-box small.project-tag,
 .project-box small.project-tag a {
-  color: #999;
+	color: #999;
 }
 
 .project-box small.project-tag i {
-  margin-right: 5px;
+	margin-right: 5px;
 }
 
 .project-box small.project-tag a:hover {
-  color: #72c02c;
+	color: #72c02c;
 }
 
-.project-box p {
-  margin-top: 5px;
-  margin-bottom: 30px;
+.project-box p.project-intro {
+	margin-top: 5px;
+	margin-bottom: 30px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .no-bottom-padding {
@@ -92,10 +95,10 @@
 .filters-list-jen .filter-item-jen {
     color: #949494;
     cursor: pointer;
-    font: 400 13px/18px "Lato", sans-serif;
+    font: 400 13px/12px "Lato", sans-serif;
     position: relative;
     overflow: visible;
-    margin: 0 0 10px;
+    margin: 0 0 10px !important;
     display: block;
     -webkit-transition: color .3s ease-in-out;
     transition: color .3s ease-in-out; }
@@ -165,6 +168,10 @@
 .project-image-box .img-responsive {
 	object-fit: cover !important;
 	object-position: 50% 50%;
+}
+
+.gray-background {
+  background: #f7f7f7;
 }
 
 
