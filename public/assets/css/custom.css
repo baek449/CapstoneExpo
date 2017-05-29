@@ -28,6 +28,14 @@
 	background: #72c02c;
 }
 
+.project-detail-title-box {
+	padding: 80px 0;
+	text-align: center;
+	position: relative;
+	margin-bottom: 20px;
+	background: url(../img/bg/7.jpg) 50% 100% repeat fixed;		
+}
+
 /*Project Tag*/
 .project-box small.project-tag {
   display: block;
