@@ -337,7 +337,7 @@
 				   var formData = new FormData();
 				   formData.append("name", $("input[name=name]").text());				   
 				   formData.append("email", $("input[name=email]").text());
-				   formData.append("file", $("input[name=file]").files[0]);
+				   formData.append("file", $("input[name=file]")[0].files[0]);
 				   formData.append("evalContents", $("textarea[name=evalContents]").text());
 				   console.log(formData);
 				   
@@ -347,13 +347,13 @@
 				   processData: false,
 				   contentType: false,
 				   type: 'POST',
-				   success: function(data){4
-				   alert("EE"); 
-				  }
-				   }); 
-				  }); 
-				  });
-
+				   success: function(data)
+				   	{
+					   alert("업로드 성공"); 
+				   	}
+				 }); 
+			  }); 
+		   });
 		});
 
 		// Google Map
