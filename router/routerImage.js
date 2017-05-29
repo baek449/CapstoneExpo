@@ -14,6 +14,7 @@ module.exports = function(app,Model)
 	app.post('/image/upload',multer.single('uploadFile'), function(req,res){
 		// 폼에서 파일 input의 name은 uploadFile로 설정되어 있어야 합니다.
 		// 이미지를 올립니다. 이미지의 파일명을 응답합니다.
+		console.log(req.file);
 		ImageController.uploadImage(req.file.filename,req.file.originalname,function(data){
 			res.send(data);
 		});

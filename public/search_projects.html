@@ -43,23 +43,14 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
+	
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	
 </head>
 
 <body>
 	<div class="wrapper">
-
-
-		<!--=== Breadcrumbs ===-->
-		<div class="breadcrumbs breadcrumbs-light">
-			<div class="container">
-				<h1 class="pull-left">프로젝트</h1>
-				<ul class="pull-right breadcrumb">
-					<li><a href="index.html">Home</a></li>
-					<li class="active">프로젝트</li>
-				</ul>
-			</div>
-		</div>
-		<!--=== End Breadcrumbs ===-->
 
 		<!--=== Search Block Version 2 ===-->
 		<div class="search-block-v2">
@@ -78,50 +69,60 @@
 		<!--=== End Search Block Version 2 ===-->
 
 		<!--=== Search Results ===-->
-		<div class="container s-results margin-bottom-50">
+		<div class="container s-results margin-bottom-50" ng-app="searchApp">
 			<div class="row">
-				<div class="col-md-2 hidden-xs related-search">
-					<div class="row">
-						<div class="col-md-12 col-sm-4">
-							<h3>Categories</h3>
-							<div id="filters-container" class="cbp-l-filters-text list-unstyled">
-								<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">전체</div>
-								<div data-filter=".mech" class="cbp-filter-item">기계/항공</div>
-								<div data-filter=".elec" class="cbp-filter-item">전기/전자</div>
-								<div data-filter=".soft" class="cbp-filter-item">소프트웨어</div>
-								<div data-filter=".arch" class="cbp-filter-item">건축/환경</div>
-								<div data-filter=".ener" class="cbp-filter-item">화공/에너지</div>
-								<div data-filter=".scie" class="cbp-filter-item">자연과학</div>
-								<div data-filter=".desi" class="cbp-filter-item">예술/디자인</div>
-								<div data-filter=".educ" class="cbp-filter-item">생활/교육</div>
-								<div data-filter=".misc" class="cbp-filter-item">기타 </div>
-							</div>							
-							<hr><!-- <hr> -->
-							<h3>Sort by</h3>
-							<div id="filters-container" class="cbp-l-filters-text list-unstyled">
-								<div class="cbp-filter-item-active cbp-filter-item">조회수 많은 순</div>
-								<div class="cbp-filter-item">최근 등록 순</div>
-							</div>
-						</div>						
-					</div>
-				</div><!--/col-md-2-->
-				<div class="col-md-10">
-					<span class="results-number">총 1000 프로젝트
-					<button class="btn-u pull-right" type="button" data-toggle="modal" data-target="#responsive">신규 프로젝트 등록</button>
-					</span>
-					<!--=== Cube-Portfdlio ===-->
-					<div class="cube-portfolio margin-bottom-60">
-						<div id="grid-container" class="cbp-l-grid-agency">			
-						</div><!--/end Grid Container-->
-					</div>
-					<!--=== End Cube-Portfdlio ===-->
-					<div class="margin-bottom-30"></div>			
-				</div><!--/col-md-10-->
-			</div><!-- row -->
-		</div><!--/container-->
-	</div><!--/End Wrapepr-->
+				<div class="col-md-2 col-sm-12 hidden-xs related-search">
 
-	<!-- 신규 프로젝트 등록 팝업 -->
+					<h3>Categories</h3>
+					<ul id="filters-jen" class="row filters-list-jen list-unstyled">
+						<li id="all" class="col-md-12 col-sm-4 filter-item-active filter-item-jen">전체</li>
+						<li id="mech" class="col-md-12 col-sm-4 filter-item-jen">기계/항공</li>
+						<li id="elec" class="col-md-12 col-sm-4 filter-item-jen">전기/전자</li>
+						<li id="soft" class="col-md-12 col-sm-4 filter-item-jen">소프트웨어</li>
+						<li id="arch" class="col-md-12 col-sm-4 filter-item-jen">건축/환경</li>
+						<li id="ener" class="col-md-12 col-sm-4 filter-item-jen">화공/에너지</li>
+						<li id="scie" class="col-md-12 col-sm-4 filter-item-jen">자연과학</li>
+						<li id="desi" class="col-md-12 col-sm-4 filter-item-jen">예술/디자인</li>
+						<li id="educ" class="col-md-12 col-sm-4 filter-item-jen">생활/교육</li>
+						<li id="misc" class="col-md-12 col-sm-4 filter-item-jen">기타 </li>
+					</ul>	
+
+							<!-- <hr> -->
+					<hr>
+					<h3>Sort by</h3>
+					<div id="filters-container" class="row cbp-l-filters-text list-unstyled">
+						<div class="col-md-12 col-sm-4 cbp-filter-item-active cbp-filter-item">조회수 많은 순</div>
+						<div class="col-md-12 col-sm-4 cbp-filter-item">최근 등록 순</div>
+					</div>
+
+				</div><!--/col-md-2-->
+				<div class="col-md-10 col-sm-12" ng-controller="ProjectDisplayController">
+					<span class="results-number">총 {{count}} 프로젝트
+					<button class="btn-u pull-right" type="button" data-toggle="modal" data-target="#responsive">신규 프로젝트 등록</button>
+					</span>					
+					
+					<ul class="list-unstyled row portfolio-box">
+						<li ng-repeat="p in projects" class="col-md-4 col-sm-6 md-margin-bottom-50 project-box">
+							<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="assets/img/main/img9.jpg">
+								<div class="project-image-box"><img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
+								</div>
+								<span class="portfolio-box-in rounded-x">
+									<i class="icon-magnifier-add"></i>
+								</span>
+							</a>
+							<div class="headline-left project_title">{{p.name}}</div>
+							<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">{{map(p.field,comma)}}</a></small>
+							<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
+							<p>{{p.shortIntro}}</p>
+						</li>
+					</ul>
+				</div><!--/col-md-10-->
+			</div>
+		</div><!--/container-->
+		<!--=== End Search Results ===-->
+	</div><!--/End Wrapper-->
+
+	<!-- 신규 프로젝트 등록 modal -->
 	<div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -131,39 +132,39 @@
 				</div>
 
 				<div class="panel-body sky-form">
-					<form class="form-horizontal sky-form no-border" role="form">
+					<form id="imageForm" class="form-horizontal sky-form no-border" role="form"  method="post" enctype="multipart/form-data">
 					
 						<div class="form-group">
 							<label for="inputCategory" class="col-lg-2 control-label">분야</label>
-							<div class="col-lg-10 inline-group jen-checkbox">
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" checked><i></i>기계/항공</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>전기/전자</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>웹/앱</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>건축/환경</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>화공/에너지</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>자연과학</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>예술/디자인</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>생활/교육</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>기타</label>
+							<div id="input-field" class="col-lg-10 inline-group jen-checkbox">
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기계/항공"><i></i>기계/항공</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="전기/전자"><i></i>전기/전자</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="소프트웨어"><i></i>소프트웨어</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="건축/환경"><i></i>건축/환경</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="화공/에너지"><i></i>화공/에너지</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="자연과학"><i></i>자연과학</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="예술/디자인"><i></i>예술/디자인</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="생활/교육"><i></i>생활/교육</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기타"><i></i>기타</label>
 							</div>
 						</div>											
 
 						<div class="form-group">
 							<label for="inputTitle" class="col-lg-2 control-label">프로젝트명:</label>
 							<div class="col-lg-10">
-								<input type="text" class="form-control" id="inputTitle" placeholder="프로젝트명">
+								<input type="text" class="form-control" id="input-name" name="name" placeholder="프로젝트명">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputIntro" class="col-lg-2 control-label">요약글:</label>
 							<div class="col-lg-10">
-								<input type="text" class="form-control" id="inputIntro" placeholder="한 줄 소개">
+								<input type="text" class="form-control" id="input-short-intro" name="shortIntro" placeholder="한 줄 소개">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
 							<div class="col-lg-10 textarea">
-								<textarea id="inputDesc" class="form-control" rows="5" placeholder="프로젝트를 소개해주세요."></textarea>
+								<textarea id="inputDesc" class="form-control" rows="5" id="input-intro" name="intro" placeholder="프로젝트를 소개해주세요."></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -172,37 +173,38 @@
 								<div class="col-4 date-picker">
 									<label class="input">
 										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="start" id="start" placeholder="Start date">
+										<input type="text" name="start" id="start" name="startDate" placeholder="Start date">
 									</label>
 								</div>
 								<div class="col-4 date-picker">
 									<label class="input">
 										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="finish" id="finish" placeholder="Expected finish date">
+										<input type="text" name="finish" id="finish" name="endDate" placeholder="Expected finish date">
 									</label>
 								</div>
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
 							<div class="col-lg-10">
 								<label for="file" class="input input-file">
-									<div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+									<div class="button"><input type="file" id="uploadFile" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
 								</label>
 							</div>
+						</div>
+						<div class="modal-footer">
+						<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
+						<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
 						</div>
 					</form>
 				</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
-					<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
-				</div>
+
 			</div>
 		</div>
 	</div>
-	<!-- End 프로젝트 등록 팝업 -->
-
+	<!-- end 신규 프로젝트 생성 -->
 
 	<!-- JS Global Compulsory -->
 	<script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
@@ -214,87 +216,107 @@
 	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
 	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
 	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/counter/waypoints.min.js"></script>
 	<script type="text/javascript" src="assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/datepicker.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/validation.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 	<!-- JS Customization -->
 	<script type="text/javascript" src="assets/js/custom.js"></script>
 	<!-- JS Page Level -->
 	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/datepicker.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/validation.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-3.js"></script>
 	<script type="text/javascript">
-	function map_one(fieldName) {
-		switch(fieldName) {
-		case "기계/항공":
-			return "mech";
-		case "전기/전자":
-			return "elec";
-		case "소프트웨어":
-			return "soft";
-		case "건축/환경":
-			return "arch";
-		case "화공/에너지":
-			return "ener";
-		case "자연과학":
-			return "scie";
-		case "예술/디자인":
-			return "desi";
-		case "생활/교육":
-			return "educ";
-		case "기타":
-			return "misc";
-		}
-		return "";
-	}
 
-	function map(fields,func){
-		var result='';
-		for(i in fields){
-			alert(fields[i]);
-			alert(func(fields[i]));
-			result+=func(fields[i])+' ';
-		}
-		return result;
-	}
-	
+	angular.module('searchApp', []).controller('ProjectDisplayController', function($scope,$http) {
+		$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
+			$scope.projects=res.data.result;
+			$scope.count=res.data.result.length;
+			$scope.map_one=function(fieldName){
+				switch(fieldName) {
+				case "기계/항공":
+					return "mech";
+				case "전기/전자":
+					return "elec";
+				case "소프트웨어":
+					return "soft";
+				case "건축/환경":
+					return "arch";
+				case "화공/에너지":
+					return "ener";
+				case "자연과학":
+					return "scie";
+				case "예술/디자인":
+					return "desi";
+				case "생활/교육":
+					return "educ";
+				case "기타":
+					return "misc";
+				}
+				return "";
+			};
+			$scope.comma=function(a){
+				return a+',';
+			};
+
+			$scope.map=function(fields,func){
+				var result='';
+				for(i in fields)
+					result+=' '+func(fields[i]);
+				return result;
+			};
+		});
+		});
+		function upload(callback){
+			return function(event){
+			event.preventDefault();
+			$.ajax({
+				contentType: false,
+				processData: false,
+		        data: new FormData($(this)[0]),
+		        type: $(this).attr('method'),
+		        url: '/image/upload',
+		        success: function(response) {
+		        	if(response.error) alert(response.error);
+		        	else{
+		        		callback(response);
+		        	}
+		        }
+		    });
+		}};
+		
+		$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
 
 		jQuery(document).ready(function() {
 			App.init();
 			Datepicker.initDatepicker();
 			Validation.initValidation();
-			
-			$.getJSON('http://'+document.location.host+'/project/all/view', function(res){
-				var projects=res.result;
-				for(p in projects){
-					alert(JSON.stringify(projects[p]));
-					var htmlFragment=
-					'<div class="cbp-item'+ map(projects[p].field,map_one)+'">'+
-					'<div class="cbp-caption margin-bottom-10">'+
-						'<div class="cbp-caption-defaultWrap easy-block-v1">'+
-							'<img src="assets/img/main/img1.jpg" alt="">'+
-						'</div>'+
-						'<div class="cbp-caption-activeWrap">'+
-							'<div class="cbp-l-caption-alignCenter">'+
-								'<div class="cbp-l-caption-body">'+
-									'<ul class="link-captions no-bottom-space">'+
-									'<li><a href="portfolio_single_item.html?id='+projects[p]._id+'"><i class="rounded-x fa fa-search-plus"></i></a></li>'+
-									'</ul>'+
-								'</div>'+
-							'</div>'+
-						'</div>'+
-					'</div>'+
-					'<div class="cbp-title-dark project-box">'+
-						'<div class="headline-left margin-bottom-10 project_title">'+projects[p].name+'</div>'+
-							'<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">'+map(projects[p].field,function(a){return a+', '})+'</a></small>'+
-							'<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>'+
-							'<p>'+projects[p].shortIntro+'</p>'+
-						'</div>'+
-					'</div>';
-
-					alert(htmlFragment);
-					$("#grid-container").append($(htmlFragment));
+			$("#imageForm").submit(upload(function(response){
+				if(response.error){
+					alert("Fail");
+					return;
 				}
-			});
+				var testdata={};
+				testdata.projectSummary={};
+				testdata.projectSummary.name=$("#input-name").val();
+				testdata.projectSummary.shortIntro=$("#input-short-intro").val();
+				testdata.projectSummary.intro=$("#input-intro").val();
+				testdata.projectSummary.status="신규";
+				testdata.projectSummary.startDate=$("#start").val();
+				testdata.projectSummary.endDate=$("#finish").val();
+				testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
+			        return $(el).attr('value');
+			    }).get();
+				testdata.projectSummary.image=response.result;
+				$.post('http://'+document.location.host+'/project/new',testdata,function(res){
+					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+					//alert(JSON.stringify(res.result));
+					location.reload(true);
+				});
+			}));
 		});
 	</script>
 	<!--[if lt IE 9]>

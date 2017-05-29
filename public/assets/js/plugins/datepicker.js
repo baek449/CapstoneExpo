@@ -6,14 +6,14 @@ var Datepicker = function () {
         initDatepicker: function () {
 	        // Regular datepicker
 	        $('#date').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	            dateFormat: 'yy.mm.dd',
 	            prevText: '<i class="fa fa-angle-left"></i>',
 	            nextText: '<i class="fa fa-angle-right"></i>'
 	        });
 	        
 	        // Date range
 	        $('#start').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	            dateFormat: 'yy.mm.dd',
 	            prevText: '<i class="fa fa-angle-left"></i>',
 	            nextText: '<i class="fa fa-angle-right"></i>',
 	            onSelect: function( selectedDate )
@@ -22,7 +22,7 @@ var Datepicker = function () {
 	            }
 	        });
 	        $('#finish').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	            dateFormat: 'yy.mm.dd',
 	            prevText: '<i class="fa fa-angle-left"></i>',
 	            nextText: '<i class="fa fa-angle-right"></i>',
 	            onSelect: function( selectedDate )
@@ -33,14 +33,14 @@ var Datepicker = function () {
 	        
 	        // Inline datepicker
 	        $('#inline').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	            dateFormat: 'yy.mm.dd',
 	            prevText: '<i class="fa fa-angle-left"></i>',
 	            nextText: '<i class="fa fa-angle-right"></i>'
 	        });
 	        
 	        // Inline date range
 	        $('#inline-start').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	            dateFormat: 'yy.mm.dd',
 	            prevText: '<i class="fa fa-angle-left"></i>',
 	            nextText: '<i class="fa fa-angle-right"></i>',
 	            onSelect: function( selectedDate )
@@ -49,7 +49,7 @@ var Datepicker = function () {
 	            }
 	        });
 	        $('#inline-finish').datepicker({
-	            dateFormat: 'dd.mm.yy',
+	            dateFormat: 'yy.mm.dd',
 	            prevText: '<i class="fa fa-angle-left"></i>',
 	            nextText: '<i class="fa fa-angle-right"></i>',
 	            onSelect: function( selectedDate )

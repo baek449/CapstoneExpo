@@ -8,6 +8,7 @@
 	// callback은 응답(id:올린 이미지의 id)을 받아 다음 작업을 수행합니다.
 	function upload(callback){
 		return function(event){
+			alert($(this)[0]);
 		event.preventDefault();
 		$.ajax({
 			contentType: false,
