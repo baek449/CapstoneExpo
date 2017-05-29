@@ -274,7 +274,7 @@
 								<!-- Edit button -->
 								<h2>
 									<a href="blog_large_full_width_item1.html">조모임 하다가 축제 즐기러!!</a>
-									<a href="blog_large_full_width_item1_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a>
+									<a href="jisu_timeline_item_edit.html" class="jisu_edit_link">edit</a>
 								</h2>	
 								<!-- End edit button -->
 									
@@ -909,6 +909,8 @@
 				$.getJSON('http://'+document.location.host+'/timeline/'+id,function(res) {
 					alert(JSON.stringify(res));
 					for(i in res.result){
+						
+						var id = res.result[i]._id;
 						
 						var date = new Date(res.result[i].writeTime);
 						var year = date.getFullYear();
