@@ -165,7 +165,7 @@
 					<h3>Sort by</h3>
 					<ul id="sorting-jen" class="row filters-list-jen list-unstyled">
 						<li id="sort-view" class="col-md-12 col-sm-4 filter-item-active filter-item-jen">조회수 많은 순</li>
-						<li id="sort-recent" class="col-md-12 col-sm-4 filter-item-jen">최근 등록 순</li>
+						<li id="sort-recent" class="col-md-12 col-sm-4 filter-item-jen">시작일 순</li>
 					</ul>
 
 				</div><!--/col-md-2-->
@@ -315,9 +315,9 @@
 	angular.module('searchApp', []).controller('ProjectDisplayController', function($scope,$http) {
 		var sorting = '';
         if($("#sort-recent").hasClass('filter-item-active')) {
-        	sorting = '/project/all/view';
-        } else {
         	sorting = '/project/all/new';
+        } else {
+        	sorting = '/project/all/view';
         }
 		
 		$http.get('http://'+document.location.host+sorting).then(function(res){
