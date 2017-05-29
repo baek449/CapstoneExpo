@@ -131,39 +131,39 @@
 				</div>
 
 				<div class="panel-body sky-form">
-					<form class="form-horizontal sky-form no-border" role="form">
+					<form id="new-project-jen" class="form-horizontal sky-form no-border" role="form">
 					
 						<div class="form-group">
 							<label for="inputCategory" class="col-lg-2 control-label">분야</label>
-							<div class="col-lg-10 inline-group jen-checkbox">
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" checked><i></i>기계/항공</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>전기/전자</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>웹/앱</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>건축/환경</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>화공/에너지</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>자연과학</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>예술/디자인</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>생활/교육</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline"><i></i>기타</label>
+							<div id="input-field" class="col-lg-10 inline-group jen-checkbox">
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기계/항공"><i></i>기계/항공</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="전기/전자"><i></i>전기/전자</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="소프트웨어"><i></i>소프트웨어</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="건축/환경"><i></i>건축/환경</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="화공/에너지"><i></i>화공/에너지</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="자연과학"><i></i>자연과학</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="예술/디자인"><i></i>예술/디자인</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="생활/교육"><i></i>생활/교육</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기타"><i></i>기타</label>
 							</div>
 						</div>											
 
 						<div class="form-group">
 							<label for="inputTitle" class="col-lg-2 control-label">프로젝트명:</label>
 							<div class="col-lg-10">
-								<input type="text" class="form-control" id="inputTitle" placeholder="프로젝트명">
+								<input type="text" class="form-control" id="input-name" name="name" placeholder="프로젝트명">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputIntro" class="col-lg-2 control-label">요약글:</label>
 							<div class="col-lg-10">
-								<input type="text" class="form-control" id="inputIntro" placeholder="한 줄 소개">
+								<input type="text" class="form-control" id="input-short-intro" name="shortIntro" placeholder="한 줄 소개">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
 							<div class="col-lg-10 textarea">
-								<textarea id="inputDesc" class="form-control" rows="5" placeholder="프로젝트를 소개해주세요."></textarea>
+								<textarea id="inputDesc" class="form-control" rows="5" id="input-intro" name="intro" placeholder="프로젝트를 소개해주세요."></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -172,13 +172,13 @@
 								<div class="col-4 date-picker">
 									<label class="input">
 										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="start" id="start" placeholder="Start date">
+										<input type="text" name="start" id="input-start" name="startDate" placeholder="Start date">
 									</label>
 								</div>
 								<div class="col-4 date-picker">
 									<label class="input">
 										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="finish" id="finish" placeholder="Expected finish date">
+										<input type="text" name="finish" id="input-finish" name="endDate" placeholder="Expected finish date">
 									</label>
 								</div>
 							</div>
@@ -187,17 +187,18 @@
 							<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
 							<div class="col-lg-10">
 								<label for="file" class="input input-file">
-									<div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+									<div class="button"><input type="file" id="file" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
 								</label>
 							</div>
 						</div>
-					</form>
-				</div>
-
-				<div class="modal-footer">
+										<div class="modal-footer">
 					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
 					<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
 				</div>
+					</form>
+				</div>
+
+
 			</div>
 		</div>
 	</div>
@@ -273,12 +274,56 @@
 		        }
 		    };
 		}]);*/
-	
+		function upload(callback){
+			$.ajax({
+				contentType: false,
+				processData: false,
+		        data: new FormData($('uploadFile')),
+		        type: 'POST',
+		        url: '/image/upload',
+		        success: function(response) {
+		        	if(response.error) alert(response.error);
+		        	else{
+		        		callback(response);
+		        	}
+		        }
+		    });
+		}
+
 
 		jQuery(document).ready(function() {
 			App.init();
 			Datepicker.initDatepicker();
 			Validation.initValidation();
+			$("#new-project-jen").submit(function(event){
+				event.preventDefault();
+				var testdata={};
+				
+				testdata.projectSummary={};
+				testdata.projectSummary.name=$("#input-name").val();
+				testdata.projectSummary.shortIntro=$("#input-short-intro").val();
+				testdata.projectSummary.intro=$("#input-short-intro").val();
+				testdata.projectSummary.status="신규";
+				testdata.projectSummary.startDate=$("#input-start").val();
+				testdata.projectSummary.endDate=$("#input-finish").val();
+				testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
+			        return $(el).attr('value');
+			    }).get();
+			    
+				$.post('http://'+document.location.host+'/project/new',testdata,function(res){
+					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+					alert(JSON.stringify(res.result));
+				});
+				
+				  upload(function(img){
+					  testdata.projectSummary.image=img;
+						$.post('http://'+document.location.host+'/project/new',testdata,function(res){
+							// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+							alert(JSON.stringify(res.result));
+						});
+					  
+				  });
+			});
 		});
 	</script>
 	<!--[if lt IE 9]>
