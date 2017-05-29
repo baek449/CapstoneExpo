@@ -829,15 +829,21 @@
 			Datepicker.initDatepicker();
 			Validation.initValidation();
 			
+			var monthNames = ["January", "February", "March", "April", "May", "June",
+				  "July", "August", "September", "October", "November", "December"
+				];
+			
 			var id = "592a7c6ff8bc6d93b34216f1";
 			
 			$.getJSON('http://'+document.location.host+'/project/member/'+id,function(res) {
 				alert(JSON.stringify(res));
-				var name = res.result.name;
-				for(i in name){
+				var member = res.result;
+				for(k in member){
+					var image_sidebar = member[k].image;
+					image_sidebar = "/image/download/" + image_sidebar; 
 					var html='<dl class="dl-horizontal">';
-					html += '<dt><a href="#"><img src="assets/img/Capstone-image/jisukang.jpg" alt="" /></a></dt>';
-					html += '<dd><p><a href="#"><strong>Jisu Kang</strong><br>Electrical Engineering</a></p></dd>';
+					html += '<dt><a href="#"><img src="'+image_sidebar+'" alt="" /></a></dt>';
+					html += '<dd><p><a href="#"><strong>'+member[k].name+'</strong><br>'+member[k].major+'</a></p></dd>';
 					html += '</dl>';
 					$('.margin-bottom-40').append(html);
 				}
@@ -858,11 +864,11 @@
 						var num = i;
 						
 						var html = '<li class="equal-height-columns">';
-						html += '<div class="cbp_tmtime equal-height-column"><span>'+date_string+'</span> <span>'+month+'</span></div>';
+						html += '<div class="cbp_tmtime equal-height-column"><span>'+date_string+'</span> <span>'+monthNames[month-1]+'</span></div>';
 						html += '<i class="cbp_tmicon rounded-x hidden-xs"></i>';
 						html += '<div class="cbp_tmlabel equal-height-column">';
 						html += '<h2><a href="blog_large_full_width_item1.html">'+subject+'</a>';
-						html += '<a href="blog_large_full_width_item1_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a></h2>';
+						html += '<a href="jisu_timeline_item_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a></h2>';
 						html += '<div class="row">';
 						html += '<div class="col-md-4">';
 						html += '<img class="img-responsive" src="'+image+'" alt="">';
@@ -882,10 +888,10 @@
 						html += '<h4 id="myLargeModalLabel3" class="modal-title">Evaluation</h4>';
 						html += '</div>';
 						html += '<div class="modal-body">';
-						for(j in name){
+						for(j in member){
 							html += '<div class = "btn-group">';
 							html += '<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">';
-							html += '<p style="font-size:10px">'+name[j].name+'</p>';
+							html += '<p style="font-size:10px">'+member[j].name+'</p>';
 							html += '<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>';
 							html += '</button>';
 							html += '<ul class = "dropdown-menu" role="menu">';
@@ -922,131 +928,7 @@
 				});
 			
 			});
-			/*
 			
-				var num = "4";
-				var date = "05/23/2017";
-				var month = "May";
-				var subject = "조모임 하다가 축제 즐기러!!";
-				var image = "assets/img/Capstone-image/KakaoTalk_20170523.jpg";
-				var content = "<p>9시쯤 만나서 시작한 조모임.</p><p>조모임 주제 : web프로그래밍을 시작했기 때문에 서로의 진행 사항을 파악하고, backend프로그래밍에 대한 정보를 얻기 위해 만났다.</p><p>조모임을 하다가 11시에 시작하는 에일리 공연을 보기 위해 조원들과 다 함께 축제를 즐기러 갔다.</p><p>프로그래밍을 하러 왔다가 주점에서 다같이 술을 마심. 승근이는 처음으로 밤 12시를 넘게까지 술을 마신 색다른 경험!!</p>";
-				var html = '<li class="equal-height-columns">';
-				html += '<div class="cbp_tmtime equal-height-column"><span>'+date+'</span> <span>'+month+'</span></div>';
-				html += '<i class="cbp_tmicon rounded-x hidden-xs"></i>';
-				html += '<div class="cbp_tmlabel equal-height-column">';
-				html += '<h2><a href="blog_large_full_width_item1.html">'+subject+'</a>';
-				html += '<a href="blog_large_full_width_item1_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a></h2>';
-				html += '<div class="row">';
-				html += '<div class="col-md-4">';
-				html += '<img class="img-responsive" src="'+image+'" alt="">';
-				html += '<div class="md-margin-bottom-20"></div>';
-				html += '</div>';
-				html += '<div class="col-md-8">';
-				html += content;
-				
-				html += '<i class="rounded-x icon-heart jisu_timeline_icon"></i>';
-				
-				html += '<i class="rounded-x icon-share jisu_timeline_icon" data-toggle="modal" data-target="#evaluation'+num+'"></i>';
-				html += '<div id="evaluation'+num+'"class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">';
-				html += '<div class="modal-dialog modal-sm">';
-				html += '<div class="modal-content">';
-				html += '<div class="modal-header">';
-				html += '<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>';
-				html += '<h4 id="myLargeModalLabel3" class="modal-title">Evaluation</h4>';
-				html += '</div>';
-				html += '<div class="modal-body">';
-				html += '<h4 id="myLargeModalLabel3" class="modal-title">Evaluation</h4>';
-				html += '</div></div></div>';
-				html += '</div>';
-				
-				html += '<i class="rounded-x icon-speech jisu_timeline_icon" data-toggle="modal" data-target="#reply'+num+'"></i>';
-				html += '<div id="reply'+num+'"class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">';
-				html += '<div class="modal-dialog modal-lg">';
-				html += '<div class="modal-content">';
-				html += '<div class="modal-header">';
-				html += '<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>';
-				html += '<h4 id="myLargeModalLabel2" class="modal-title">Reply</h4>';
-				html += '</div>';
-				html += '<div class="modal-body">';
-				html += '<input type="text" class="form-control">';
-				html += '<div class="input-group-btn">';
-				html += '<button type="button" style="display: inline-block" class="btn btn-danger">Submit</button>';
-				html += '</div></div></div></div></div>';
-				html += '</div></div></div></li>';
-				
-				$('.timeline-v2').append(html);	
-			});
-			*/
-			
-			$('.jisu_timeline_new_link').mouseenter(function(){
-				$(this).css('color','#72c02c');
-				$(this).css('font-size','17px');
-			});
-			
-			$('.jisu_timeline_new_link').mouseleave(function(){
-				$(this).css('color','#999');
-				$(this).css('font-size','15px');
-			});
-			
-			$('.jisu_edit_link').mouseenter(function(){
-				$(this).css('color','#72c02c');
-				$(this).css('font-size','11px');
-			});
-			
-			$('.jisu_edit_link').mouseleave(function(){
-				$(this).css('color','#999');
-				$(this).css('font-size','10px');
-			});
-			
-			$('.jisu_edit_button').mouseenter(function(){
-				$(this).css('color','#9c9c9c');
-				$(this).css('background-color','#f3f3f3');
-				$(this).css('transition','all 0.3s ease-in-out');
-			});
-			
-			$('.jisu_edit_button').mouseleave(function(){
-				$(this).css('color','#555');
-				$(this).css('background-color','#f3f3f3');
-			});
-			
-			$('.jisu_timeline_icon').mouseenter(function(){
-				$(this).css('color','#ffffff');
-				$(this).css('background-color','#4a9706');
-				$(this).css('transition','all 0.3s ease-in-out');
-			});
-			
-			$('.jisu_timeline_icon').mouseleave(function(){
-				$(this).css('color','#ffffff');
-				$(this).css('background-color','#5fb611');
-			});
-			
-			$('.jisu-evaluation-button').css('background-color','#A4A4A4');
-			$('.jisu-evaluation-button').width('50px');
-			$('.jisu-evaluation-button').children('p').css('margin-top','0px');
-			$('.jisu-evaluation-button').children('p').css('margin-bottom','0px');
-			$('.jisu-evaluation-button').children().css('color','#FFFFFF');
-			$('.dropdown-menu').css('min-width','200px');
-			
-			$('.jisu-excellent').click(function() {
-				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Excellent<i class="fa fa-angle-down"></i></p>');
-			});
-			$('.jisu-good').click(function() {
-				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Good<i class="fa fa-angle-down"></i></p>');
-			});
-			$('.jisu-soso').click(function() {
-				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">So So<i class="fa fa-angle-down"></i></p>');
-			});
-			$('.jisu-bad').click(function() {
-				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Bad<i class="fa fa-angle-down"></i></p>');
-			});
-			$('.jisu-verybad').click(function() {
-				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
-				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Very Bad<i class="fa fa-angle-down"></i></p>');
-			});
 		});
 	</script>
 	<!--[if lt IE 9]>
