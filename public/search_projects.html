@@ -142,30 +142,31 @@
 		<!--=== End Search Block Version 2 ===-->
 
 		<!--=== Search Results ===-->
-		<div class="container s-results margin-bottom-50" ng-app="searchApp">
+		<div class="container s-results margin-bottom-50" ng-app="searchApp" ng-element-ready>
 			<div class="row">
 				<div class="col-md-2 col-sm-12 hidden-xs related-search">
 
 					<h3>Categories</h3>
-					<ul id="filters-jen" class="row filters-list-jen list-unstyled">
-						<li id="all" class="col-md-12 col-sm-4 filter-item-active filter-item-jen">전체</li>
-						<li id="mech" class="col-md-12 col-sm-4 filter-item-jen">기계/항공</li>
-						<li id="elec" class="col-md-12 col-sm-4 filter-item-jen">전기/전자</li>
-						<li id="soft" class="col-md-12 col-sm-4 filter-item-jen">소프트웨어</li>
-						<li id="arch" class="col-md-12 col-sm-4 filter-item-jen">건축/환경</li>
-						<li id="ener" class="col-md-12 col-sm-4 filter-item-jen">화공/에너지</li>
-						<li id="scie" class="col-md-12 col-sm-4 filter-item-jen">자연과학</li>
-						<li id="desi" class="col-md-12 col-sm-4 filter-item-jen">예술/디자인</li>
-						<li id="educ" class="col-md-12 col-sm-4 filter-item-jen">생활/교육</li>
-						<li id="misc" class="col-md-12 col-sm-4 filter-item-jen">기타 </li>
-					</ul>	
-
+							<div id="filters-container" class="cbp-l-filters-text list-unstyled">
+								<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">전체</div>
+								<div data-filter=".mech" class="cbp-filter-item">기계/항공</div>
+								<div data-filter=".elec" class="cbp-filter-item">전기/전자</div>
+								<div data-filter=".soft" class="cbp-filter-item">소프트웨어</div>
+								<div data-filter=".arch" class="cbp-filter-item">건축/환경</div>
+								<div data-filter=".ener" class="cbp-filter-item">화공/에너지</div>
+								<div data-filter=".scie" class="cbp-filter-item">자연과학</div>
+								<div data-filter=".desi" class="cbp-filter-item">예술/디자인</div>
+								<div data-filter=".educ" class="cbp-filter-item">생활/교육</div>
+								<div data-filter=".misc" class="cbp-filter-item">기타 </div>
+							</div>
 							<!-- <hr> -->
 					<hr>
 					<h3>Sort by</h3>
 					<ul id="sorting-jen" class="row filters-list-jen list-unstyled">
-						<li id="sort-view" class="col-md-12 col-sm-4 filter-item-active filter-item-jen">조회수 많은 순</li>
-						<li id="sort-recent" class="col-md-12 col-sm-4 filter-item-jen">시작일 순</li>
+						<li id="sort-view" class="col-md-12 col-sm-4 filter-item-active filter-item-jen">
+							<a href="#" onclick="window.location.href=window.location.href.split('?')[0];">조회수 많은 순</a></li>
+						<li id="sort-recent" class="col-md-12 col-sm-4 filter-item-jen">
+							<a href="#" onclick="window.location.href=window.location.href.split('?')[0]+'?newest=true';">시작일 순</a></li>
 					</ul>
 
 				</div><!--/col-md-2-->
@@ -174,21 +175,36 @@
 					<button class="btn-u pull-right" type="button" data-toggle="modal" data-target="#responsive">신규 프로젝트 등록</button>
 					</span>					
 					
-					<ul class="list-unstyled row portfolio-box">
-						<li ng-repeat="p in projects" class="col-md-4 col-sm-6 md-margin-bottom-50 project-box">
-							<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="assets/img/main/img9.jpg">
-								<div class="project-image-box"><img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
+					<!--=== Cube-Portfolio ===-->
+					<div class="cube-portfolio margin-bottom-60">
+						<div id="grid-container" class="cbp-l-grid-agency">
+			 				<div class="cbp-item {{map(p.field,map_one)}}" ng-repeat="p in projects">
+								<div class="cbp-caption margin-bottom-10">
+									<div class="cbp-caption-defaultWrap easy-block-v1">
+										<img class="img-responsive" src="assets/img/main/img1.jpg" alt="">
+									</div>
+									<div class="cbp-caption-activeWrap">
+										<div class="cbp-l-caption-alignCenter">
+											<div class="cbp-l-caption-body">
+												<ul class="link-captions no-bottom-space">
+													<li><a href="portfolio_single_item.html"><i class="rounded-x fa fa-search-plus"></i></a></li>										
+												</ul>
+											</div>
+										</div>
+									</div>
 								</div>
-								<span class="portfolio-box-in rounded-x">
-									<i class="icon-magnifier-add"></i>
-								</span>
-							</a>
-							<div class="headline-left project_title">{{p.name}}</div>
-							<small class="project-tag"><span class="color-green">분야: &nbsp;</span>{{map(p.field,comma)}}</small>
-							<small class="project-tag"><span class="color-green">기간: &nbsp;</span>{{p.startDate|date:'yyyy.MM.dd'}} ~ {{p.endDate|date:'yyyy.MM.dd'}}</small>
-							<p class="project-intro">{{p.shortIntro}}</p>
-						</li>
-					</ul>
+								<div class="cbp-title-dark project-box">
+									<div class="headline-left margin-bottom-10 project_title">{{p.name}}</div>
+									<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">{{map(p.field,comma)}}</a></small>
+									<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
+									<p>{{p.shortIntro}}</p>
+								</div>
+							</div>
+			
+						</div><!--/end Grid Container-->
+					</div>
+					<!--=== End Cube-Portfolio ===-->
+					
 				</div><!--/col-md-10-->
 			</div>
 		</div><!--/container-->
@@ -301,7 +317,7 @@
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/datepicker.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/validation.js"></script>
-	<script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-3.js"></script>
+	<!-- script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-3.js"></script-->
 	<script type="text/javascript">
 	function open_win() {
 		var singleText = "single";
@@ -312,9 +328,11 @@
 		}
 	}
 	
-	angular.module('searchApp', []).controller('ProjectDisplayController', function($scope,$http) {
+	var module=angular.module('searchApp', []);
+	module.controller('ProjectDisplayController', function($scope,$http) {
 		var sorting = '';
-        if($("#sort-recent").hasClass('filter-item-active')) {
+		var arg=window.location.search.substring(1).split('&')[0].split('=');
+        if(arg[0]==='newest' && arg[1]==='true') {
         	sorting = '/project/all/new';
         } else {
         	sorting = '/project/all/view';
@@ -357,55 +375,65 @@
 				return result;
 			};
 		});
-		});
-		function upload(callback){
-			return function(event){
-			event.preventDefault();
-			$.ajax({
-				contentType: false,
-				processData: false,
-		        data: new FormData($(this)[0]),
-		        type: $(this).attr('method'),
-		        url: '/image/upload',
-		        success: function(response) {
-		        	if(response.error) alert(response.error);
-		        	else{
-		        		callback(response);
-		        	}
-		        }
-		    });
-		}};
-		
-		$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
+	});
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
 
-		jQuery(document).ready(function() {
-			App.init();
-			Datepicker.initDatepicker();
-			Validation.initValidation();
-			$("#imageForm").submit(upload(function(response){
-				if(response.error){
-					alert("Fail");
-					return;
-				}
-				var testdata={};
-				testdata.projectSummary={};
-				testdata.projectSummary.name=$("#input-name").val();
-				testdata.projectSummary.shortIntro=$("#input-short-intro").val();
-				testdata.projectSummary.intro=$("#input-intro").val();
-				testdata.projectSummary.status="신규";
-				testdata.projectSummary.startDate=$("#start").val();
-				testdata.projectSummary.endDate=$("#finish").val();
-				testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
-			        return $(el).attr('value');
-			    }).get();
-				testdata.projectSummary.image=response.result;
-				$.post('http://'+document.location.host+'/project/new',testdata,function(res){
-					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
-					//alert(JSON.stringify(res.result));
-					location.reload(true);
-				});
-			}));
-		});
+	function upload(callback){
+		return function(event){
+		event.preventDefault();
+		$.ajax({
+			contentType: false,
+			processData: false,
+	        data: new FormData($(this)[0]),
+	        type: $(this).attr('method'),
+	        url: '/image/upload',
+	        success: function(response) {
+	        	if(response.error) alert(response.error);
+	        	else{
+	        		callback(response);
+	        	}
+	        }
+	    });
+	}};
+	
+	$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
+
+	function ready() {
+		App.init();
+		Datepicker.initDatepicker();
+		Validation.initValidation();
+		$.getScript("assets/js/plugins/cube-portfolio/cube-portfolio-3.js");
+		$("#imageForm").submit(upload(function(response){
+			if(response.error){
+				alert("Fail");
+				return;
+			}
+			var testdata={};
+			testdata.projectSummary={};
+			testdata.projectSummary.name=$("#input-name").val();
+			testdata.projectSummary.shortIntro=$("#input-short-intro").val();
+			testdata.projectSummary.intro=$("#input-intro").val();
+			testdata.projectSummary.status="신규";
+			testdata.projectSummary.startDate=$("#start").val();
+			testdata.projectSummary.endDate=$("#finish").val();
+			testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
+		        return $(el).attr('value');
+		    }).get();
+			testdata.projectSummary.image=response.result;
+			$.post('http://'+document.location.host+'/project/new',testdata,function(res){
+				// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+				//alert(JSON.stringify(res.result));
+				location.reload(true);
+			});
+		}));
+	}
 	</script>
 	<!--[if lt IE 9]>
 	<script src="assets/plugins/respond.js"></script>
