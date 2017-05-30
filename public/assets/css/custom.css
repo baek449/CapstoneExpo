@@ -196,6 +196,19 @@
 	float:right;
 }
 
+.jisu_heart_icon{
+	color: #ffffff;
+	width: 30px;
+	height: 30px;
+	padding: 7px;
+	margin: 5px 5px 5px 5px;
+	font-size: 16px;
+	background: #5fb611;
+	text-align: center;
+	display: inline-block;
+	float:right;
+}
+
 .jisu_edit_button{
 	background-color:#f3f3f3;
 	color:#555;

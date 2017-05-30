@@ -289,7 +289,7 @@
 										<p>{{p.contents}}</p>
 										
 										<!-- Heart button -->
-                     					<i class="rounded-x icon-heart jisu_timeline_icon"></i>
+                     					<i class="rounded-x icon-heart jisu_heart_icon" name="{{p._id}}"></i>
 										<!-- End heart button -->
 										
 										<!-- Evaluation button -->
@@ -502,6 +502,9 @@
 			StyleSwitcher.initStyleSwitcher();
 			Datepicker.initDatepicker();
 			Validation.initValidation();
+			
+			var heart_clicked = 0;
+			
 			$('.jisu_timeline_new_link').mouseenter(function(){
 				$(this).css('color','#72c02c');
 				$(this).css('font-size','17px');
@@ -544,12 +547,57 @@
 				$(this).css('background-color','#5fb611');
 			});
 			
+			$('.jisu_heart_icon').mouseenter(function(){
+				if(heart_clicked==0){
+					$(this).css('color','#ffffff');
+					$(this).css('background-color','#4a9706');
+					$(this).css('transition','all 0.3s ease-in-out');
+				}
+				else{
+					$(this).css('color','#ffffff');
+					$(this).css('background-color','#c90000');
+					$(this).css('transition','all 0.3s ease-in-out');
+				}
+			});
+			
+			$('.jisu_heart_icon').mouseleave(function(){
+				if(heart_clicked==0){
+					$(this).css('color','#ffffff');
+					$(this).css('background-color','#5fb611');
+				}
+				else{
+					$(this).css('color','#ffffff');
+					$(this).css('background-color','red');
+				}
+			});
+			
+			$('.jisu_heart_icon').click(function(){
+				if(heart_clicked == 1){
+					heart_clicked = 0;
+					$(this).css('background-color','#5fb611');
+					var id = this.attr("name");
+					$.post('http://'+document.location.host+'/post/like/'+id,function(res) {
+						
+					});
+				}
+				else{
+					heart_clicked = 1;
+					$(this).css('background-color','red');
+					var id = this.attr("name");
+					$.post('http://'+document.location.host+'/post/like/'+id,function(res) {
+						
+					});
+				}
+			});
+
+			
 			$('.jisu-evaluation-button').css('background-color','#A4A4A4');
 			$('.jisu-evaluation-button').width('50px');
 			$('.jisu-evaluation-button').children('p').css('margin-top','0px');
 			$('.jisu-evaluation-button').children('p').css('margin-bottom','0px');
 			$('.jisu-evaluation-button').children().css('color','#FFFFFF');
 			$('.dropdown-menu').css('min-width','200px');
+
 			
 			$('.jisu-excellent').click(function() {
 				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
