@@ -183,7 +183,7 @@
 							<div class="row sky-space-20">
 								<label for="file" class="input input-file col-md-7 col-md-offset-0">
 									<div style="margin-right:15px" class="button" text="보고서 찾기">
-										<input type="file" name="file" onchange="this.parentNode.nextSibling.value=this.value">										
+										<input type="file" name="uploadFile" onchange="this.parentNode.nextSibling.value=this.value">										
 									</div>
 								</label>
 							</div>
@@ -297,6 +297,26 @@
 	<script src="assets/js/plugins/owl-carousel.js"></script>
 	<script src="assets/js/plugins/style-switcher.js"></script>
 	<script>
+	
+	function upload(callback){
+		return function(event){
+			alert($(this)[0]);
+		event.preventDefault();
+		$.ajax({
+			contentType: false,
+			processData: false,
+	        data: new FormData($(this)[0]),
+	        type: $(this).attr('method'),
+	        url: '/file/upload',
+	        success: function(response) {
+	        	if(response.error) alert(response.error);
+	        	else{
+	        		callback(response);
+	        	}
+	        }
+	    });
+	}};
+	
 		jQuery(document).ready(function() {
 			App.init();
 			LoginForm.initLoginForm();
@@ -305,57 +325,24 @@
 			StyleSwitcher.initStyleSwitcher();
 			
 			
-			
-			/*
-			
-			var evalArray = new Array();
-         	var evalInfo = new Object();
-	           
-         	
-	          alert(jsonInfo);
-	          
-	          var submitBtn = document.getElementById('submitButton');
-			  //add event listener
-			  submitBtn.addEventListener('click', function(event) {
-				 evalInfo.name = document.getElementById('name');
-		         evalInfo.email = document.getElementById('email');
-		         evalInfo.evalContents = document.getElementById('evalContents');
-			             
-			     evalArray.push(evalInfo);
-			        
-			     var jsonInfo = JSON.stringify(evalInfo);
-			     console.log(jsonInfo); //브라우저 f12개발자 모드에서 confole로 확인 가능
-				 alert(jsonInfo);
-			    //window.location.href='Students.html';
-			    // 이 부분에 함수 정의
-			  });
-			  */
-			  
-			  $(function(){
-				  $("#ajaxform").submit(function(event){
-					  event.preventDefault();
-				   var formData = new FormData();
-				   formData.append("name", $("input[name=name]").text());				   
-				   formData.append("email", $("input[name=email]").text());
-				   formData.append("file", $("input[name=file]").files[0]);
-				   formData.append("evalContents", $("textarea[name=evalContents]").text());
-				   console.log(formData);
-				   
-				   $.ajax({
-				   url: './saveFileTest.do',
-				   data: formData,
-				   processData: false,
-				   contentType: false,
-				   type: 'POST',
-				   success: function(data){4
-				   alert("EE"); 
-				  }
-				   }); 
-				  }); 
-				  });
-
 		});
-
+		
+		$(function(){
+			  $("#ajaxform").submit(upload(function(x){
+			   var report={projectId:"592a7c6ff8bc6d93b34216f1",type:"midtermReport"};
+			   report.title=$("input[name=name]").val();
+			   report.contents=$("textarea[name=evalContents]").val();
+			   report.file=x.result;
+			   alert(JSON.stringify(x));
+			   alert(JSON.stringify(report));
+			   $.post('http://'+document.location.host+'/post/new',report,function(res){
+					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+					alert(JSON.stringify(res.result));
+					alert("업로드 성공"); 
+				}
+			  }
+		});
+				   
 		// Google Map
 		function initMap() {
 			GoogleMap.initGoogleMap();
