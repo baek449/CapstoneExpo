@@ -147,25 +147,25 @@
 				<div class="col-md-2 col-sm-12 hidden-xs related-search">
 
 					<h3>Categories</h3>
-							<div id="filters-container" class="cbp-l-filters-text list-unstyled">
-								<div data-filter="*" class="cbp-filter-item-active cbp-filter-item">전체</div>
-								<div data-filter=".mech" class="cbp-filter-item">기계/항공</div>
-								<div data-filter=".elec" class="cbp-filter-item">전기/전자</div>
-								<div data-filter=".soft" class="cbp-filter-item">소프트웨어</div>
-								<div data-filter=".arch" class="cbp-filter-item">건축/환경</div>
-								<div data-filter=".ener" class="cbp-filter-item">화공/에너지</div>
-								<div data-filter=".scie" class="cbp-filter-item">자연과학</div>
-								<div data-filter=".desi" class="cbp-filter-item">예술/디자인</div>
-								<div data-filter=".educ" class="cbp-filter-item">생활/교육</div>
-								<div data-filter=".misc" class="cbp-filter-item">기타 </div>
+							<div id="filters-container" class="row cbp-l-filters-text list-unstyled">
+								<div data-filter="*" class="col-md-12 col-sm-4 cbp-filter-item-active cbp-filter-item">전체</div>
+								<div data-filter=".mech" class="col-md-12 col-sm-4 cbp-filter-item">기계/항공</div>
+								<div data-filter=".elec" class="col-md-12 col-sm-4 cbp-filter-item">전기/전자</div>
+								<div data-filter=".soft" class="col-md-12 col-sm-4 cbp-filter-item">소프트웨어</div>
+								<div data-filter=".arch" class="col-md-12 col-sm-4 cbp-filter-item">건축/환경</div>
+								<div data-filter=".ener" class="col-md-12 col-sm-4 cbp-filter-item">화공/에너지</div>
+								<div data-filter=".scie" class="col-md-12 col-sm-4 cbp-filter-item">자연과학</div>
+								<div data-filter=".desi" class="col-md-12 col-sm-4 cbp-filter-item">예술/디자인</div>
+								<div data-filter=".educ" class="col-md-12 col-sm-4 cbp-filter-item">생활/교육</div>
+								<div data-filter=".misc" class="col-md-12 col-sm-4 cbp-filter-item">기타 </div>
 							</div>
 							<!-- <hr> -->
 					<hr>
 					<h3>Sort by</h3>
-					<ul id="sorting-jen" class="row filters-list-jen list-unstyled">
-						<li id="sort-view" class="col-md-12 col-sm-4 filter-item-active filter-item-jen">
+					<ul id="sorting-jen" class="row cbp-l-filters-text list-unstyled">
+						<li id="sort-view" class="col-md-12 col-sm-4 filter-item-active cbp-filter-item">
 							<a href="#" onclick="window.location.href=window.location.href.split('?')[0];">조회수 많은 순</a></li>
-						<li id="sort-recent" class="col-md-12 col-sm-4 filter-item-jen">
+						<li id="sort-recent" class="col-md-12 col-sm-4 cbp-filter-item">
 							<a href="#" onclick="window.location.href=window.location.href.split('?')[0]+'?newest=true';">시작일 순</a></li>
 					</ul>
 
@@ -180,8 +180,8 @@
 						<div id="grid-container" class="cbp-l-grid-agency">
 			 				<div class="cbp-item {{map(p.field,map_one)}}" ng-repeat="p in projects">
 								<div class="cbp-caption margin-bottom-10">
-									<div class="cbp-caption-defaultWrap easy-block-v1">
-										<img class="img-responsive" src="assets/img/main/img1.jpg" alt="">
+									<div class="cbp-caption-defaultWrap easy-block-v1 project-image-box">
+										<img class="img-responsive" src="/image/download/{{p.image}}" alt="">
 									</div>
 									<div class="cbp-caption-activeWrap">
 										<div class="cbp-l-caption-alignCenter">
@@ -196,8 +196,8 @@
 								<div class="cbp-title-dark project-box">
 									<div class="headline-left margin-bottom-10 project_title">{{p.name}}</div>
 									<small class="project-tag"><span class="color-green">분야: &nbsp;</span><a href="#">{{map(p.field,comma)}}</a></small>
-									<small class="project-tag"><span class="color-green">기간: &nbsp;</span>2016/03~2016/12</small>
-									<p>{{p.shortIntro}}</p>
+									<small class="project-tag"><span class="color-green">기간: &nbsp;</span>{{p.startDate|date:'yyyy.MM.dd'}} ~ {{p.endDate|date:'yyyy.MM.dd'}}</small>
+									<p class="project-intro">{{p.shortIntro}}</p>
 								</div>
 							</div>
 			
@@ -403,7 +403,7 @@
 	    });
 	}};
 	
-	$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
+	$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.50);
 
 	function ready() {
 		App.init();
