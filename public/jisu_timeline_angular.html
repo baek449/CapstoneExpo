@@ -47,6 +47,7 @@
 	<!-- AngularJS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
+	var mid='592a7af2f8bc6d93b34216ef';
 	var module=angular.module('timelineApp', []);
 	var id=document.location.href;
 	id=id.split("?")[1];
@@ -63,7 +64,7 @@
 		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
 			$scope.members = res1.data.result;
 			// Bring the timeline into scope variable posts
-			$http.get('http://'+document.location.host+'/timeline/'+id).then(function(res) {
+			$http.get('http://'+document.location.host+'/timeline/'+id,{memberId:mid}).then(function(res) {
 				$scope.posts=res.data.result;
 			});
 		});
@@ -283,7 +284,7 @@
 												
 								<!-- Edit button -->
 								<h2>
-									<a href="jisu_timeline_item.html?{{p._id}}">{{p.title}}</a>
+									<a href="jisu_timeline_item.html?{{p._id}}">{{p.like.length}} {{p.title}}</a>
 									<a href="jisu_timeline_item_edit.html?{{p._id}}" style="text-decoration:none" class="jisu_edit_link">edit</a>
 								</h2>	
 								<!-- End edit button -->
@@ -634,7 +635,7 @@
 					heart_clicked = 0;
 					$(this).css('background-color','#5fb611');
 					var id = $(this).attr("name");
-					$.post('http://'+document.location.host+'/post/like/'+id,function(res) {
+					$.post('http://'+document.location.host+'/post/unlike/'+id,{memberId:mid},function(res) {
 						
 					});
 				}
@@ -642,7 +643,7 @@
 					heart_clicked = 1;
 					$(this).css('background-color','red');
 					var id = $(this).attr("name");
-					$.post('http://'+document.location.host+'/post/like/'+id,function(res) {
+					$.post('http://'+document.location.host+'/post/like/'+id,{memberId:mid},function(res) {
 						
 					});
 				}
