@@ -3,6 +3,7 @@ module.exports = function(app,Model)
 	const Post=Model.Post;
 	const PostController=require('../controller/postController')(Model);
 	const EvaluationController=require('../controller/evaluationController')(Model);
+	const LikeController=require('../controller/likeController')(Model);
 	
 	// 게시글에 관한 라우터
 	app.get('/post/:id',function(req,res){
@@ -44,14 +45,20 @@ module.exports = function(app,Model)
 		});
 	});
 	app.post('/post/like/:id',function(req,res){
-		// 해당 글에 대해 새로 댓글을 올립니다.
+		// 해당 글에 대해 좋아요 설정을 토글합니다.
 		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
-		console.log("123");
+		console.log(123123);
+		console.log(req.body.userId);
 		console.log(req.params.id);
 		// TODO 미완료
-		PostController.like(req.params.id,function(x){
-			// x.result에는 새로운 댓글의 id값이 들어 있습니다.
-			res.send(x);
+		LikeController.find(req.body.userId,req.params.id,true,function(x){
+			if(x.result==1) // already liked
+				LikeController.unlike(req.body.userId,req.params.id,true,function(){
+					PostController.unlike(req.params.id,function(x){res.send({result:-1});});
+				});
+			else LikeController.like(req.body.userId,req.params.id,true,function(){
+				PostController.like(req.params.id,function(x){res.send({result:1});});
+			});
 		});
 	});
 	app.post('/post/reply/:id',function(req,res){
