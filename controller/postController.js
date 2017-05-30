@@ -28,8 +28,13 @@ var PostController=function(Model){
 		    });
 		},
 		//[Must] readAll: 프로젝트 ID에 대한 모든 게시글을 불러옵니다.
-		readAll:function(projectId,callback){
-			Model.Post.find({projectId:Model.id(projectId)},function(err,data){
+		readAll:function(projectId,mid,callback){
+			Model.Post.find({projectId:Model.id(projectId)})
+			.populate({
+			    path: 'like',
+			    match: { _id: mid }
+			})
+			.exec(function(err,data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});
@@ -49,9 +54,9 @@ var PostController=function(Model){
 		        callback({});
 		    });
 		},
-		//[Should] like: 게시글의 좋아요를 증가시킵니다.
-		like:function(id,callback){
-			Model.Post.findByIdAndUpdate(id, {$inc:{like:1}}, {upsert:false}, function(err, data){
+		//[Should] postLike: 게시글의 좋아요 목록에 자신을 추가합니다.
+		postLike:function(id,mid,callback){
+			Model.Post.findByIdAndUpdate(id, {$addToSet:{like:mid}}, {upsert:false}, function(err, data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});
@@ -60,9 +65,9 @@ var PostController=function(Model){
 		        callback({});
 		    });
 		},
-		//[Should] unlike: 게시글의 좋아요를 감소시킵니다.
-		unlike:function(id,callback){
-			Model.Post.findByIdAndUpdate(id, {$inc:{like:-1}}, {upsert:false}, function(err, data){
+		//[Should] postUnlike: 게시글의 좋아요 목록에서 자신을 제거합니다.
+		postUnlike:function(id,mid,callback){
+			Model.Post.findByIdAndUpdate(id, {$pull:{like:mid}}, {upsert:false}, function(err, data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});

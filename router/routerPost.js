@@ -3,7 +3,6 @@ module.exports = function(app,Model)
 	const Post=Model.Post;
 	const PostController=require('../controller/postController')(Model);
 	const EvaluationController=require('../controller/evaluationController')(Model);
-	const LikeController=require('../controller/likeController')(Model);
 	
 	// 게시글에 관한 라우터
 	app.get('/post/:id',function(req,res){
@@ -35,7 +34,7 @@ module.exports = function(app,Model)
 	app.get('/timeline/:projectId',function(req,res){
 		console.log(req.params.projectId);
 		// 해당 프로젝트에서 작성된, 타임라인에 표시할 모든 게시글을 가져옵니다.
-		PostController.readAll(req.params.projectId,function(x){
+		PostController.readAll(req.params.projectId,req.query.memberId,function(x){
 			// x.result에는 여러 게시글이 있습니다. 이는 응답으로 넘어가기 전에 Mongoose 객체에서 일반 객체로 바뀌어야 합니다.
 			console.log(x);
 			if(x.result)
@@ -45,20 +44,12 @@ module.exports = function(app,Model)
 		});
 	});
 	app.post('/post/like/:id',function(req,res){
-		// 해당 글에 대해 좋아요 설정을 토글합니다.
-		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
-		// TODO 미완료
-		LikeController.find(req.body.memberId,req.params.id,true,function(x){
-			if(x.result==1){ // already liked
-				LikeController.unlike(req.body.memberId,req.params.id,true,function(){
-					PostController.unlike(req.params.id,function(x){res.send({result:-1});});
-				});
-			} else{
-				LikeController.like(req.body.memberId,req.params.id,true,function(){
-					PostController.like(req.params.id,function(x){res.send({result:1});});
-				});
-			}
-		});
+		// 해당 글에 대해 좋아요 설정을 해제합니다.
+		PostController.postLike(req.params.id,req.body.memberId,function(x){});
+	});
+	app.post('/post/unlike/:id',function(req,res){
+		// 해당 글에 대해 좋아요 설정을 해제합니다.
+		PostController.postUnlike(req.params.id,req.body.memberId,function(x){});
 	});
 	app.post('/post/reply/:id',function(req,res){
 		// 해당 글에 대해 새로 댓글을 올립니다.

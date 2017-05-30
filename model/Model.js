@@ -9,7 +9,6 @@ Model.Post=require('./Post');
 Model.Evaluation=require('./Evaluation');
 Model.Image=require('./Image');
 Model.File=require('./File');
-Model.Like=require('./Like');
 
 Model.id=require('mongoose').Types.ObjectId;
 module.exports=Model;
