@@ -47,18 +47,17 @@ module.exports = function(app,Model)
 	app.post('/post/like/:id',function(req,res){
 		// 해당 글에 대해 좋아요 설정을 토글합니다.
 		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
-		console.log(123123);
-		console.log(req.body.userId);
-		console.log(req.params.id);
 		// TODO 미완료
-		LikeController.find(req.body.userId,req.params.id,true,function(x){
-			if(x.result==1) // already liked
-				LikeController.unlike(req.body.userId,req.params.id,true,function(){
+		LikeController.find(req.body.memberId,req.params.id,true,function(x){
+			if(x.result==1){ // already liked
+				LikeController.unlike(req.body.memberId,req.params.id,true,function(){
 					PostController.unlike(req.params.id,function(x){res.send({result:-1});});
 				});
-			else LikeController.like(req.body.userId,req.params.id,true,function(){
-				PostController.like(req.params.id,function(x){res.send({result:1});});
-			});
+			} else{
+				LikeController.like(req.body.memberId,req.params.id,true,function(){
+					PostController.like(req.params.id,function(x){res.send({result:1});});
+				});
+			}
 		});
 	});
 	app.post('/post/reply/:id',function(req,res){

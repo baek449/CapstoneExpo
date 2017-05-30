@@ -37,7 +37,6 @@ var LikeController=function(Model){
 		unlike:function(memberId,pId,isPost,callback){
 			var query=queryMaker(memberId,pId,isPost);
 			Model.Like.findOneAndRemove(query,function(err, data){
-			    console.log(err, numberAffected, raw)
 			    callback();
 			});
 		}
