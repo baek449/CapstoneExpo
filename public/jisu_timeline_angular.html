@@ -191,7 +191,7 @@
 						<dl class="dl-horizontal" ng-repeat="m in members">
 							<dt><a href="#"><img src="/image/download/{{m.image}}" alt="" /></a></dt>
 							<dd>
-								<p><a href="#"><strong>{{m.name}}</strong><br>{{m.major}}</a></p>
+								<p><a href="my_page.html?{{m._id}}"><strong>{{m.name}}</strong><br>{{m.major}}</a></p>
 							</dd>
 						</dl>
 					</div>
@@ -275,7 +275,7 @@
 				
 					<ul class="timeline-v2">
 						<li class="equal-height-columns" ng-repeat="p in posts" print1>
-							<div class="cbp_tmtime equal-height-column"><span>{{p.date}}</span> <span>May</span></div>
+							<div class="cbp_tmtime equal-height-column"><span>{{p.writeTime|date:'yyyy.MM.dd'}}</span> <span>May</span></div>
 							<i class="cbp_tmicon rounded-x hidden-xs"></i>
 							<div class="cbp_tmlabel equal-height-column">
 												
@@ -468,7 +468,7 @@
 
 				<div class="modal-footer">
 					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
-					<button type="submit" class="btn-u btn-u-primary">등록</button>
+					<button type="submit" class="btn-u btn-u-primary" id='new_timeline_submit'>등록</button>
 				</div>
 			</div>
 		</div>
@@ -512,6 +512,7 @@
 			
 			var heart_clicked = 0;
 			
+			//새로운 타임라인 포스트 등록 버튼
 			$('.jisu_timeline_new_link').mouseenter(function(){
 				$(this).css('color','#72c02c');
 				$(this).css('font-size','17px');
@@ -521,7 +522,21 @@
 				$(this).css('color','#999');
 				$(this).css('font-size','15px');
 			});
+				
+				/*//새로운 타임라인 포스트 등록
+				var new_timeline_subject = $('#inputTitle').val();
+				var new_timeline_date = $('#start').val();
+				var new_timeline_content = $('#inputDesc').val();
+				var new_timeline_picture = $('#file').val();
+				$('#new_timeline_submit').click(function(){
+					$.post('http://'+document.location.host+'/post/new',function(res) {
+						
+					});
+				});
+				//새로운 타임라인 포스트 등록 완료*/
+			//새로운 타임라인 포스트 등록 버튼 완료
 			
+			//포스트 편집 버튼
 			$('.jisu_edit_link').mouseenter(function(){
 				$(this).css('color','#72c02c');
 				$(this).css('font-size','11px');
@@ -542,7 +557,9 @@
 				$(this).css('color','#555');
 				$(this).css('background-color','#f3f3f3');
 			});
+			//포스트 편집 버튼 완료
 			
+			//댓글, 평가 아이콘
 			$('.jisu_timeline_icon').mouseenter(function(){
 				$(this).css('color','#ffffff');
 				$(this).css('background-color','#4a9706');
@@ -553,7 +570,9 @@
 				$(this).css('color','#ffffff');
 				$(this).css('background-color','#5fb611');
 			});
+			//댓글, 평가 아이콘 완료
 			
+			//좋아요 버튼
 			$('.jisu_heart_icon').mouseenter(function(){
 				if(heart_clicked==0){
 					$(this).css('color','#ffffff');
@@ -582,7 +601,7 @@
 				if(heart_clicked == 1){
 					heart_clicked = 0;
 					$(this).css('background-color','#5fb611');
-					var id = this.attr("name");
+					var id = $(this).attr("name");
 					$.post('http://'+document.location.host+'/post/like/'+id,function(res) {
 						
 					});
@@ -590,14 +609,15 @@
 				else{
 					heart_clicked = 1;
 					$(this).css('background-color','red');
-					var id = this.attr("name");
+					var id = $(this).attr("name");
 					$.post('http://'+document.location.host+'/post/like/'+id,function(res) {
 						
 					});
 				}
 			});
-
+			//좋아요 버튼 완료
 			
+			//평가 버튼
 			$('.jisu-evaluation-button').css('background-color','#A4A4A4');
 			$('.jisu-evaluation-button').width('50px');
 			$('.jisu-evaluation-button').children('p').css('margin-top','0px');
@@ -626,6 +646,7 @@
 				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
 				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Very Bad<i class="fa fa-angle-down"></i></p>');
 			});
+			//평가 버튼 완료
 		}//);
 	</script>
 	<!--[if lt IE 9]>

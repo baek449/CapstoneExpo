@@ -45,9 +45,10 @@
 	<!-- AngularJS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
-	angular.module('searchApp', []).controller('ProjectDisplayController', function($scope,$http) {
-		var mid="592a7af2f8bc6d93b34216ef";
-		$http.get('http://'+document.location.host+'/member/get/'+mid).then(function(res){
+	angular.module('mypageApp', []).controller('MypageDisplayController', function($scope,$http) {
+		var mid = document.location.href.split("?");
+		var id = mid[1];
+		$http.get('http://'+document.location.host+'/member/get/'+id).then(function(res){
 			$scope.member=res.data.result;
 		});
 	});
@@ -56,7 +57,7 @@
 </head>
 
 <body>
-	<div class="wrapper">
+	<div class="wrapper" ng-app="mypageApp" ng-element-ready>
 		<!--=== Container Part ===-->
 
 		<!--=== Breadcrumbs ===-->
@@ -72,7 +73,7 @@
 		<!--=== End Breadcrumbs ===-->
 
 		<!-- About Me Block -->
-		<div class="container content-sm">
+		<div class="container content-sm" ng-controller="MypageDisplayController">
 			<div class="row about-me">
 				<div class="col-sm-4 shadow-wrapper md-margin-bottom-40">
 					<div class="box-shadow shadow-effect-2">
