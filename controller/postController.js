@@ -59,7 +59,7 @@ var PostController=function(Model){
 		        }
 		        callback({});
 		    });
-		}
+		},
 		//[Should] unlike: 게시글의 좋아요를 감소시킵니다.
 		unlike:function(id,callback){
 			Model.Post.findByIdAndUpdate(id, {$inc:{like:-1}}, {upsert:false}, function(err, data){

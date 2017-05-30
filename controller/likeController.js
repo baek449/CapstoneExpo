@@ -20,7 +20,7 @@ var LikeController=function(Model){
 		            return;
 		        }
 		        else if(!data){
-		        	callback({{result:0}});
+		        	callback({result:0});
 		        	return;
 		        }
 		        callback({result:1});
@@ -32,7 +32,7 @@ var LikeController=function(Model){
 			Model.Like.findOneAndUpdate(query,query,{upsert: true}, function(err, data){
 			    callback();
 			});
-		}
+		},
 		//[Must] get: 작성자와 게시글 ID에 대한 평가의 목록을 불러옵니다.
 		unlike:function(memberId,pId,isPost,callback){
 			var query=queryMaker(memberId,pId,isPost);
@@ -44,4 +44,4 @@ var LikeController=function(Model){
 	};
 };
 
-module.exports=EvaluationController;
+module.exports=LikeController;

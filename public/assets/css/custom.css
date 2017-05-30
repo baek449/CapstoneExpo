@@ -243,6 +243,10 @@
 	background-color:#f25252 !important;
 }
 
+.timeline_final_report_color{
+	color: red !important;
+}
+
 /**************timeline**************/
 
 .assess-form > input {
