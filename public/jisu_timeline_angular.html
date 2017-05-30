@@ -277,11 +277,11 @@
 						<li class="equal-height-columns" ng-repeat="p in posts" print1>
 							<div class="cbp_tmtime equal-height-column"><span>{{p.writeTime|date:'yyyy.MM.dd'}}</span> <span>May</span></div>
 							<i class="cbp_tmicon rounded-x hidden-xs"></i>
-							<div class="cbp_tmlabel equal-height-column">
+							<div class="{{p.type}} cbp_tmlabel equal-height-column">
 												
 								<!-- Edit button -->
 								<h2>
-									<a href="jisu_timeline_item.html?{{p._id}}">{{p._id}} {{p.title}}</a>
+									<a href="jisu_timeline_item.html?{{p._id}}">{{p.title}}</a>
 									<a href="jisu_timeline_item_edit.html?{{p._id}}" style="text-decoration:none" class="jisu_edit_link">edit</a>
 								</h2>	
 								<!-- End edit button -->
@@ -293,7 +293,7 @@
 										<div class="md-margin-bottom-20"></div>
 									</div>
 									<div class="col-md-8">
-										<p>{{p.contents}}</p>
+										<p class="get_timeline_content" name="{{p.file}}">{{p.contents}}</p>
 										
 										<!-- Heart button -->
                      					<i class="rounded-x icon-heart jisu_heart_icon" name="{{p._id}}"></i>
@@ -616,6 +616,19 @@
 				}
 			});
 			//좋아요 버튼 완료
+			
+			//final report 포스트 
+			$('.finalReport').prev('.cbp_tmicon').addClass('timeline_final_report_icon');
+			$('.finalReport').addClass('timeline_final_report_format');
+			$('.finalReport').children('.row').children('.col-md-4').remove();
+			$('.finalReport').children('.row').children('.col-md-8').addClass('col-md-12');
+			$('.finalReport').children('.row').children('.col-md-8').removeClass('col-md-8');
+			$('.finalReport').children('.row').children('.col-md-12').children('.jisu_heart_icon').before('<button style="float:left ; margin-top:5px" class="btn-u btn-brd btn-u-orange btn-u-xs report_download" type="button"><i class="fa fa-download"></i></button>');
+			$('.report_download').click(function(){
+				var fid = $(this).prev(".get_timeline_content").attr("name");
+				window.open('http://'+document.location.host+'/file/download/'+fid,'_blank');
+			});
+			//final report 포스트 완료
 			
 			//평가 버튼
 			$('.jisu-evaluation-button').css('background-color','#A4A4A4');

@@ -234,6 +234,15 @@
 	text-decoration:none;
 }
 
+.timeline_final_report_format{
+	background-color:#f3d8d8 !important;
+	width:300px;
+}
+
+.timeline_final_report_icon{
+	background-color:#f25252 !important;
+}
+
 /**************timeline**************/
 
 .assess-form > input {

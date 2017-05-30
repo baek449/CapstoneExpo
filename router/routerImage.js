@@ -24,11 +24,11 @@ module.exports = function(app,Model)
 	});
 	app.get('/file/download/:id',function(req,res){
 		// 해당 id의 파일을 가져옵니다.
-		Filecontroller.getFileName(req.params.id,function(x){
-			res.set({
-			    "Content-Disposition": 'attachment; filename="'+x.result+'"'
-			});
-			res.sendFile(require('path').resolve(fileAddress + req.params.id));			
+		FileController.getFileName(req.params.id,function(x){
+			res.setHeader("Content-Disposition", 'attachment; filename="'+x.result+'"');
+			//res.setHeader("Content-Type", 'application/octet-stream');
+			//console.log('attachment; filename="'+x.result+'"');
+			res.sendfile(require('path').resolve(fileAddress + req.params.id));			
 		});
 	});
 	app.post('/file/upload',multerFile.single('uploadFile'), function(req,res){
