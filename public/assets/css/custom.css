@@ -45,7 +45,7 @@
 .project-box small.project-tag {
 	display: block;
 	font-size: 12px;
-	line-height: 14px;
+	line-height: 18px;
 }
 
 .project-box small.project-tag,
@@ -62,8 +62,8 @@
 }
 
 .project-box p.project-intro {
-	margin-top: 5px;
-	margin-bottom: 30px;
+	margin-top: 4px;
+	margin-bottom: 20px;
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
