@@ -43,6 +43,16 @@ module.exports = function(app,Model)
 			res.send(x);
 		});
 	});
+	app.post('/post/like/:id',function(req,res){
+		// 해당 글에 대해 새로 댓글을 올립니다.
+		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
+		
+		// TODO 미완료
+		PostController.like(req.params.id,function(x){
+			// x.result에는 새로운 댓글의 id값이 들어 있습니다.
+			res.send(x);
+		});
+	});
 	app.post('/post/reply/:id',function(req,res){
 		// 해당 글에 대해 새로 댓글을 올립니다.
 		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.

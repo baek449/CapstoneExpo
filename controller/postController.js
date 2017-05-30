@@ -36,7 +36,18 @@ var PostController=function(Model){
 		},
 		//[Should] update: 게시글의 정보를 변경합니다.
 		update:function(id,newPost,callback){
-			Model.Post.findOneAndUpdate({_id:id}, newPost, {upsert:false}, function(err, data){
+			Model.Post.findByIdAndUpdate(id, {$set:newPost}, {upsert:false}, function(err, data){
+		        if(err){
+		            console.error(err);
+		            callback({error: 1});
+		            return;
+		        }
+		        callback({});
+		    });
+		},
+		//[Should] like: 게시글의 좋아요를 증가시킵니다.
+		like:function(id,callback){
+			Model.Post.findByIdAndUpdate(id, {$inc:{like:1}}, {upsert:false}, function(err, data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});

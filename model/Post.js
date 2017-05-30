@@ -12,7 +12,8 @@ var postSchema = new Schema({
 	  editTime: 	{ type: Date, default: Date.now },
 	  type:			String,
 	  attend_member:[{ type: Schema.Types.ObjectId, ref: 'Member' }],
-	  parent:		{ type: Schema.Types.ObjectId, ref: 'Post' }
+	  parent:		{ type: Schema.Types.ObjectId, ref: 'Post' },
+	  like:			{ type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('Post', postSchema);
