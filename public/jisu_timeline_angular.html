@@ -48,15 +48,17 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
 	var module=angular.module('timelineApp', []);
+	var id=document.location.href;
+	id=id.split("?")[1];
+	if(!id) alert("Error"); // TODO Error Processing
+	id=id.split("&")[0].split("=");
+	if(id[0]!="id") alert("Error"); // TODO Error Processing
+	id=id[1];
+	//alert(id);
+
+	
 	module.controller('TimelineDisplayController', function($scope,$http) {
 		//var id = "592a7c6ff8bc6d93b34216f1";
-		var id=document.location.href;
-		id=id.split("?")[1];
-		if(!id) alert("Error"); // TODO Error Processing
-		id=id.split("&")[0].split("=");
-		if(id[0]!="id") alert("Error"); // TODO Error Processing
-		id=id[1];
-		alert(id);
 		// Bring the members into scope variable members
 		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
 			$scope.members = res1.data.result;
@@ -426,8 +428,8 @@
 					<h4 class="modal-title" id="myModalLabel4">타임라인 등록</h4>
 				</div>
 
+					<form id="new_post_submit" class="form-horizontal sky-form no-border" role="form" method="post" enctype="multipart/form-data">
 				<div class="panel-body sky-form">
-					<form class="form-horizontal sky-form no-border" role="form">
 		
 
 						<div class="form-group">
@@ -459,17 +461,18 @@
 							<label for="inputImage" class="col-lg-2 control-label">사진:</label>
 							<div class="col-lg-10">
 								<label for="file" class="input input-file">
-									<div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+									<div class="button"><input type="file" id="file" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
 								</label>
 							</div>
 						</div>
-					</form>
+
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
-					<button type="submit" class="btn-u btn-u-primary" id='new_timeline_submit'>등록</button>
+					<input type="submit" class="btn-u btn-u-primary" id='new_timeline_submit'>등록</button>
 				</div>
+			</form>
 			</div>
 		</div>
 	</div>
@@ -503,7 +506,26 @@
 	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
 	<script type="text/javascript">
 		//window.onload=(function(){
-				function ready() {
+			function upload(callback){
+				return function(event){
+					alert($(this)[0]);
+				event.preventDefault();
+				$.ajax({
+					contentType: false,
+					processData: false,
+			        data: new FormData($(this)[0]),
+			        type: $(this).attr('method'),
+			        url: '/image/upload',
+			        success: function(response) {
+			        	if(response.error) alert(response.error);
+			        	else{
+			        		callback(response);
+			        	}
+			        }
+	   			});
+			}};
+			
+			function ready() {
 					//alert(1);
 			App.init();
 			StyleSwitcher.initStyleSwitcher();
@@ -523,17 +545,27 @@
 				$(this).css('font-size','15px');
 			});
 				
-				/*//새로운 타임라인 포스트 등록
+				//새로운 타임라인 포스트 등록
 				var new_timeline_subject = $('#inputTitle').val();
 				var new_timeline_date = $('#start').val();
 				var new_timeline_content = $('#inputDesc').val();
 				var new_timeline_picture = $('#file').val();
-				$('#new_timeline_submit').click(function(){
-					$.post('http://'+document.location.host+'/post/new',function(res) {
-						
-					});
-				});
-				//새로운 타임라인 포스트 등록 완료*/
+				
+				 $("#new_post_submit").submit(upload(function(x){
+					   var report={projectId:id,type:"general"};
+					   report.title=$('#inputTitle').val();
+					   report.writeDate=$('#start').val();
+					   report.contents=$('#inputDesc').val();
+					   report.image=x.result;
+					   // alert(JSON.stringify(x));
+					   //alert(JSON.stringify(report));
+					   $.post('http://'+document.location.host+'/post/new',report,function(res){
+							// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+							alert(JSON.stringify(res.result));
+							alert("업로드 성공"); 
+						});
+				 }));
+				//새로운 타임라인 포스트 등록 완료
 			//새로운 타임라인 포스트 등록 버튼 완료
 			
 			//포스트 편집 버튼
@@ -619,7 +651,7 @@
 			
 			//final report 포스트 
 			$('.finalReport').prev('.cbp_tmicon').addClass('timeline_final_report_icon');
-			$('.finalReport').prev('h2').children('.jisu_edit_link').addClass('timeline_final_report_color');
+			$('.finalReport').children('h2').children('.jisu_edit_link').addClass('timeline_final_report_color');
 			$('.finalReport').addClass('timeline_final_report_format');
 			$('.finalReport').children('.row').children('.col-md-4').remove();
 			$('.finalReport').children('.row').children('.col-md-8').addClass('col-md-12');
@@ -630,6 +662,20 @@
 				window.open('http://'+document.location.host+'/file/download/'+fid,'_blank');
 			});
 			//final report 포스트 완료
+			
+			//midterm report 포스트 
+			$('.midtermReport').prev('.cbp_tmicon').addClass('timeline_midterm_report_icon');
+			$('.midtermReport').children('h2').children('.jisu_edit_link').addClass('timeline_midterm_report_color');
+			$('.midtermReport').addClass('timeline_midterm_report_format');
+			$('.midtermReport').children('.row').children('.col-md-4').remove();
+			$('.midtermReport').children('.row').children('.col-md-8').addClass('col-md-12');
+			$('.midtermReport').children('.row').children('.col-md-8').removeClass('col-md-8');
+			$('.midtermReport').children('.row').children('.col-md-12').children('.jisu_heart_icon').before('<button style="float:left ; margin-top:5px" class="btn-u btn-brd btn-u-orange btn-u-xs report_download" type="button"><i class="fa fa-download"></i></button>');
+			$('.report_download').click(function(){
+				var fid = $(this).prev(".get_timeline_content").attr("name");
+				window.open('http://'+document.location.host+'/file/download/'+fid,'_blank');
+			});
+			//midterm report 포스트 완료
 			
 			//평가 버튼
 			$('.jisu-evaluation-button').css('background-color','#A4A4A4');

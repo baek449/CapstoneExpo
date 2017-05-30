@@ -244,7 +244,20 @@
 }
 
 .timeline_final_report_color{
-	color: red !important;
+	color: #ea4242 !important;
+}
+
+.timeline_midterm_report_format{
+	background-color:#C9C9F1 !important;
+	width:300px;
+}
+
+.timeline_midterm_report_icon{
+	background-color:#4040E7 !important;
+}
+
+.timeline_midterm_report_color{
+	color: #7777ee !important;
 }
 
 /**************timeline**************/

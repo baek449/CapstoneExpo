@@ -105,13 +105,13 @@
 							<div class="row">
 								<section class="col col-6">
 									<label class="input">
-										<input type="text" name="subject" placeholder="{{post.title}}">
+										<input type="text" id="subject" name="subject" placeholder="{{post.title}}">
 									</label>
 								</section>
 								<section class="col col-6">
 									<label class="input">
 										<i class="icon-append fa fa-user"></i>
-										<input type="text" name="name" placeholder="{{post.writer}}">
+										<input type="text" id="writer" name="name" placeholder="{{post.writer}}">
 									</label>
 								</section>
 							</div>
@@ -351,6 +351,25 @@
 	<script type="text/javascript" src="assets/js/forms/contact.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
 	<script type="text/javascript">
+		function upload(callback){
+			return function(event){
+				alert($(this)[0]);
+			event.preventDefault();
+			$.ajax({
+				contentType: false,
+				processData: false,
+		        data: new FormData($(this)[0]),
+		        type: $(this).attr('method'),
+		        url: '/image/upload',
+		        success: function(response) {
+		        	if(response.error) alert(response.error);
+		        	else{
+		        		callback(response);
+		        	}
+		        }
+				});
+		}};
+	
 		jQuery(document).ready(function() {
 			
 			
@@ -379,6 +398,28 @@
 			StyleSwitcher.initStyleSwitcher();
 			
 			$("#jisu_text_area").val("test");
+			
+			var new_timeline_subject = $('#subject').val();
+			var new_timeline_writer = $('#writer').val();
+			var new_timeline_date = $('#start').val();
+			var new_timeline_content = $('#text').val();
+			var new_timeline_picture = $('#picture').val();
+			
+			 $("#sky-form1").submit(upload(function(x){
+				   var report={projectId:id1,type:"general"};
+				   report.title=$('#subject').val();
+				   report.writeDate=$('#start').val();
+				   report.contents=$('#text').val();
+				   report.writer=$('#writer').val();
+				   report.image=x.result;
+				   // alert(JSON.stringify(x));
+				   //alert(JSON.stringify(report));
+				   $.post('http://'+document.location.host+'/post/update/'+id1,report,function(res){
+						// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+						alert(JSON.stringify(res.result));
+						alert("업로드 성공"); 
+					});
+			 }));
 			
 		});
 	</script>
