@@ -11,17 +11,6 @@ var ImageController=function(Model){return{
 	        callback({result: imageId});
 	    });
 	},
-	//[Must] getImage: ID를 이용하여 이미지를 가져옵니다. 결과를 인자로 받는 콜백 함수를 부릅니다.
-	getImage:function(callback){
-		project.save(function(err){
-	        if(err){
-	            console.error(err);
-	            callback({error: 1});
-	            return;
-	        }
-	        callback({result: 0});
-	    });
-	},
 	//[Could] deleteImage: 이미지를 삭제합니다. 결과를 인자로 받는 콜백 함수를 부릅니다.
 	deleteImage:function(project,callback){
 		// TODO 이미지를 삭제하고, DB에서도 삭제합니다.

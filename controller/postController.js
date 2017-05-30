@@ -3,7 +3,11 @@ var PostController=function(Model){
 	return {
 		//[Must] create: 새로운 게시글을 추가합니다.
 		create:function(data,callback){
-			(new Model.Post(data)).save(function(err,data){
+			data.projectId=Model.id(data.projectId);
+			console.log(data);
+			var v=new Model.Post(data);
+			console.log(v);
+			v.save(function(err,data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});

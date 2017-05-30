@@ -3,10 +3,11 @@ var Schema = mongoose.Schema;
 
 var postSchema = new Schema({
   
-	  project:		{ type: Schema.Types.ObjectId, ref: 'Project' },
+	  projectId:	{ type: Schema.Types.ObjectId, ref: 'Project' },
 	  title:		String,
 	  contents:		String,
 	  image:		{ type: String, ref: 'Image' },
+	  file:		{ type: String, ref: 'File' },
 	  writer:		{ type: Schema.Types.ObjectId, ref: 'Member' },
 	  writeTime:	{ type: Date, default: Date.now },
 	  editTime: 	{ type: Date, default: Date.now },
