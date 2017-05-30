@@ -49,7 +49,14 @@
 	<script type="text/javascript">
 	var module=angular.module('timelineApp', []);
 	module.controller('TimelineDisplayController', function($scope,$http) {
-		var id = "592a7c6ff8bc6d93b34216f1";
+		//var id = "592a7c6ff8bc6d93b34216f1";
+		var id=document.location.href;
+		id=id.split("?")[1];
+		if(!id) alert("Error"); // TODO Error Processing
+		id=id.split("&")[0].split("=");
+		if(id[0]!="id") alert("Error"); // TODO Error Processing
+		id=id[1];
+		alert(id);
 		// Bring the members into scope variable members
 		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
 			$scope.members = res1.data.result;

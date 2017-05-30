@@ -53,7 +53,7 @@ var ProjectController=function(Model){
 		},
 		//[Could] update: 프로젝트의 정보를 변경합니다.
 		update:function(id,newProject,callback){
-			Model.Project.findOneAndUpdate({_id:id}, newProject, {upsert:false}, function(err, data){
+			Model.Project.findByIdAndUpdate(id, {$set:newPost}, {upsert:false}, function(err, data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});
