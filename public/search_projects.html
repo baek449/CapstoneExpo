@@ -375,6 +375,29 @@
 				return result;
 			};
 		});
+<<<<<<< HEAD
+		
+		});
+		function upload(callback){
+			return function(event){
+			event.preventDefault();
+			$.ajax({
+				contentType: false,
+				processData: false,
+		        data: new FormData($(this)[0]),
+		        type: $(this).attr('method'),
+		        url: '/image/upload',
+		        success: function(response) {
+		        	if(response.error) alert(response.error);
+		        	else{
+		        		callback(response);
+		        	}
+		        }
+		    });
+		}};
+		
+		$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
+=======
 	});
 	module.directive('ngElementReady', ['$timeout', function($timeout) {
         return {
@@ -384,6 +407,7 @@
             }
         };
     }]);
+>>>>>>> branch 'master' of https://github.com/baek449/CapstoneExpo.git
 
 	function upload(callback){
 		return function(event){

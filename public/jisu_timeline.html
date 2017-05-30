@@ -928,7 +928,6 @@
 	    $(this).addClass('selected').siblings().removeClass('selected');
 	});
 	
-	
 		jQuery(document).ready(function() {
 			App.init();
 			StyleSwitcher.initStyleSwitcher();
@@ -958,7 +957,7 @@
 					alert(JSON.stringify(res));
 					for(i in res.result){
 						
-						var id = res.result[i]._id;
+						var id2 = res.result[i]._id;
 						
 						var date = new Date(res.result[i].writeTime);
 						var year = date.getFullYear();
@@ -976,7 +975,7 @@
 						html += '<i class="cbp_tmicon rounded-x hidden-xs"></i>';
 						html += '<div class="cbp_tmlabel equal-height-column">';
 						html += '<h2><a href="blog_large_full_width_item1.html">'+subject+'</a>';
-						html += '<a href="jisu_timeline_item_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a></h2>';
+						html += '<a href="jisu_timeline_item_edit.html?'+id2+'" style="text-decoration:none" class="jisu_edit_link">edit</a></h2>';
 						html += '<div class="row">';
 						html += '<div class="col-md-4">';
 						html += '<img class="img-responsive" src="'+image+'" alt="">';
