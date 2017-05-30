@@ -45,13 +45,10 @@
 	
 	
 	angular.module('timelineEditApp', []).controller('TimelineEditDisplayController', function($scope,$http) {
-		var id = "592aeab5ea92db1d4670aed0";
-		alert(1);
-		console.log(id);
+		var id = document.location.href.split("?");
+		alert(id);
 		// Bring the members into scope variable members
-		$http.get('http://'+document.location.host+'/post/'+id).then(function(res) {
-			alert(1);
-			console.log(id);
+		$http.get('http://'+document.location.host+'/post/'+id[1]).then(function(res) {
 			$scope.post = res.data.result;
 			// Bring the timeline into scope variable posts
 		});

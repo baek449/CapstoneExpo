@@ -38,10 +38,26 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
+		
+	<!-- Angular JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script type="text/javascript">
+	
+	
+	angular.module('timelineItemApp', []).controller('TimelineItemDisplayController', function($scope,$http) {
+		var id = document.location.href.split("?");
+		alert(id);
+		// Bring the members into scope variable members
+		$http.get('http://'+document.location.host+'/post/'+id[1]).then(function(res) {
+			$scope.post = res.data.result;
+			// Bring the timeline into scope variable posts
+		});
+	});
+	</script>
 </head>
 
 <body>
-	<div class="wrapper">
+	<div class="wrapper" ng-app="timelineItemApp" ng-element-ready>
 		<!--=== Header ===-->
 		<div class="header">
 			<div class="container">
@@ -63,29 +79,30 @@
 		<!--=== End Header ===-->
 
 		<!--=== Breadcrumbs v1 ===-->
-		<div class="breadcrumbs-v1 text-center">
+		<div class="breadcrumbs-v1 text-center" ng-controller="TimelineItemDisplayController">
 			<div class="container">
 				<span>Capstone Expo Item Page</span>
-				<h1>조모임 하다 축제 즐기러!!</h1>
+				<h1>{{post.title}}</h1>
 			</div>
 		</div>
 		<!--=== End Breadcrumbs v1 ===-->
 
 		<!--=== Blog Posts ===-->
-		<div class="bg-color-light">
+		<div class="bg-color-light" ng-controller="TimelineItemDisplayController">
 			<div class="container content-sm">
 				<!-- News v3 -->
 				<div class="news-v3 bg-color-white margin-bottom-30">
 					<div style="height:500px;" class="overflow-hidden">
-						<img style="position:relative; top:-50%" class="img-responsive full-width" src="assets/img/Capstone-image/KakaoTalk_20170523.jpg" alt="">
+						<img style="position:relative; top:-50%" class="img-responsive full-width" src="/image/download/{{post.image}}" alt="">
 					</div>
 					<div class="news-v3-in">
 						<ul class="list-inline posted-info">
-							<li>By <a href="#">Jisu Kang</a></li>
-							<li>In <a href="#">Web Design</a></li>
-							<li>Posted May 23, 2017</li>
+							<li>By <a href="#">{{post.writer}}</a></li>
+							<li>In <a href="#">{{post.type}}}</a></li>
+							<li>Posted {{post.writeTime|date:'yyyy.MM.dd'}} May 23, 2017</li>
 						</ul>
-						<h2><a href="#">Incredible standard post “IMAGE”</a></h2>
+						<h2><a href="#">{{post.title}}</a></h2>
+						<p>{{post.contents}}</p>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec arcu ipsum. Curabitur tincidunt nisi ex, ut eleifend turpis egestas vitae. Proin convallis et eros eget rutrum. Duis luctus lorem id mattis placerat. Etiam pharetra libero ut suscipit mollis. Morbi augue mi, maximus at lectus id, mollis ornare dui. Curabitur consequat, est non cursus suscipit, quam nulla porta enim, sed pharetra diam elit non nisi. Praesent pulvinar ante eu euismod cursus. Fusce quis est justo. Nullam id egestas diam. Etiam ac augue orci. Aliquam scelerisque convallis est sed pretium. In vel elementum lorem.</p>
 						<p>Pellentesque eleifend metus vitae commodo finibus. Proin eget mi a sem placerat facilisis. Aenean interdum aliquet sapien, non scelerisque massa vestibulum ut. Quisque mollis, ante nec volutpat dignissim, lectus libero porta magna, at volutpat massa orci a turpis. Duis tincidunt nunc magna, non semper metus tempus ut. Duis vulputate enim condimentum posuere lacinia. Ut venenatis massa ex.</p>
 						<blockquote class="hero">
