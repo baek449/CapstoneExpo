@@ -146,45 +146,26 @@
 					<!-- <p>Integer odio ligula, tincidunt id volutpat et, imperdiet eget mi. Quisque laoreet porttitor turpis sed <a href="#">fermentum</a>. Nullam sodales blandit nisi, tristique tempor nunc hendrerit at. Sed posuere mollis orci</p> -->
 				</div><!--/end Headline Center-->
 
+
+
+
+
 				<!-- Portfolio Box -->
 				<ul class="list-unstyled row portfolio-box">
-					<li class="col-sm-4 md-margin-bottom-50">
-						<a class="thumbnail fancybox" data-rel="gallery" title="Project One" href="assets/img/main/img9.jpg">
-							<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
+					<li class="col-sm-4 md-margin-bottom-50 {{map(p.field,map_one)}}" ng-repeat="3">
+						<a class="thumbnail fancybox" data-rel="gallery" title="Project One" href="project_details.html?id={{p._id}}">
+							<img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
 							<span class="portfolio-box-in rounded-x">
 								<i class="icon-magnifier-add"></i>
 							</span>
 						</a>
-						<div class="headline-left margin-bottom-10"><h3 class="headline-brd">Project One</h3></div>
-						<small class="project-tag"><i class="fa fa-tag"></i><a href="#">Technology</a>, <a href="#">Business</a></small>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet </p>
-					</li>
-					<li class="col-sm-4 md-margin-bottom-50">
-						<a class="thumbnail fancybox" data-rel="gallery" title="Project Two" href="assets/img/main/img22.jpg">
-							<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
-							<span class="portfolio-box-in rounded-x">
-								<i class="icon-magnifier-add"></i>
-							</span>
-						</a>
-						<div class="headline-left margin-bottom-10"><h3 class="headline-brd">Project Two</h3></div>
-						<small class="project-tag"><i class="fa fa-tag"></i><a href="#">Technology</a>, <a href="#">Business</a></small>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet </p>
-					</li>
-					<li class="col-sm-4">
-						<a class="thumbnail fancybox" data-rel="gallery" title="Project Three" href="assets/img/main/img18.jpg">
-							<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
-							<span class="portfolio-box-in rounded-x">
-								<i class="icon-magnifier-add"></i>
-							</span>
-						</a>
-						<div class="headline-left margin-bottom-10"><h3 class="headline-brd">Project Three</h3></div>
-						<small class="project-tag"><i class="fa fa-tag"></i><a href="#">Technology</a>, <a href="#">Business</a></small>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet </p>
+						<div class="headline-left margin-bottom-10"><h3 class="headline-brd">{{p.name}}</h3></div>
+						<small class="project-tag"><i class="fa fa-tag"></i>{{map(p.field,comma)}}</small>
+						<p>{{p.shortIntro}}</p>
 					</li>
 				</ul>
 				<!-- End Portfolio Box -->
 			</div><!--/end container-->
-
 
 
 
@@ -251,13 +232,93 @@
 	<script type="text/javascript" src="assets/js/plugins/owl-carousel.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
 	<script type="text/javascript">
-		jQuery(document).ready(function() {
+
+	var module=angular.module('searchApp', []);
+	module.controller('ProjectDisplayController', function($scope,$http) {
+
+		$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
+			$scope.projects=res.data.result;
+			$scope.count=res.data.result.length;
+			$scope.map_one=function(fieldName){
+				switch(fieldName) {
+				case "기계/항공":
+					return "mech";
+				case "전기/전자":
+					return "elec";
+				case "소프트웨어":
+					return "soft";
+				case "건축/환경":
+					return "arch";
+				case "화공/에너지":
+					return "ener";
+				case "자연과학":
+					return "scie";
+				case "예술/디자인":
+					return "desi";
+				case "생활/교육":
+					return "educ";
+				case "기타":
+					return "misc";
+				}
+				return "";
+			};
+			$scope.comma=function(a){
+				return a+', ';
+			};
+
+			$scope.map=function(fields,func){
+				var result='';
+				for(i in fields)
+					result+= func(fields[i])+' ';
+				return result;
+			};
+		});
+	});
+	
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
+	
+	
+		jQuery(document).function ready() {
 			App.init();
+
 			App.initParallaxBg();
 			FancyBox.initFancybox();
 			OwlCarousel.initOwlCarousel();
 			StyleSwitcher.initStyleSwitcher();
-		});
+			Datepicker.initDatepicker();
+			Validation.initValidation();
+			$.getScript("assets/js/plugins/cube-portfolio/cube-portfolio-3.js");
+			$("#imageForm").submit(upload(function(response){
+				if(response.error){
+					alert("Fail");
+					return;
+				}
+				var testdata={};
+				testdata.projectSummary={};
+				testdata.projectSummary.name=$("#input-name").val();
+				testdata.projectSummary.shortIntro=$("#input-short-intro").val();
+				testdata.projectSummary.intro=$("#input-intro").val();
+				testdata.projectSummary.status="신규";
+				testdata.projectSummary.startDate=$("#start").val();
+				testdata.projectSummary.endDate=$("#finish").val();
+				testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
+			        return $(el).attr('value');
+			    }).get();
+				testdata.projectSummary.image=response.result;
+				$.post('http://'+document.location.host+'/project/new',testdata,function(res){
+					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+					//alert(JSON.stringify(res.result));
+					location.reload(true);
+				});
+			}));
+		}
 	</script>
 	<!--[if lt IE 9]>
   <script src="assets/plugins/respond.js"></script>

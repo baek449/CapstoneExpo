@@ -262,49 +262,23 @@
 
 /**************timeline**************/
 
-.assess-form > input {
+.assess-group .normal-assess-radio {
 	visibility: hidden;
 	position: absolute;
 }
 
-.assess-group .assess-radio {
-	visibility: hidden;
-	position: absolute;
-}
-
-.assess-group .assess-button-label {
-	padding: 10px;
-	position: relative;
-}
-
-.assess-group .assess-button-label .assess-button {
-	width: 100%;
-	position: relative;
-}
-
-.assess-group .assess-button-label .assess-button .assess-icon {
-	position: relative;
-}
-
-.assess-group .assess-button-label .assess-button .selected {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-}
-label.assess-button input:checked img{
-	border: 2px solid #f00;
-}
-/* 
 .assess-group input{
     margin:0;padding:0;
     -webkit-appearance:none;
        -moz-appearance:none;
             appearance:none;
 }
-.idea{background-image:url(../img/icons/assess/idea.png);}
+
+/* .idea{background-image:url(../img/icons/assess/idea.png);}
 .leader{background-image:url(../img/icons/assess/leader.png);}
 .skill{background-image:url(../img/icons/assess/skill.png);}
-.teamwork{background-image:url(../img/icons/assess/teamwork.png);}
+.teamwork{background-image:url(../img/icons/assess/teamwork.png);} */
+
 
 .assess-group input:active +.assess-button-label{opacity: .9;}
 .assess-group input:checked +.assess-button-label{
@@ -332,4 +306,3 @@ label.assess-button input:checked img{
        -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
             filter: brightness(1.2) grayscale(.5) opacity(.9);
 }
- */
