@@ -37,6 +37,9 @@
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
 	<link rel="stylesheet" href="assets/css/pages/page_search.css">
+	
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
 
 <body class="header-fixed">
@@ -143,7 +146,7 @@
 
 		<!--=== Content ===-->
 		<div class="content-xs">
-			<div class="container">
+			<div class="container" ng-app="searchApp" ng-element-ready>
 				<div class="headline margin-bottom-30">
 					<h2>Popular projects</h2>
 					<button onclick="window.location.href='search_projects.html'" class="btn btn-default pull-right" type="button">전체보기</button>
@@ -155,8 +158,8 @@
 
 
 				<!-- Portfolio Box -->
-				<ul class="list-unstyled row portfolio-box">
-					<li class="col-sm-4 md-margin-bottom-50 {{map(p.field,map_one)}}" ng-repeat="3">
+				<ul class="list-unstyled row portfolio-box" ng-controller="ProjectDisplayController">
+					<li class="col-sm-4 md-margin-bottom-50" ng-repeat="p in projects">
 						<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="project_details.html?id={{p._id}}">
 							<img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
 							<span class="portfolio-box-in rounded-x">
@@ -238,46 +241,44 @@
 	<script type="text/javascript">
 
 	var module=angular.module('searchApp', []);
-	module.controller('ProjectDisplayController', function($scope,$http) {
 
-		$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
-			$scope.projects=res.data.result;
-			$scope.count=res.data.result.length;
-			$scope.map_one=function(fieldName){
-				switch(fieldName) {
-				case "기계/항공":
-					return "mech";
-				case "전기/전자":
-					return "elec";
-				case "소프트웨어":
-					return "soft";
-				case "건축/환경":
-					return "arch";
-				case "화공/에너지":
-					return "ener";
-				case "자연과학":
-					return "scie";
-				case "예술/디자인":
-					return "desi";
-				case "생활/교육":
-					return "educ";
-				case "기타":
-					return "misc";
-				}
-				return "";
-			};
-			$scope.comma=function(a){
-				return a+', ';
-			};
-
-			$scope.map=function(fields,func){
-				var result='';
-				for(i in fields)
-					result+= func(fields[i])+' ';
-				return result;
-			};
+		module.controller('ProjectDisplayController', function($scope,$http) {
+			$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
+				$scope.projects=res.data.result.slice(0,3);
+				$scope.map_one=function(fieldName){
+					switch(fieldName) {
+					case "기계/항공":
+						return "mech";
+					case "전기/전자":
+						return "elec";
+					case "소프트웨어":
+						return "soft";
+					case "건축/환경":
+						return "arch";
+					case "화공/에너지":
+						return "ener";
+					case "자연과학":
+						return "scie";
+					case "예술/디자인":
+						return "desi";
+					case "생활/교육":
+						return "educ";
+					case "기타":
+						return "misc";
+					}
+					return "";
+				};
+				$scope.comma=function(a){
+					return a+', ';
+				};
+				$scope.map=function(fields,func){
+					var result='';
+					for(i in fields)
+						result+= func(fields[i])+' ';
+					return result;
+				};
+			});
 		});
-	});
 	
 	module.directive('ngElementReady', ['$timeout', function($timeout) {
         return {
@@ -289,7 +290,7 @@
     }]);
 	
 	
-		jQuery(document).function ready() {
+		function ready() {
 			App.init();
 
 			App.initParallaxBg();
@@ -299,30 +300,6 @@
 
 			Datepicker.initDatepicker();
 			Validation.initValidation();
-			$.getScript("assets/js/plugins/cube-portfolio/cube-portfolio-3.js");
-			$("#imageForm").submit(upload(function(response){
-				if(response.error){
-					alert("Fail");
-					return;
-				}
-				var testdata={};
-				testdata.projectSummary={};
-				testdata.projectSummary.name=$("#input-name").val();
-				testdata.projectSummary.shortIntro=$("#input-short-intro").val();
-				testdata.projectSummary.intro=$("#input-intro").val();
-				testdata.projectSummary.status="신규";
-				testdata.projectSummary.startDate=$("#start").val();
-				testdata.projectSummary.endDate=$("#finish").val();
-				testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
-			        return $(el).attr('value');
-			    }).get();
-				testdata.projectSummary.image=response.result;
-				$.post('http://'+document.location.host+'/project/new',testdata,function(res){
-					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
-					//alert(JSON.stringify(res.result));
-					location.reload(true);
-				});
-			}));
 		}
 
 		
@@ -343,7 +320,7 @@
 	   });
 		
 	function moveURL(search_keyword){
-		document.location.href="./search_projects.html"+/search_keyword;
+		document.location.href="./search_projects.html"+search_keyword;
 		
 	}
 		
@@ -375,7 +352,7 @@
 
 		
 		
->>>>>>> branch 'master' of https://github.com/baek449/CapstoneExpo.git
+
 	</script>
 	<!--[if lt IE 9]>
   <script src="assets/plugins/respond.js"></script>
