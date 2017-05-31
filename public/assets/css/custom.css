@@ -273,6 +273,13 @@
 	color: #7777ee !important;
 }
 
+.timeline-v2 > li .timeline_final_report_format:after {
+
+	border-right-color: #f3d8d8 !important;
+
+}
+
+
 /**************timeline**************/
 
 .assess-group .normal-assess-radio {
