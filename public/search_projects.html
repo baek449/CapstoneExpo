@@ -440,6 +440,7 @@
 		
 		$(function(){
 			$("#ajaxform").submit(function(){
+				event.preventDefault();
 				var keyword = $("#keyword").val();
 					alert(keyword);
 				$.getJSON('http://'+document.location.host+'/search/'+$("#keyword").val(), function(res){
@@ -449,6 +450,8 @@
 			});
 		});
 	});
+	
+		
 	
 	
 	/*
