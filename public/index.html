@@ -126,9 +126,13 @@
 					<h1>융합 <span class="color-green">캡스톤</span> 프로젝트</h1>
 
 					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search words with regular expressions ...">
+						<input type="text" id="search_keyword" class="form-control" placeholder="Search words with regular expressions ..." >
 						<span class="input-group-btn">
-							<button class="btn-u btn-u-lg" type="button"><i class="fa fa-search"></i></button>
+						
+						<a href=>
+						<button class="btn-u btn-u-lg"  type="submit"><i class="fa fa-search"></i></button>
+							</a>
+							<!--<a href="javascript:;" id="search" class="btn btn-default btn-search">검색</a> -->
 						</span>
 					</div>
 
@@ -153,7 +157,7 @@
 				<!-- Portfolio Box -->
 				<ul class="list-unstyled row portfolio-box">
 					<li class="col-sm-4 md-margin-bottom-50 {{map(p.field,map_one)}}" ng-repeat="3">
-						<a class="thumbnail fancybox" data-rel="gallery" title="Project One" href="project_details.html?id={{p._id}}">
+						<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="project_details.html?id={{p._id}}">
 							<img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
 							<span class="portfolio-box-in rounded-x">
 								<i class="icon-magnifier-add"></i>
@@ -292,6 +296,7 @@
 			FancyBox.initFancybox();
 			OwlCarousel.initOwlCarousel();
 			StyleSwitcher.initStyleSwitcher();
+<<<<<<< HEAD
 			Datepicker.initDatepicker();
 			Validation.initValidation();
 			$.getScript("assets/js/plugins/cube-portfolio/cube-portfolio-3.js");
@@ -319,6 +324,59 @@
 				});
 			}));
 		}
+=======
+		});
+		
+		$(function(){
+			  $("#ajaxform").submit(upload(function(x){
+			   var report={projectId:"592a7c6ff8bc6d93b34216f1",type:"finalReport"};
+			   report.title=$("input[name=name]").val();
+			   report.contents=$("textarea[name=evalContents]").val();
+			   report.file=x.result;
+			   alert(JSON.stringify(x));
+			   alert(JSON.stringify(report));
+			   $.post('http://'+document.location.host+'/post/new',report,function(res){
+					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+					alert(JSON.stringify(res.result));
+					alert("업로드 성공"); 
+				});				  
+		  })); 
+	   });
+		
+	function moveURL(search_keyword){
+		document.location.href="./search_projects.html"+/search_keyword;
+		
+	}
+		
+		/*
+		requirejs([ "common" ], function () { 
+			requirejs([ "loglevel" ], function (log) {
+				var _searchBtnRef = null;
+				var _searchKeywordRef = null;
+				
+				var _initView = function() {
+					_searchKeywordRef = $("#search_keyword");
+					_searchBtnRef = $("#search");
+					_bindEvent();
+					} 
+				var _bindEvent = function() {
+					_searchBtnRef.click(function() { 
+						var searchKeyword = _searchKeywordRef.val();
+						alert("search keyword : " + searchKeyword);
+					});
+				} 
+				
+				var _init = function () {
+					_initView();
+				}; 
+				_init(); 
+				});
+			});
+		*/
+
+		
+		
+>>>>>>> branch 'master' of https://github.com/baek449/CapstoneExpo.git
 	</script>
 	<!--[if lt IE 9]>
   <script src="assets/plugins/respond.js"></script>
