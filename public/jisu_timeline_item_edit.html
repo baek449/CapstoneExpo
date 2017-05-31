@@ -48,7 +48,7 @@
 	var project_id;
 	var post_id = document.location.href.split("?");
 	post_id = post_id[1].split("&");
-	alert(post_id);
+	//alert(post_id);
 	project_id = post_id[1];
 	post_id = post_id[0];
 	post_id = post_id.split("=");
@@ -59,9 +59,10 @@
 	//alert(post_id);
 	//alert(project_id);
 	
-	
+	//alert(0);
 	
 	module.controller('TimelineEditDisplayController', function($scope,$http) {
+		//alert(1);
 		// Bring the members into scope variable members
 		$http.get('http://'+document.location.host+'/post/'+post_id).then(function(res) {
 			$scope.post = res.data.result;
@@ -69,6 +70,7 @@
 		});
 	});
 	module.directive('ngElementReady', ['$timeout', function($timeout) {
+		//alert(2);
         return {
             restrict: "A", // attribute only
             link: function($scope, $element, $attributes) {
@@ -120,7 +122,6 @@
 						<img class="img-responsive full-width" style="position:relative; top:-50%" class="img-responsive full-width" src="/image/download/{{post.image}}" alt="">
 					</div>
 					<div class="news-v3-in">
-					<button type="submit" class="btn-u">Edit</button>
 					<div class="margin-bottom-30"></div>
 						
 						
@@ -169,8 +170,7 @@
 
 							<section>
 								<label class="textarea">
-									<textarea id="text" rows="20" style="text-align:left; color:black" name="comment" value="{{post.content}}">
-									</textarea>
+									<textarea id="text" rows="20" style="text-align:left; color:black" name="comment" value="">{{post.contents}}</textarea>
 								</label>
 							</section>
 						</fieldset>
@@ -420,8 +420,9 @@
 				   //alert(JSON.stringify(report));
 				   $.post('http://'+document.location.host+'/post/update/'+post_id,report,function(res){
 						// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
-						alert(JSON.stringify(res.result));
-						alert("업로드 성공"); 
+						//alert(JSON.stringify(res.result));
+						alert("업로드 성공");
+						location.href='jisu_timeline_angular.html?id='+project_id;
 					});
 			 });
 		};

@@ -56,13 +56,17 @@
 	if(id[0]!="id") alert("Error"); // TODO Error Processing
 	id=id[1];
 	//alert(id);
-
+	//alert(0);
 	
 	module.controller('TimelineDisplayController', function($scope,$http) {
+		//alert(1);
 		//var id = "592a7c6ff8bc6d93b34216f1";
 		// Bring the members into scope variable members
 		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
 			$scope.members = res1.data.result;
+			$scope.linebreak=function(str){
+				return str.replace(/\n/gi,'</p><p>');
+			};
 			// Bring the timeline into scope variable posts
 			$http.get('http://'+document.location.host+'/timeline/'+id,{memberId:mid}).then(function(res) {
 				$scope.posts=res.data.result;
@@ -71,6 +75,7 @@
 		});
 	});
 	module.directive('ngElementReady', ['$timeout', function($timeout) {
+		//alert(2);
         return {
             restrict: "A", // attribute only
             link: function($scope, $element, $attributes) {
@@ -297,7 +302,7 @@
 										<div class="md-margin-bottom-20"></div>
 									</div>
 									<div class="col-md-8">
-										<p class="get_timeline_content" name="{{p.file}}">{{p.contents}}</p>
+										<p style="white-space:pre-wrap;" class="get_timeline_content" name="{{p.file}}">{{p.contents}}</p>
 										
 										<!-- Heart button -->
                      					<i class="rounded-x icon-heart jisu_heart_icon{{p.like.length}}" name="{{p._id}}"></i>
@@ -472,7 +477,7 @@
 
 				<div class="modal-footer">
 					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
-					<input type="submit" class="btn-u btn-u-primary" id='new_timeline_submit'>등록</button>
+					<input type="submit" class="btn-u btn-u-primary" id='new_timeline_submit'>
 				</div>
 			</form>
 			</div>
@@ -510,7 +515,12 @@
 		//window.onload=(function(){
 			function upload(callback){
 				return function(event){
-					alert($(this)[0]);
+					//alert($("#file").val());
+					if(!$("#file").val()){
+						alert("사진 없이 업로드 하시겠습니까?");
+						callback({result:""});
+						return;
+					}
 				event.preventDefault();
 				$.ajax({
 					contentType: false,
@@ -558,14 +568,16 @@
 					   report.title=$('#inputTitle').val();
 					   report.writeDate=$('#start').val();
 					   report.contents=$('#inputDesc').val();
-					   report.image=x.result;
-					   // alert(JSON.stringify(x));
+					   if(x.result!="")report.image=x.result;
+					   //alert(JSON.stringify(x));
 					   //alert(JSON.stringify(report));
 					   $.post('http://'+document.location.host+'/post/new',report,function(res){
 							// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
-							alert(JSON.stringify(res.result));
+							//alert(JSON.stringify(res.result));
 							alert("업로드 성공"); 
+							location.reload();
 						});
+					   
 				 }));
 				//새로운 타임라인 포스트 등록 완료
 			//새로운 타임라인 포스트 등록 버튼 완료
@@ -651,6 +663,12 @@
 					});
 			});
 			//좋아요 버튼 완료
+			
+			//new timeline 에서 제출 버튼 누르면 reload
+			$(document).on('click','#click_click',function(){
+				location.reload();
+			});
+			//new timeline 에서 제출 버튼 누르면 reload 완료
 			
 			//final report 포스트 
 			$('.finalReport').prev('.cbp_tmicon').addClass('timeline_final_report_icon');
