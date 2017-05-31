@@ -62,6 +62,21 @@ var ProjectController=function(Model){
 		        callback({});
 		    });
 		}
+		//[Could] search: 키워드로 프로젝트를 검색합니다.
+		/*search:function(keyword,callback){
+			var searchCondition={};
+			if(option==="new") sortCondition={"projectSummary.startDate":-1};
+			else if(option==="view") sortCondition={"projectSummary.view":-1};
+			
+			Model.Project.find({}).sort(sortCondition).exec(function(err,data){
+		        if(err){
+		            console.error(err);
+		            callback({error: 1});
+		            return;
+		        }
+		        callback({result:data});
+		    });
+		}*/
 	};
 };
 

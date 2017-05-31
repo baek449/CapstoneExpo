@@ -130,12 +130,14 @@
 			<div class="container">
 				<div class="col-md-6 col-md-offset-3">
 					<h2>찾으시는 프로젝트를 검색해보세요.</h2>
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="프로젝트 명 검색">
-						<span class="input-group-btn">
-							<button class="btn-u" type="button"><i class="fa fa-search"></i></button>
-						</span>
+					<form id="ajaxform" method="get">
+					<div class="input-group">	
+						<input type="text" id= "keyword" class="form-control" placeholder="프로젝트 명 검색">
+						<span class="input-group-btn">					
+							<button class="btn-u" id=search type="submit"><i class="fa fa-search"></i></button>
+						</span>						
 					</div>
+					</form>
 				</div>
 			</div>
 		</div><!--/container-->
@@ -406,7 +408,7 @@
 	$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
 
 	function ready() {
-		App.init();
+		//App.init();
 		Datepicker.initDatepicker();
 		Validation.initValidation();
 		$.getScript("assets/js/plugins/cube-portfolio/cube-portfolio-3.js");
@@ -434,6 +436,36 @@
 			});
 		}));
 	}
+	
+	jQuery(document).ready(function() {
+		App.init();
+		
+		$(function(){
+			$("#ajaxform").submit(function(){
+				var keyword = $("#keyword").val();
+					alert(keyword);
+				$.getJSON('http://'+document.location.host+'/search/'+$("#keyword").val(), function(res){
+					alert(keyword+" 전송완료");
+					alert(JSON.stringify(res.result));
+				});			
+			});
+		});
+	});
+	
+	
+	/*
+		$("#search").get(){
+		function search(callback){
+			//alert($(this)[0]);
+		//event.preventDefault();
+		$.get('http://'+document.location.host+'/project/'+$("#keyword"),report,function(res){
+			// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+			alert(JSON.stringify(res.result));
+			alert("검색어 전송"); 
+		});		
+	};
+}*/
+	
 	</script>
 	<!--[if lt IE 9]>
 	<script src="assets/plugins/respond.js"></script>
