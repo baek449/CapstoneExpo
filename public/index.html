@@ -37,6 +37,9 @@
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
 	<link rel="stylesheet" href="assets/css/pages/page_search.css">
+	
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
 
 <body class="header-fixed">
@@ -143,52 +146,33 @@
 
 		<!--=== Content ===-->
 		<div class="content-xs">
-			<div class="container">
+			<div class="container" ng-app="searchApp" ng-element-ready>
 				<div class="headline margin-bottom-30">
 					<h2>Popular projects</h2>
 					<button onclick="window.location.href='search_projects.html'" class="btn btn-default pull-right" type="button">전체보기</button>
 					<!-- <p>Integer odio ligula, tincidunt id volutpat et, imperdiet eget mi. Quisque laoreet porttitor turpis sed <a href="#">fermentum</a>. Nullam sodales blandit nisi, tristique tempor nunc hendrerit at. Sed posuere mollis orci</p> -->
 				</div><!--/end Headline Center-->
 
+
+
+
+
 				<!-- Portfolio Box -->
-				<ul class="list-unstyled row portfolio-box">
-					<li class="col-sm-4 md-margin-bottom-50">
-						<a class="thumbnail fancybox" data-rel="gallery" title="Project One" href="assets/img/main/img9.jpg">
-							<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
+				<ul class="list-unstyled row portfolio-box" ng-controller="ProjectDisplayController">
+					<li class="col-sm-4 md-margin-bottom-50" ng-repeat="p in projects">
+						<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="project_details.html?id={{p._id}}">
+							<img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
 							<span class="portfolio-box-in rounded-x">
 								<i class="icon-magnifier-add"></i>
 							</span>
 						</a>
-						<div class="headline-left margin-bottom-10"><h3 class="headline-brd">Project One</h3></div>
-						<small class="project-tag"><i class="fa fa-tag"></i><a href="#">Technology</a>, <a href="#">Business</a></small>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet </p>
-					</li>
-					<li class="col-sm-4 md-margin-bottom-50">
-						<a class="thumbnail fancybox" data-rel="gallery" title="Project Two" href="assets/img/main/img22.jpg">
-							<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
-							<span class="portfolio-box-in rounded-x">
-								<i class="icon-magnifier-add"></i>
-							</span>
-						</a>
-						<div class="headline-left margin-bottom-10"><h3 class="headline-brd">Project Two</h3></div>
-						<small class="project-tag"><i class="fa fa-tag"></i><a href="#">Technology</a>, <a href="#">Business</a></small>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet </p>
-					</li>
-					<li class="col-sm-4">
-						<a class="thumbnail fancybox" data-rel="gallery" title="Project Three" href="assets/img/main/img18.jpg">
-							<img class="full-width img-responsive" src="assets/img/main/img1.jpg" alt="">
-							<span class="portfolio-box-in rounded-x">
-								<i class="icon-magnifier-add"></i>
-							</span>
-						</a>
-						<div class="headline-left margin-bottom-10"><h3 class="headline-brd">Project Three</h3></div>
-						<small class="project-tag"><i class="fa fa-tag"></i><a href="#">Technology</a>, <a href="#">Business</a></small>
-						<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, justo sit amet </p>
+						<div class="headline-left margin-bottom-10"><h3 class="headline-brd">{{p.name}}</h3></div>
+						<small class="project-tag"><i class="fa fa-tag"></i>{{map(p.field,comma)}}</small>
+						<p>{{p.shortIntro}}</p>
 					</li>
 				</ul>
 				<!-- End Portfolio Box -->
 			</div><!--/end container-->
-
 
 
 
@@ -255,13 +239,69 @@
 	<script type="text/javascript" src="assets/js/plugins/owl-carousel.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
 	<script type="text/javascript">
-		jQuery(document).ready(function() {
+
+	var module=angular.module('searchApp', []);
+
+		module.controller('ProjectDisplayController', function($scope,$http) {
+			$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
+				$scope.projects=res.data.result.slice(0,3);
+				$scope.map_one=function(fieldName){
+					switch(fieldName) {
+					case "기계/항공":
+						return "mech";
+					case "전기/전자":
+						return "elec";
+					case "소프트웨어":
+						return "soft";
+					case "건축/환경":
+						return "arch";
+					case "화공/에너지":
+						return "ener";
+					case "자연과학":
+						return "scie";
+					case "예술/디자인":
+						return "desi";
+					case "생활/교육":
+						return "educ";
+					case "기타":
+						return "misc";
+					}
+					return "";
+				};
+				$scope.comma=function(a){
+					return a+', ';
+				};
+				$scope.map=function(fields,func){
+					var result='';
+					for(i in fields)
+						result+= func(fields[i])+' ';
+					return result;
+				};
+			});
+		});
+	
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
+	
+	
+		function ready() {
 			App.init();
+
 			App.initParallaxBg();
 			FancyBox.initFancybox();
 			OwlCarousel.initOwlCarousel();
 			StyleSwitcher.initStyleSwitcher();
-		});
+
+			Datepicker.initDatepicker();
+			Validation.initValidation();
+		}
+
 		
 		$(function(){
 			  $("#ajaxform").submit(upload(function(x){
@@ -280,7 +320,7 @@
 	   });
 		
 	function moveURL(search_keyword){
-		document.location.href="./search_projects.html"+/search_keyword;
+		document.location.href="./search_projects.html"+search_keyword;
 		
 	}
 		
@@ -312,6 +352,7 @@
 
 		
 		
+
 	</script>
 	<!--[if lt IE 9]>
   <script src="assets/plugins/respond.js"></script>

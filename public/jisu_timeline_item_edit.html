@@ -44,15 +44,41 @@
 	<script type="text/javascript">
 	
 	
-	angular.module('timelineEditApp', []).controller('TimelineEditDisplayController', function($scope,$http) {
-		var id = document.location.href.split("?");
-		alert(id);
+	var module=angular.module('timelineEditApp', []);
+	var project_id;
+	var post_id = document.location.href.split("?");
+	post_id = post_id[1].split("&");
+	//alert(post_id);
+	project_id = post_id[1];
+	post_id = post_id[0];
+	post_id = post_id.split("=");
+	post_id = post_id[1];
+	project_id = project_id.split("=");
+	project_id = project_id[1];
+	
+	//alert(post_id);
+	//alert(project_id);
+	
+	//alert(0);
+	
+	module.controller('TimelineEditDisplayController', function($scope,$http) {
+		//alert(1);
 		// Bring the members into scope variable members
-		$http.get('http://'+document.location.host+'/post/'+id[1]).then(function(res) {
+		$http.get('http://'+document.location.host+'/post/'+post_id).then(function(res) {
 			$scope.post = res.data.result;
 			// Bring the timeline into scope variable posts
 		});
 	});
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+		//alert(2);
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
+	
 	</script>
 </head>
 
@@ -91,12 +117,11 @@
 		<div class="bg-color-light" ng-controller="TimelineEditDisplayController" >
 			<div class="container content-sm">
 				<!-- News v3 -->
-				<div class="news-v3 bg-color-white margin-bottom-30">
+				<div name="{{post._id}}" class="news-v3 bg-color-white margin-bottom-30 have_name">
 					<div id='image' style="height:500px" class="overflow-hidden">
 						<img class="img-responsive full-width" style="position:relative; top:-50%" class="img-responsive full-width" src="/image/download/{{post.image}}" alt="">
 					</div>
 					<div class="news-v3-in">
-					<button type="submit" class="btn-u">Edit</button>
 					<div class="margin-bottom-30"></div>
 						
 						
@@ -105,13 +130,13 @@
 							<div class="row">
 								<section class="col col-6">
 									<label class="input">
-										<input type="text" id="subject" name="subject" placeholder="{{post.title}}">
+										<input type="text" id="subject" name="subject" value="{{post.title}}">
 									</label>
 								</section>
 								<section class="col col-6">
 									<label class="input">
 										<i class="icon-append fa fa-user"></i>
-										<input type="text" id="writer" name="name" placeholder="{{post.writer}}">
+										<input type="text" id="writer" name="name" value="{{post.writer}}">
 									</label>
 								</section>
 							</div>
@@ -138,16 +163,14 @@
 								<section class="col col-6">
 									<label class="input">
 										<i id='calender' class="icon-append fa fa-calendar"></i>
-										<input type="text" name="start" id="start" placeholder="{{post.writeTime|date:'yyyy.MM.dd'}}">
+										<input type="text" name="start" id="start" value="{{post.writeTime|date:'yyyy.MM.dd'}}">
 									</label>
 								</section>
 							</div>
 
 							<section>
 								<label class="textarea">
-									<textarea id="text" rows="20" style="text-align:left; color:black" name="comment" placeholder="Tell us about your project">
-									{{post.content}}
-									</textarea>
+									<textarea id="text" rows="20" style="text-align:left; color:black" name="comment" value="">{{post.contents}}</textarea>
 								</label>
 							</section>
 						</fieldset>
@@ -351,7 +374,8 @@
 	<script type="text/javascript" src="assets/js/forms/contact.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
 	<script type="text/javascript">
-		function upload(callback){
+	
+		/*function upload(callback){
 			return function(event){
 				alert($(this)[0]);
 			event.preventDefault();
@@ -368,27 +392,10 @@
 		        	}
 		        }
 				});
-		}};
-	
-		jQuery(document).ready(function() {
-			
-			
-			
-			
-			var id = '592aeab5ea92db1d4670aed0';
-			$.getJSON('http://'+document.location.host+'/post/'+id,function(res) {
-				//alert(1);
-				var content = res.result.contents;
-				//var select = res.result.type;
-				//var date = res.result.writeTime;
-				//var image = res.result.image;
-				//image = "/image/download/"+image;
-				//$('#image').append('<img class="img-responsive full-width" style="position:relative; top:-50%" class="img-responsive full-width" src="assets/img/Capstone-image/KakaoTalk_20170523.jpg" alt="">');
-				//$('#select').append(select);
-				//$('#calender').append('<input type="text" name="start" id="start" placeholder="'+date+'">');
-				$('#text').append(content);
-			});
+		}};*/
 		
+		function ready(){
+			
 			App.init();
 			OrderForm.initOrderForm();
 			ReviewForm.initReviewForm();
@@ -397,31 +404,28 @@
 			ContactForm.initContactForm();
 			StyleSwitcher.initStyleSwitcher();
 			
-			$("#jisu_text_area").val("test");
-			
 			var new_timeline_subject = $('#subject').val();
 			var new_timeline_writer = $('#writer').val();
 			var new_timeline_date = $('#start').val();
 			var new_timeline_content = $('#text').val();
 			var new_timeline_picture = $('#picture').val();
 			
-			 $("#sky-form1").submit(upload(function(x){
-				   var report={projectId:id1,type:"general"};
+			 $("#sky-form1").submit(function(x){
+				   var report={projectId:project_id,type:"general"};
 				   report.title=$('#subject').val();
 				   report.writeDate=$('#start').val();
 				   report.contents=$('#text').val();
-				   report.writer=$('#writer').val();
-				   report.image=x.result;
+				   //report.writer=$('#writer').val();
 				   // alert(JSON.stringify(x));
 				   //alert(JSON.stringify(report));
-				   $.post('http://'+document.location.host+'/post/update/'+id1,report,function(res){
+				   $.post('http://'+document.location.host+'/post/update/'+post_id,report,function(res){
 						// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
-						alert(JSON.stringify(res.result));
-						alert("업로드 성공"); 
+						//alert(JSON.stringify(res.result));
+						alert("업로드 성공");
+						location.href='jisu_timeline_angular.html?id='+project_id;
 					});
-			 }));
-			
-		});
+			 });
+		};
 	</script>
 	<!--[if lt IE 9]>
     <script src="assets/plugins/respond.js"></script>

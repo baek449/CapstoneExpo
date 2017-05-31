@@ -1,5 +1,6 @@
 module.exports = function(app,Model)
 {
+	console.log("Routing");
 	// 여기에서 라우터를 불러옵니다
 	require('./routerMember')(app,Model);
 	require('./routerProject')(app,Model);
