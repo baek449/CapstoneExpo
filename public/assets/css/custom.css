@@ -196,7 +196,7 @@
 	float:right;
 }
 
-.jisu_heart_icon{
+.jisu_heart_icon0{
 	color: #ffffff;
 	width: 30px;
 	height: 30px;
@@ -204,6 +204,19 @@
 	margin: 5px 5px 5px 5px;
 	font-size: 16px;
 	background: #5fb611;
+	text-align: center;
+	display: inline-block;
+	float:right;
+}
+
+.jisu_heart_icon1{
+	color: #ffffff;
+	width: 30px;
+	height: 30px;
+	padding: 7px;
+	margin: 5px 5px 5px 5px;
+	font-size: 16px;
+	background: red;
 	text-align: center;
 	display: inline-block;
 	float:right;

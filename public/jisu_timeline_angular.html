@@ -66,6 +66,7 @@
 			// Bring the timeline into scope variable posts
 			$http.get('http://'+document.location.host+'/timeline/'+id,{memberId:mid}).then(function(res) {
 				$scope.posts=res.data.result;
+				$scope.id=id;
 			});
 		});
 	});
@@ -284,8 +285,8 @@
 												
 								<!-- Edit button -->
 								<h2>
-									<a href="jisu_timeline_item.html?{{p._id}}">{{p.like.length}} {{p.title}}</a>
-									<a href="jisu_timeline_item_edit.html?{{p._id}}" style="text-decoration:none" class="jisu_edit_link">edit</a>
+									<a href="jisu_timeline_item.html?{{p._id}}">{{p.title}}</a>
+									<a href="jisu_timeline_item_edit.html?post={{p._id}}&project={{id}}" style="text-decoration:none" class="jisu_edit_link">edit</a>
 								</h2>	
 								<!-- End edit button -->
 									
@@ -299,7 +300,7 @@
 										<p class="get_timeline_content" name="{{p.file}}">{{p.contents}}</p>
 										
 										<!-- Heart button -->
-                     					<i class="rounded-x icon-heart jisu_heart_icon" name="{{p._id}}"></i>
+                     					<i class="rounded-x icon-heart jisu_heart_icon{{p.like.length}}" name="{{p._id}}"></i>
 										<!-- End heart button -->
 										
 										<!-- Evaluation button -->
@@ -606,47 +607,48 @@
 			//댓글, 평가 아이콘 완료
 			
 			//좋아요 버튼
-			$('.jisu_heart_icon').mouseenter(function(){
-				if(heart_clicked==0){
+			
+			$(document).on('mouseenter','.jisu_heart_icon0',function(){
 					$(this).css('color','#ffffff');
 					$(this).css('background-color','#4a9706');
 					$(this).css('transition','all 0.3s ease-in-out');
-				}
-				else{
+			});
+			
+
+			$(document).on('mouseenter','.jisu_heart_icon1',function(){
 					$(this).css('color','#ffffff');
 					$(this).css('background-color','#c90000');
 					$(this).css('transition','all 0.3s ease-in-out');
-				}
 			});
 			
-			$('.jisu_heart_icon').mouseleave(function(){
-				if(heart_clicked==0){
+			$(document).on('mouseleave','.jisu_heart_icon0',function(){
 					$(this).css('color','#ffffff');
 					$(this).css('background-color','#5fb611');
-				}
-				else{
+			});
+
+			$(document).on('mouseleave','.jisu_heart_icon1',function(){
 					$(this).css('color','#ffffff');
 					$(this).css('background-color','red');
-				}
 			});
 			
-			$('.jisu_heart_icon').click(function(){
-				if(heart_clicked == 1){
-					heart_clicked = 0;
-					$(this).css('background-color','#5fb611');
-					var id = $(this).attr("name");
-					$.post('http://'+document.location.host+'/post/unlike/'+id,{memberId:mid},function(res) {
-						
-					});
-				}
-				else{
-					heart_clicked = 1;
-					$(this).css('background-color','red');
+			$(document).on('click','.jisu_heart_icon0',function(){
+					$(this).css('background-color','#c90000');
+					$(this).removeClass('jisu_heart_icon0');
+					$(this).addClass('jisu_heart_icon1');
 					var id = $(this).attr("name");
 					$.post('http://'+document.location.host+'/post/like/'+id,{memberId:mid},function(res) {
 						
 					});
-				}
+			});
+			
+			$(document).on('click','.jisu_heart_icon1',function(){
+					$(this).css('background-color','#4a9706');
+					$(this).removeClass('jisu_heart_icon1');
+					$(this).addClass('jisu_heart_icon0');
+					var id = $(this).attr("name");
+					$.post('http://'+document.location.host+'/post/unlike/'+id,{memberId:mid},function(res) {
+						
+					});
 			});
 			//좋아요 버튼 완료
 			
