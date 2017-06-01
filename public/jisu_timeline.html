@@ -761,6 +761,16 @@
 				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Very Bad<i class="fa fa-angle-down"></i></p>');
 			});
 			//평가 버튼 완료
+			
+			var report={postId:id,type:"general"};
+			   //alert(JSON.stringify(x));
+			   //alert(JSON.stringify(report));
+			   $.post('http://'+document.location.host+'/eval/download',report,function(res){
+					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+					//alert(JSON.stringify(res.result));
+					alert("업로드 성공"); 
+					location.reload();
+			   });
 		}//);
 	</script>
 	<!--[if lt IE 9]>
