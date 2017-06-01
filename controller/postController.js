@@ -36,7 +36,13 @@ var PostController=function(Model){
 			    path: 'like',
 			    match: { _id: mid }
 			})
-			.populate("reply")
+			.populate({ 
+			     path: 'reply',
+			     populate: {
+			       path: 'writer',
+			       model: 'Member'
+			     } 
+			 })
 			.exec(function(err,data){
 		        if(err){
 		            console.error(err);
