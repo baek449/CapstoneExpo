@@ -18,6 +18,24 @@
   overflow: hidden !important; 
 }
 
+.project-detail-tabborder {
+	border: none;
+	background: none;
+	border-bottom: solid 2px #72c02c !important;
+}
+
+.project-detail-tabborder {
+	
+}
+
+.project-detail-tabborder .tab-v1 .nav-tabs {
+	border-bottom: none;
+}
+
+.project-detail-tabborder .tab-v1 .nav-tabs > li {
+	margin-bottom: 0px !important;
+}
+
 .project_title {
     position: relative;
 	color: #555;
@@ -42,12 +60,20 @@
 	background: #72c02c;
 } */
 
-.project-detail-title-box {
-	padding: 80px 0;
+.project-title-box {
+	padding-top: 40px;
 	text-align: center;
 	position: relative;
-	margin-bottom: 20px;
-	background: url(../img/bg/7.jpg) 50% 100% repeat fixed;		
+	/* background: url(../img/bg/7.jpg) 50% 100% repeat fixed;		 */
+}
+
+.breadcrumbs.breadcrumbs-light .project-title-box h1 {
+	font-size: 32px !important;
+	font-weight: 600;
+}
+
+.breadcrumbs.breadcrumbs-light .project-title-box p {
+	font-size: 20px;
 }
 
 /*Project Tag*/
