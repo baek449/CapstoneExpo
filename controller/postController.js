@@ -19,7 +19,13 @@ var PostController=function(Model){
 		//[Must] read: 게시글 ID에 대한 게시글을 불러옵니다.
 		read:function(id,callback){
 			Model.Post.findOne({_id:id})
-			.populate("reply")
+			.populate({ 
+			     path: 'reply',
+			     populate: {
+			       path: 'writer',
+			       model: 'Member'
+			     } 
+			 })
 			.exec(function(err,data){
 		        if(err){
 		            console.error(err);
@@ -36,13 +42,7 @@ var PostController=function(Model){
 			    path: 'like',
 			    match: { _id: mid }
 			})
-			.populate({ 
-			     path: 'reply',
-			     populate: {
-			       path: 'writer',
-			       model: 'Member'
-			     } 
-			 })
+			.populate("reply")
 			.exec(function(err,data){
 		        if(err){
 		            console.error(err);
