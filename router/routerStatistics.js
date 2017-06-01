@@ -2,8 +2,14 @@ module.exports = function(app,Model)
 {
 	const EvaluationController=require('../controller/evaluationController')(Model);
 	// 통계에 관한 라우터
+	app.get('/stat/evallist/:id',function(req,res){
+		// TODO 멤버가 받은 평가 토큰별 개수를 가져옵니다.
+		EvaluationController.evalList(req.params.id,function(x){
+			res.send(x);
+		});
+	});
 	app.get('/stat/evalcount/:id',function(req,res){
-		// TODO 멤버의 평가 개수를 가져옵니다.
+		// TODO 멤버가 수행한 평가 개수를 가져옵니다.
 		EvaluationController.evalCount(req.params.id,function(x){
 			res.send(x);
 		});

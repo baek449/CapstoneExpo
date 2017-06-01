@@ -162,12 +162,12 @@
 		<!--=== End Header v6 ===-->	
 	
 	
-	
+
 	
 		<!--=== Interactive Slider ===-->
-		<div class="breadcrumbs-v3 text-center no-bottom-padding project-detail-title-box">
-			<div class="container">
-				<div class="margin-bottom-100">
+		<div class="breadcrumbs breadcrumbs-light text-center no-bottom-padding project-detail-tabborder">
+			<div class="container project-title-box">
+				<div class="margin-bottom-60">
 					<h1>{{summary.name}}</h1>
 					<p>{{summary.shortIntro}}</p>
 				</div>
@@ -215,26 +215,28 @@
 				<!-- End Magazine Slider -->
 
 				<div class="row margin-bottom-50">
+					<div class="col-sm-4">
+						<div class="easy-block-v1">
+							<img class="img-responsive" src="/image/download/{{summary.image}}" alt="">
+						</div>
+					</div>
 					<div class="col-sm-8">
 						<div class="headline"><h2>프로젝트 소개</h2></div>
+						<div class="list-unstyled project-details">
+							<strong>프로젝트 기간:</strong>{{summary.startDate|date:'yyyy.MM.dd'}} ~ {{summary.endDate|date:'yyyy.MM.dd'}}<br>
+							<strong>프로젝트 분류:</strong><span ng-repeat="t in summary.field">{{t}}, </span>
+						</div>
 						<p>{{summary.intro}}</p>
 					</div>
-					<div class="col-sm-4">
-						<div class="headline"><h2>프로젝트 설명</h2></div>
-						<ul class="list-unstyled project-details">
-							<li><strong>시작일:</strong>{{summary.startDate|date:'yyyy.MM.dd'}}</li>
-								<li><strong>종료일:</strong>{{summary.endDate|date:'yyyy.MM.dd'}}</li>
-							<li><strong>분류:</strong><span ng-repeat="t in summary.field">{{t}}, </span>
-						</ul>
-					</div>
+
 				</div>
 			</div>
 
 			<div class="row margin-bottom-5">
 					<div class="col-sm-12">
 						<div class="headline"><h2>최근 타임라인</h2>
-							<button class="btn-u pull-right" type="button">타임라인 추가</button>
-							<button class="btn btn-default pull-right button-margin-right-5" type="button">더보기</button>
+							<!-- <button class="btn-u pull-right" type="button">타임라인 추가</button> -->
+							<a href="jisu_timeline_angular.html?id={{id}}"><button class="btn btn-default pull-right button-margin-right-5" type="button">더보기</button></a>
 						</div>
 						
 					</div>
