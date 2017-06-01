@@ -38,10 +38,56 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
+	
+	<!-- Angular JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script type="text/javascript">
+	
+	var mid='592a7af2f8bc6d93b34216ef';
+	var module=angular.module('ProjectDetailApp', []);
+	var project_id = document.location.href.split("?");
+	project_id = project_id[1];
+	project_id = project_id.split("=");
+	project_id = project_id[1];
+	
+	//alert(post_id);
+	//alert(project_id);
+	
+	//alert(0);
+	
+	module.controller('ProjectDetailDisplayController', function($scope,$http) {
+		//alert(1);
+		// Bring the members into scope variable members
+		$http.get('http://'+document.location.host+'/project/get/'+project_id).then(function(res1) {
+			$scope.members = res1.data.result.members.student;
+			$scope.summary = res1.data.result.projectSummary;
+			var professor = res1.data.result.members.professor;
+			var assistant = res1.data.result.members.assistant;
+			$scope.notstudent = professor.concat(assistant);
+			$scope.company = res1.data.result.members.company;
+		});
+		// Bring the timeline into scope variable posts
+		$http.get('http://'+document.location.host+'/timeline/'+project_id,{memberId:mid}).then(function(res) {
+				$scope.posts=res.data.result;
+				alert(posts);
+				$scope.id=project_id;
+		});
+	});
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+		//alert(2);
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
+	
+	</script>
 </head>
 
-<body class="header-fixed">
-	<div class="wrapper">
+<body class="header-fixed" ng-app="ProjectDetailApp" ng-element-ready>
+	<div class="wrapper" ng-controller="ProjectDetailDisplayController">
 	
 		<!--=== Header v6 ===-->
 		<div class="header-v6 header-classic-white">
@@ -171,14 +217,14 @@
 				<div class="row margin-bottom-50">
 					<div class="col-sm-8">
 						<div class="headline"><h2>프로젝트 소개</h2></div>
-						<p>여기에 프로젝트 설명을 입력하십시오.</p>
+						<p>{{summary.shortIntro}}</p>
 					</div>
 					<div class="col-sm-4">
 						<div class="headline"><h2>프로젝트 설명</h2></div>
 						<ul class="list-unstyled project-details">
-							<li><strong>시작일:</strong> 2017년 3월 10일</li>
-							<li><strong>종료일:</strong> 2017년 6월 10일</li>
-							<li><strong>분류:</strong> <a href="#">소프트웨어,</a> <a href="#">웹 서비스</a></li>
+							<li><strong>시작일:</strong> {{summary.startDate|date:'yyyy.MM.dd'}}</li>
+							<li><strong>종료일:</strong> {{summary.endDate|date:'yyyy.MM.dd'}}</li>
+							<li><strong>분류:</strong> <a href="#" ng-repeat="t in summary.field">{{t}}</a>
 						</ul>
 					</div>
 				</div>
@@ -193,75 +239,20 @@
 						
 					</div>
 			</div>
-
-				
-			<div class="equal-height-row news-v2 margin-bottom-50">
-				<div class="col-md-3 col-sm-6 md-margin-bottom-30">
+			
+			<div class="row news-v2 margin-bottom-50">
+				<div class="col-md-3 col-sm-6 md-margin-bottom-30" ng-repeat="post in posts">
 					<div class="news-v2-desc">
-						<h3><a href="#">Blanditi Praesium Voluptum</a></h3>
-						<small><i class="fa fa-clock-o"></i> July 06, 2014 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fa fa-comments-o"></i> <a href="#">51 Comments</a></small>
+						<h3><a href="#">{{post.title}}</a></h3>
+						<small><i class="fa fa-clock-o"></i> {{post.writeTime|date="yyyy.MM.dd"}} &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fa fa-comments-o"></i> <a href="#">51 Likes</a></small>
 					</div>
 					<div class="news-v2-badge">
 						<img class="img-responsive" src="assets/img/contents/img1.jpg" alt="">
 						<p>
-							<span>16</span>
-							<small>Jun</small>
-						</p>
-					</div>						
-				</div>
-				<div class="col-md-3 col-sm-6 md-margin-bottom-30">
-					<div class="news-v2-desc">
-						<h3><a href="#">Blanditi Praesium Voluptum</a></h3>
-						<small><i class="fa fa-clock-o"></i> July 06, 2014 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fa fa-comments-o"></i> <a href="#">51 Comments</a></small>
-						
-					</div>
-					<div class="tag-box tag-box-v6"><p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-					 voluptatum deleniti atque corrupti quos dolores.At vero eos et accusamus et iusto odio dignissimos ducim
-					 voluptatum deleniti atque corrupti quos dolores.At vero eos et accusamus et iusto odio dignissimos ducim
-					 voluptatum deleniti atque corrupti quos dolores.At vero eos et accusamus et iusto odio dignissimos ducim
-					 voluptatum deleniti atque corrupti quos dolores.At vero eos et accusamus et iusto odio dignissimos ducim
-					 voluptatum deleniti atque corrupti quos dolores.At vero eos et accusamus et iusto odio dignissimos ducim
-					 voluptatum deleniti atque corrupti quos dolores.At vero eos et accusamus et iusto odio dignissimos ducim
-					 voluptatum deleniti atque corrupti quos dolores.At vero eos et accusamus et iusto odio dignissimos ducim</p>
-					</div>
-					<div class="news-v2-badge">
-							
-				
-						<p>
-							<span>16</span>
+							<span>{{post.writeTime|date="dd"}}</span>
 							<small>Jun</small>
 						</p>
 					</div>
-				</div>
-				<div class="col-md-3 col-sm-6 sm-margin-bottom-30">
-					<div class="news-v2-desc">
-						<h3><a href="#">Blanditi Praesium Voluptum</a></h3>
-						<small><i class="fa fa-clock-o"></i> July 06, 2014 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fa fa-comments-o"></i> <a href="#">51 Comments</a></small>
-						
-					</div>
-					<div class="news-v2-badge">
-						<img class="img-responsive" src="assets/img/contents/img1.jpg" alt="">
-						<p>
-							<span>16</span>
-							<small>Jun</small>
-						</p>
-					</div>
-
-				</div>
-				<div class="col-md-3 col-sm-6 ">
-					<div class="news-v2-desc">
-						<h3><a href="#">Blanditi Praesium Voluptum</a></h3>
-						<small><i class="fa fa-clock-o"></i> July 06, 2014 &nbsp;&nbsp;|&nbsp;&nbsp; <i class="fa fa-comments-o"></i> <a href="#">51 Comments</a></small>
-						
-					</div>
-					<div class="news-v2-badge">
-						<img class="img-responsive" src="assets/img/contents/img1.jpg" alt="">
-						<p>
-							<span>16</span>
-							<small>Jun</small>
-						</p>
-					</div>
-					
 				</div>
 			</div>
 		
@@ -279,10 +270,10 @@
 				</div>
 			</div>
 
-			<div class="row team-v5 margin-bottom-50">
+			<div class="row team-v5 margin-bottom-50" ng-repeat="m in members">
 				<div class="col-md-3 col-sm-6 md-margin-bottom-50">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img1-md.jpg" alt="">
+					<div style="height:222px" class="team-img overflow-hidden">
+						<img class="img-responsive" src="/image/download/{{m.image}}" alt="">
 						<div class="team-hover">
 							<ul class="list-inline team-social-v5">
 								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
@@ -290,55 +281,12 @@
 							</ul>
 						</div>
 					</div>
-					<span>강지수</span>
-					<small>전기 및 전자공학과</small>
-					<p>여기에 소개글을 입력하십시오.</p>
+					<span>{{m.name}}</span>
+					<small>{{m.major}}</small>
+					<p>{{m.description}}</p>
 				</div>
-				<div class="col-md-3 col-sm-6 md-margin-bottom-50">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img5-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>김도연</span>
-					<small>화학과</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
-				<div class="col-md-3 col-sm-6 sm-margin-bottom-50">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img3-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>박산하</span>
-					<small>미래자동차학제전공</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img1-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>백승근</span>
-					<small>전산학부</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
-			</div>
-			<div class="row team-v5 margin-bottom-50">			
-				
+			
+			<div class="row team-v5 margin-bottom-50" ng-repeat="m in members">
 				<div class="col-md-3 col-sm-6 md-margin-bottom-50">
 					<div class="team-img">
 						<img class="img-responsive" src="assets/img/team/img5-md.jpg" alt="">
@@ -373,9 +321,9 @@
 			</div>
 
 			<div class="row team-v5 margin-bottom-50">
-				<div class="col-sm-3 sm-margin-bottom-50">
+				<div class="col-sm-3 sm-margin-bottom-50" ng-repeat="p in notstudent">
 					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img1-md.jpg" alt="">
+						<img class="img-responsive" src="/image/download/{{p.image}}" alt="">
 						<div class="team-hover">
 							<!-- 사진에 마우스를 올리면 나타나는 아이콘 목록입니다. 아이콘은 http://fontawesome.io/ 에서 찾을 수 있습니다.-->
 							<ul class="list-inline team-social-v5">
@@ -388,54 +336,9 @@
 							</ul>
 						</div>
 					</div>
-					<span>강남우</span>
-					<small>K-school 교수</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
-				<div class="col-sm-3 sm-margin-bottom-50">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img5-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-remove"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>차창배</span>
-					<small>융합캡스톤디자인 조교</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
-				<div class="col-sm-3 sm-margin-bottom-50">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img3-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-remove"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>김동완</span>
-					<small>융합캡스톤디자인 조교</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
-				<div class="col-sm-3">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img3-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-remove"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>정기백</span>
-					<small>융합캡스톤디자인 조교</small>
-					<p>여기에 소개글을 입력하십시오.</p>
+					<span>{{p.name}}</span>
+					<small>{{p.major}}</small>
+					<p>{{p.description}}</p>
 				</div>
 			</div><!--/end team v5-->
 			
@@ -446,17 +349,16 @@
 					<!-- Clients Block-->
 					<div class="row clients-page">
 						<div class="col-md-2">
-							<img src="assets/img/company/starbucks.png" class="img-responsive hover-effect" alt="" />
+							<img src="/image/download/{{company.image}}" class="img-responsive hover-effect" alt="" />
 						</div>
 						<div class="col-md-10">
-							<h3>Cisco Systems, Inc</h3>
+							<h3>{{company.name}}</h3>
 							<ul class="list-inline">
-								<li><i class="fa fa-map-marker color-green"></i> USA</li>
-								<li><i class="fa fa-globe color-green"></i> <a class="linked" href="#">http://www.example.com</a></li>
-								<li><i class="fa fa-briefcase color-green"></i> Web Design &amp; Development</li>
+								<li><i class="fa fa-map-marker color-green"></i> {{company.school}}</li>
+								<li><i class="fa fa-globe color-green"></i> <a class="linked" href="#">{{company.email}}</a></li>
+								<li><i class="fa fa-briefcase color-green"></i ng-repeat="field in company.field">{{field}} </li>
 							</ul>
-							<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati</p>
-							<p>Olerano ipsum dolor sit amet, consectetur adipiscing elit. Ut non libero magna edetquam lacus. Fusce condimentum eleifend enim a sint occaecati feugiat..</p>
+							{{company.description}}
 						</div>
 					</div>
 					<!-- End Clients Block-->
