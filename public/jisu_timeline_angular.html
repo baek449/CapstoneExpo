@@ -62,6 +62,10 @@
 		//alert(1);
 		//var id = "592a7c6ff8bc6d93b34216f1";
 		// Bring the members into scope variable members
+		$http.get('http://'+document.location.host+'/project/summary/'+id).then(function(res1) {
+			$scope.project_keyword = res1.data.result.keyword;
+		});
+		
 		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
 			$scope.members = res1.data.result;
 			$scope.linebreak=function(str){
@@ -70,6 +74,7 @@
 			// Bring the timeline into scope variable posts
 			$http.get('http://'+document.location.host+'/timeline/'+id,{memberId:mid}).then(function(res) {
 				$scope.posts=res.data.result;
+				$scope.posts2=res.data.result.slice(0,2);
 				$scope.id=id;
 				
 				$http.get('http://'+document.location.host+'/eval/download',{postID:id,fromMember:mid}).then(function(res2) {
@@ -227,11 +232,11 @@
 					<!-- projects -->
 						<ul class="list-unstyled blog-latest-posts margin-bottom-50">
 							<li>
-								<h3><a href="project_details.html?id={{id}}">Capstone Expo</a></h3>
+								<h3><a href="project_details.html?id={{id}}"><strong>Capstone Expo</strong></a></h3>
 								<small>From 1 March, 2017 / To 1 June, 2017</small>
 							</li>
 							<li>
-								<h3><a href="#">Capstone Expo</a></h3>
+								<h3><a href="#"><strong>Capstone Expo</strong></a></h3>
 								<small>From 1 March, 2017 / To 1 June, 2017</small>
 							</li>
 						</ul>
@@ -240,35 +245,19 @@
 
 					<div class="headline"><h2>Latest Posts</h2></div>
 						<!-- Latest Links -->
-						<ul class="list-unstyled blog-latest-posts margin-bottom-50">
+						<ul class="list-unstyled blog-latest-posts margin-bottom-50" ng-repeat="p2 in posts2">
 							<li>
-								<h3><a href="#">Wireframe for the news view...</a></h3>
-								<small>5 Jan, 2015 / <a href="#">Web,</a> <a href="#">Webdesign</a></small>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam odio leo.</p>
-								</li>
-								<li>
-									<h3><a href="#">It is a long established fact that a reader</a></h3>
-									<small>17 Jan, 2015 / <a href="#">Artificial Intelligence</a></small>
-									<p>Pellentesque efficitur blandit dui, porta cursus velit imperdiet sit amet.</p>
-								</li>
+								<h3><a href="jisu_timeline_item.html?{{p2._id}}"><strong>{{p2.title}}</strong></a></h3>
+								<small>{{p2.writeTime|date:'yyyy.MM.dd'}} / <a href="#">Web,</a> <a href="#">Webdesign</a></small>
+								<p>{{p2.contents}}</p>
+							</li>
 						</ul>
 						<!-- End Latest Links -->
 
 						<div class="headline"><h2>Tags</h2></div>
 						<!-- Tags v2 -->
-						<ul class="list-inline tags-v2 margin-bottom-50">
-							<li><a href="#">Web Design</a></li>
-							<li><a href="#">Economy</a></li>
-							<li><a href="#">Sport</a></li>
-							<li><a href="#">Marketing</a></li>
-							<li><a href="#">Books</a></li>
-							<li><a href="#">Elections</a></li>
-							<li><a href="#">Flickr</a></li>
-							<li><a href="#">Politics</a></li>
-							<li><a href="#">Marketing</a></li>
-							<li><a href="#">Web Hosting</a></li>
-							<li><a href="#">Wrapbootstrap</a></li>
-							<li><a href="#">Art</a></li>
+						<ul class="list-inline tags-v2 margin-bottom-50" >
+							<li ng-repeat="tag in project_keyword"><a href="#">{{tag}}</a></li>
 						</ul>
 						<!-- End Tags v2 -->
 					</div>
@@ -391,18 +380,12 @@
 														<h4 id="myLargeModalLabel2" class="modal-title">Reply</h4>
 													</div>
 													<div class="modal-body">
-														<input type="text" class="form-control">
-															<div class="input-group-btn">
-																<button type="button" style="display: inline-block" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-																	Submit
-																	<span class="caret"></span>
-																</button>
-																<ul class="dropdownt-menu pull-right">
-																	<li>나만 보기</li>
-																	<li>팀원 공개</li>
-																	<li>전체 공개</li>
-																</ul>
-															</div>
+														<input type="text" class="form-control reply_input"/>
+														<div class="input-group-btn">
+															<button type="button" name="{{p._id}}" style="display: inline-block" class="btn btn-danger reply_submit_button">
+																Submit
+															</button>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -650,7 +633,6 @@
 			//댓글, 평가 아이콘 완료
 			
 			//좋아요 버튼
-			
 			$(document).on('mouseenter','.jisu_heart_icon0',function(){
 					$(this).css('color','#ffffff');
 					$(this).css('background-color','#4a9706');
@@ -695,6 +677,23 @@
 					});
 			});
 			//좋아요 버튼 완료
+			
+			//댓글 제출 버튼
+			$(document).on('click','.reply_submit_button',function(){
+					//alert(JSON.stringify($(this)[0]));
+					//alert(JSON.stringify($('.reply_submit_button')[0]));
+					var post_id = $(this).attr("name");
+					var report={projectId:id,type:"reply"};
+					//alert(post_id);
+					//alert(id);
+					report.contents=$(this).parent().prev().val();
+					report.writer=mid;
+					$.post('http://'+document.location.host+'/post/reply/'+post_id,report,function(res) {
+						alert(report.contents);
+						location.reload();
+					});
+			});
+			//댓글 제출 버튼 완료
 			
 			//new timeline 에서 제출 버튼 누르면 reload
 			$(document).on('click','#click_click',function(){

@@ -14,7 +14,8 @@ var postSchema = new Schema({
 	  type:			String,
 	  attend_member:[{ type: Schema.Types.ObjectId, ref: 'Member' }],
 	  parent:		{ type: Schema.Types.ObjectId, ref: 'Post' },
-	  like:			[{ type: Schema.Types.ObjectId, ref: 'Member' }]
+	  like:			[{ type: Schema.Types.ObjectId, ref: 'Member' }],
+	  reply:		[{ type: Schema.Types.ObjectId, ref: 'Post' }]
 });
 
 module.exports = mongoose.model('Post', postSchema);
