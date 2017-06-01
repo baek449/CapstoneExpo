@@ -38,10 +38,73 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
+	
+	<!-- AngularJS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script type="text/javascript">
+	var mid='592a7af2f8bc6d93b34216ef';
+	var module=angular.module('timelineApp', []);
+	var id=document.location.href;
+	id=id.split("?")[1];
+	if(!id) alert("Error"); // TODO Error Processing
+	id=id.split("&")[0].split("=");
+	if(id[0]!="id") alert("Error"); // TODO Error Processing
+	id=id[1];
+	//alert(id);
+	//alert(0);
+	
+	module.controller('TimelineDisplayController', function($scope,$http) {
+		//alert(1);
+		//var id = "592a7c6ff8bc6d93b34216f1";
+		// Bring the members into scope variable members
+		$http.get('http://'+document.location.host+'/project/summary/'+id).then(function(res3) {
+			$scope.project = res3.data.result;
+		});
+
+		
+		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
+			$scope.members = res1.data.result;
+			$scope.linebreak=function(str){
+				return str.replace(/\n/gi,'</p><p>');
+			};
+			// Bring the timeline into scope variable posts
+			$http.get('http://'+document.location.host+'/timeline/'+id,{memberId:mid}).then(function(res) {
+				$scope.posts=res.data.result;
+				$scope.id=id;
+				
+				$http.get('http://'+document.location.host+'/eval/download',{postID:id,fromMember:mid}).then(function(res2) {
+					$scope.eval = res2.data.result;
+					$scope.evalStatus=function(toMember,detail){
+						for(e in $scope.eval)
+							if($scope.eval[e].toMember==toMember && $scope.eval[e].eval==detail)
+								return $scope.eval[e].eval;
+						return "";
+					};
+					$scope.evalSubmit=function(toMember,detail){
+						$http.post('http://'+document.location.host+'/eval/upload',{postID:id,fromMember:mid,toMember:toMember,eval:detail,message:''});
+					};
+				});
+			});
+
+		});
+	});
+	
+
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+		//alert(2);
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);	
+	
+	</script>
 </head>
 
 <body class="header-fixed">
-	<div class="wrapper">
+	<div class="wrapper"  ng-app="timelineApp" ng-element-ready ng-controller="TimelineDisplayController">
 	
 		<!--=== Header v6 ===-->
 		<div class="header-v6 header-classic-white">
@@ -280,79 +343,21 @@
 			</div>
 
 			<div class="row team-v5 margin-bottom-50">
-				<div class="col-md-3 col-sm-6 md-margin-bottom-50">
+				<div class="col-md-3 col-sm-6 md-margin-bottom-50" ng-repeat="m in members">
 					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img1-md.jpg" alt="">
+						<img class="img-responsive" src="/image/download/{{m.image}}" alt="">
 						<div class="team-hover">
 							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
+								<li><a href="my_page.html?{{m._id}}"><i class="rounded-x fa fa-search"></i></a></li>
 								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
 							</ul>
 						</div>
 					</div>
-					<span>강지수</span>
-					<small>전기 및 전자공학과</small>
-					<p>여기에 소개글을 입력하십시오.</p>
+					<span>{{m.name}}</span>
+					<small>{{m.major}}</small>
+					<p>{{m.description}}</p>
 				</div>
-				<div class="col-md-3 col-sm-6 md-margin-bottom-50">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img5-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>김도연</span>
-					<small>화학과</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
-				<div class="col-md-3 col-sm-6 sm-margin-bottom-50">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img3-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>박산하</span>
-					<small>미래자동차학제전공</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
-				<div class="col-md-3 col-sm-6">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img1-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>백승근</span>
-					<small>전산학부</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
-			</div>
-			<div class="row team-v5 margin-bottom-50">			
-				
-				<div class="col-md-3 col-sm-6 md-margin-bottom-50">
-					<div class="team-img">
-						<img class="img-responsive" src="assets/img/team/img5-md.jpg" alt="">
-						<div class="team-hover">
-							<ul class="list-inline team-social-v5">
-								<li><a href="#"><i class="rounded-x fa fa-search"></i></a></li>
-								<li><a href="#"><i class="rounded-x fa fa-facebook"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<span>장자은</span>
-					<small>지식서비스공학대학원</small>
-					<p>여기에 소개글을 입력하십시오.</p>
-				</div>
+
 				
 			</div><!--/end team v5-->
 
