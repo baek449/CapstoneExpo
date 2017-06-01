@@ -25,7 +25,7 @@ var EvaluationController=function(Model){
 		    });
 		},
 		evalList:function(toMember,callback){
-			Model.Evaluation.aggregate([{$match:{toMember:toMember}},{
+			Model.Evaluation.aggregate([{$match:{toMember:Model.id(toMember)}},{
 	            $group: {
 	                _id: '$eval',  //$region is the column name in collection
 	                count: {$sum: 1}
