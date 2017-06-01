@@ -77,7 +77,7 @@
 				$scope.posts2=res.data.result.slice(0,2);
 				$scope.id=id;
 				
-				$http.get('http://'+document.location.host+'/eval/download',{postID:posts._id,fromMember:mid}).then(function(res2) {
+				$http.post('http://'+document.location.host+'/eval/download',{postID:posts._id,fromMember:mid}).then(function(res2) {
 					$scope.eval = res2.data.result;
 					$scope.evalStatus=function(toMember,detail){
 						for(e in $scope.eval)
@@ -138,8 +138,8 @@
 					<ul class="nav navbar-nav">
 
 						<!-- Home -->
-						<li class="dropdown">
-							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+						<li>
+							<a href="index.html">
 								Home
 							</a>
 						</li>
@@ -219,9 +219,9 @@
 						
 					<div class="posts margin-bottom-40">					
 						<dl class="dl-horizontal" ng-repeat="m in members">
-							<dt><a href="#"><img src="/image/download/{{m.image}}" alt="" /></a></dt>
+							<dt><a href="my_page.html?id={{m._id}}"><img src="/image/download/{{m.image}}" alt="" /></a></dt>
 							<dd>
-								<p><a href="my_page.html?{{m._id}}"><strong>{{m.name}}</strong><br>{{m.major}}</a></p>
+								<p><a href="my_page.html?id={{m._id}}"><strong>{{m.name}}</strong><br>{{m.major}}</a></p>
 							</dd>
 						</dl>
 					</div>
@@ -327,7 +327,7 @@
 	                              					 <div class="modal-body">
                         				             <!-- Accordion v1 -->
 														<div class="panel-group acc-v1" id="accordion-1">
-															<div class="panel panel-default" ng-repeat="m3 in members">
+															<div class="panel panel-default" ng-repeat="m3 in members" ng-class='memberClass(m3, $index)'>
 																<div class="panel-heading">
 																	<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse{{m3._id}}">
@@ -337,22 +337,22 @@
 																</div>
 																<div id="collapse{{m3._id}}" class="panel-collapse collapse assess-form">
 																		<div class=" cc-selector">
-																	        <input id="idea{{m3._id}}" type="radio" name="assess{{m3._id}}" value="idea"/>
+																	        <input id="idea{{m3._id}}" type="radio" name="assess{{m3._id}}" value="idea" ng-checked="{{evalSTatus(m3._id,'creative')" ng-click="evalSubmit(m3._id,'creative')"/>
 																	        <label class="drinkcard-cc idea" for="idea{{m3._id}}"></label>
 																	        <span>CREATIVE</span>
 																        </div>
 																        <div class=" cc-selector">
-																	        <input id="leader{{m3._id}}" type="radio" name="assess{{m3._id}}" value="leader"/>
+																	        <input id="leader{{m3._id}}" type="radio" name="assess{{m3._id}}" value="leader" ng-checked="m3.detail == 'leader'" ng-click="evalSubmit(m3._id,'leader')"/>
 																	        <label class="drinkcard-cc leader" for="leader{{m3._id}}"></label>
 																	        <span>LEADERSHIP</span>
 																        </div>
 																        <div class=" cc-selector">
-																	        <input id="skill{{m3._id}}" type="radio" name="assess{{m3._id}}" value="skill"/>
+																	        <input id="skill{{m3._id}}" type="radio" name="assess{{m3._id}}" value="skill" ng-checked="m3.detail == 'skill'" ng-click="evalSubmit(m3._id,'skill')"/>
 																	        <label class="drinkcard-cc skill"for="skill{{m3._id}}"></label>
 																	        <span>SKILLED</span>
 																        </div>
 																        <div class=" cc-selector">
-																	        <input id="teamwork{{m3._id}}" type="radio" name="assess{{m3._id}}" value="teamwork"/>
+																	        <input id="teamwork{{m3._id}}" type="radio" name="assess{{m3._id}}" value="teamwork" ng-checked="m3.detail == 'teamwork'" ng-click="evalSubmit(m3._id,'teamwork')"/>
 																	        <label class="drinkcard-cc teamwork"for="teamwork{{m3._id}}"></label>
 																	        <span>TEAMWORK</span>
 																        </div>
@@ -761,16 +761,6 @@
 				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Very Bad<i class="fa fa-angle-down"></i></p>');
 			});
 			//평가 버튼 완료
-			
-			var report={postId:id,type:"general"};
-			   //alert(JSON.stringify(x));
-			   //alert(JSON.stringify(report));
-			   $.post('http://'+document.location.host+'/eval/download',report,function(res){
-					// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
-					//alert(JSON.stringify(res.result));
-					alert("업로드 성공"); 
-					location.reload();
-			   });
 		}//);
 	</script>
 	<!--[if lt IE 9]>

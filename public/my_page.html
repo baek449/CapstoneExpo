@@ -41,16 +41,18 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
-	$.post(address,data,callback)
 	<!-- AngularJS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
+	
 	angular.module('mypageApp', []).controller('MypageDisplayController', function($scope,$http) {
 		var mid = document.location.href.split("?");
 		mid = mid[1];
 		mid = mid.split("=");
 		mid = mid[1];
 		//alert(mid);
+		
+		
 		$http.get('http://'+document.location.host+'/member/get/'+mid).then(function(res){
 			$scope.member=res.data.result;
 		});
@@ -66,14 +68,20 @@
 		$http.get('http://'+document.location.host+'/stat/postcount/'+mid).then(function(res){
 			$scope.postcount=res.data.result;
 		});
-		
-		$http.get('http://'+document.location.host+'/eval/download',{fromMember:mid}).then(function(res2) {
-			$scope.eval = res2.data.result;
-			$scope.evalStatus=function(toMember,detail){
-				for(e in $scope.eval)
-					if($scope.eval[e].toMember==toMember && $scope.eval[e].eval==detail)
-						return $scope.eval[e].eval;
-				return "";
+		$http.get('http://'+document.location.host+'/stat/evallist/'+mid).then(function(res){
+			//$scope.evallist=res.data.result;
+			alert(res.data.result);
+			alert(typeof res.data.result);
+			$scope.eval_find = function(id){
+				alert(res.data.result);
+				for(i in res.data.result){
+					if(res.data.result[i]._id==id){
+						alert(1);
+						return eval[i].count;
+					}
+				}
+				alert(0);
+				return 0;
 			};
 		});
 	});
@@ -82,7 +90,7 @@
 </head>
 
 <body>
-	<div class="wrapper" ng-app="mypageApp" ng-element-ready>
+	<div class="wrapper" ng-app="mypageApp" ng-element-ready ng-controller="MypageDisplayController">
 		<!--=== Container Part ===-->
 
 		<!--=== Breadcrumbs ===-->
@@ -98,7 +106,7 @@
 		<!--=== End Breadcrumbs ===-->
 
 		<!-- About Me Block -->
-		<div class="container content-sm" ng-controller="MypageDisplayController">
+		<div class="container content-sm">
 			<div class="row about-me">
 				<div class="col-sm-4 shadow-wrapper md-margin-bottom-40">
 					<div class="box-shadow shadow-effect-2">
@@ -125,25 +133,25 @@
 					<div class="row">
 						<div class="col-xs-3 text-center">
 							<div class="progress progress-u vertical bottom">
-								<div class="progress-bar progress-bar-u progress-bar-idea" role="progressbar" data-height="60"></div>
+								<div class="progress-bar progress-bar-u progress-bar-idea" role="progressbar" data-height="{{eval_find('Creativity')}}"></div>
 							</div>
 							<h5><img class="my-progress-icon" src="assets/img/icons/assess/idea.png">Creativity</h5>
 						</div>
 						<div class="col-xs-3 text-center">
 							<div class="progress progress-u vertical bottom">
-								<div class="progress-bar progress-bar-u progress-bar-leader" role="progressbar" data-height="76"></div>
+								<div class="progress-bar progress-bar-u progress-bar-leader" role="progressbar" data-height="{{eval_find('Leadership')}}"></div>
 							</div>
 							<h5><img class="my-progress-icon" src="assets/img/icons/assess/leader.png">Leadership</h5>
 						</div>
 						<div class="col-xs-3 text-center">
 							<div class="progress progress-u vertical bottom">
-								<div class="progress-bar progress-bar-u progress-bar-skills" role="progressbar" data-height="92"></div>
+								<div class="progress-bar progress-bar-u progress-bar-skills" role="progressbar" data-height="{{eval_find('Expertise')}}"></div>
 							</div>
 							<h5><img class="my-progress-icon" src="assets/img/icons/assess/skill.png">Expertise</h5>
 						</div>
 						<div class="col-xs-3 text-center">
 							<div class="progress progress-u vertical bottom">
-								<div class="progress-bar progress-bar-u progress-bar-team no-bottom-margin" role="progressbar" data-height="81"></div>
+								<div class="progress-bar progress-bar-u progress-bar-team no-bottom-margin" role="progressbar" data-height="{{eval_find('Teamwork')}}"></div>
 							</div>
 							<h5><img class="my-progress-icon" src="assets/img/icons/assess/teamwork.png">Teamwork</h5>
 						</div>
@@ -156,7 +164,7 @@
 		<!-- End About Me Block -->
 		
 		<!-- Parallax Counter -->
-		<div class="parallax-counter-v2 parallaxBg1" style="background-position: 50% 31px;" ng-controller="MypageDisplayController">
+		<div class="parallax-counter-v2 parallaxBg1" style="background-position: 50% 31px;">
 			<div class="container">
 
 				

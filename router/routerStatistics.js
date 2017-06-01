@@ -4,7 +4,10 @@ module.exports = function(app,Model)
 	// 통계에 관한 라우터
 	app.get('/stat/evallist/:id',function(req,res){
 		// TODO 멤버가 받은 평가 토큰별 개수를 가져옵니다.
+		console.log("ID");
+		console.log(req.params.id);
 		EvaluationController.evalList(req.params.id,function(x){
+			console.log(x);
 			res.send(x);
 		});
 	});

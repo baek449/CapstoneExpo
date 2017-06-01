@@ -77,7 +77,7 @@
 				$scope.posts2=res.data.result.slice(0,2);
 				$scope.id=id;
 				
-				$http.get('http://'+document.location.host+'/eval/download',{postID:posts._id,fromMember:mid}).then(function(res2) {
+				$http.post('http://'+document.location.host+'/eval/download',{postID:posts._id,fromMember:mid}).then(function(res2) {
 					$scope.eval = res2.data.result;
 					$scope.evalStatus=function(toMember,detail){
 						for(e in $scope.eval)
@@ -219,9 +219,9 @@
 						
 					<div class="posts margin-bottom-40">					
 						<dl class="dl-horizontal" ng-repeat="m in members">
-							<dt><a href="#"><img src="/image/download/{{m.image}}" alt="" /></a></dt>
+							<dt><a href="my_page.html?id={{m._id}}"><img src="/image/download/{{m.image}}" alt="" /></a></dt>
 							<dd>
-								<p><a href="my_page.html?{{m._id}}"><strong>{{m.name}}</strong><br>{{m.major}}</a></p>
+								<p><a href="my_page.html?id={{m._id}}"><strong>{{m.name}}</strong><br>{{m.major}}</a></p>
 							</dd>
 						</dl>
 					</div>

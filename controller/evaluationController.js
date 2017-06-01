@@ -25,13 +25,12 @@ var EvaluationController=function(Model){
 		    });
 		},
 		evalList:function(toMember,callback){
-			Model.Evaluation.find({toMember:toMember})
-			.aggregate([{
+			Model.Evaluation.aggregate([{$match:{toMember:toMember}},{
 	            $group: {
-	                _id: 'eval',  //$region is the column name in collection
+	                _id: '$eval',  //$region is the column name in collection
 	                count: {$sum: 1}
 	            }
-	        }]).exec(function(err,data){
+	        }],function(err,data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});
