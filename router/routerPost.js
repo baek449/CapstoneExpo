@@ -80,8 +80,9 @@ module.exports = function(app,Model)
 		// postID, fromMember는 필수입니다.
 		var key={postID:	req.body.postID,
 				fromMember:	req.body.fromMember};
-		
+		console.log(1);
 		EvaluationController.get(key,function(x){
+			console.log(2);
 			// x.result에는 여러 댓글이 있습니다. 이는 응답으로 넘어가기 전에 Mongoose 객체에서 일반 객체로 바뀌어야 합니다.
 			if(x.result)
 				for(i in x.result)

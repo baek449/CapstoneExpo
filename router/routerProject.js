@@ -67,4 +67,22 @@ module.exports = function(app,Model)
 			res.send(x);
 		});
 	});
-};
+	app.get('/search/:keyword',function(req,res){
+		// 키워드와 일치하는 프로젝트 목록을 받아옵니다.
+		console.log("search");
+		ProjectController.search(req.params.keyword,function(x){
+			console.log(x.result);
+			console.log("@@@@@@@@@@@@");
+			// x.result에는 populate된 하나의 프로젝트가 있습니다. 이는 응답으로 넘어가기 전에 일반 객체로 바뀌어야 합니다.
+			if(x.result)
+				for(i in x.result)
+					{
+						x.result[i]=x.result[i].toObject();
+						x.result[i].projectSummary._id=x.result[i]._id;
+						x.result[i]=x.result[i].projectSummary;
+					}
+			res.send(x);
+			console.log(x);
+			});
+	});
+}

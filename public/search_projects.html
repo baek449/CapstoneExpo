@@ -128,12 +128,14 @@
 			<div class="container">
 				<div class="col-md-6 col-md-offset-3">
 					<h2>찾으시는 프로젝트를 검색해보세요.</h2>
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="프로젝트 명 검색">
-						<span class="input-group-btn">
-							<button class="btn-u" type="button"><i class="fa fa-search"></i></button>
-						</span>
+					<form id="ajaxform" method="get">
+					<div class="input-group">	
+						<input type="text" id= "keyword" class="form-control" placeholder="프로젝트 명 검색">
+						<span class="input-group-btn">					
+							<button class="btn-u" id=search type="submit"><i class="fa fa-search"></i></button>
+						</span>						
 					</div>
+					</form>
 				</div>
 			</div>
 		</div><!--/container-->
@@ -352,7 +354,7 @@
 				case "화공/에너지":
 					return "ener";
 				case "자연과학":
-					return "scie";
+					return "scie"; 
 				case "예술/디자인":
 					return "desi";
 				case "생활/교육":
@@ -404,7 +406,7 @@
 	$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
 
 	function ready() {
-		App.init();
+		//App.init();
 		Datepicker.initDatepicker();
 		Validation.initValidation();
 		$.getScript("assets/js/plugins/cube-portfolio/cube-portfolio-3.js");
@@ -432,6 +434,29 @@
 			});
 		}));
 	}
+	
+	jQuery(document).ready(function() {
+		App.init();
+		
+		$(function(){
+			$("#ajaxform").submit(function(){
+				event.preventDefault();
+				var keyword = $("#keyword").val();
+					alert(keyword);
+				$.getJSON('http://'+document.location.host+'/search/'+$("#keyword").val(), function(res){
+					alert(keyword+" 전송완료");
+					alert(JSON.stringify(res.result));
+					
+					
+					$scope.projects=res.result;
+				});			
+			});
+		});
+	});
+	
+		
+	
+	
 	</script>
 	<!--[if lt IE 9]>
 	<script src="assets/plugins/respond.js"></script>
