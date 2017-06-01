@@ -29,6 +29,8 @@
 	<link rel="stylesheet" href="assets/plugins/animate.css">
 	<link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css">
 	<link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
+	<link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
 	<link rel="stylesheet" href="assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css">
 	<link rel="stylesheet" href="assets/plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css">
 
@@ -364,91 +366,92 @@
 		<!--=== End Team v5 ===-->
 		
 		
-	</div><!--/wrapper-->
+		<!-- 프로젝트 수정 modal -->
+		<div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel4">프로젝트 수정</h4>
+					</div>
 	
-	<!-- 프로젝트 수정 modal -->
-	<div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel4">프로젝트 수정</h4>
-				</div>
-
-				<div class="panel-body sky-form">
-					<form id="imageForm" class="form-horizontal sky-form no-border" role="form"  method="post" enctype="multipart/form-data">
-					
-						<div class="form-group">
-							<label for="inputCategory" class="col-lg-2 control-label">분야</label>
-							<div id="input-field" class="col-lg-10 inline-group jen-checkbox">
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기계/항공"><i></i>기계/항공</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="전기/전자"><i></i>전기/전자</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="소프트웨어"><i></i>소프트웨어</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="건축/환경"><i></i>건축/환경</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="화공/에너지"><i></i>화공/에너지</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="자연과학"><i></i>자연과학</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="예술/디자인"><i></i>예술/디자인</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="생활/교육"><i></i>생활/교육</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기타"><i></i>기타</label>
-							</div>
-						</div>											
-
-						<div class="form-group">
-							<label for="inputTitle" class="col-lg-2 control-label">프로젝트명:</label>
-							<div class="col-lg-10">
-								<input type="text" class="form-control" id="input-name" name="name" placeholder="프로젝트명">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputIntro" class="col-lg-2 control-label">요약글:</label>
-							<div class="col-lg-10">
-								<input type="text" class="form-control" id="input-short-intro" name="shortIntro" placeholder="한 줄 소개">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
-							<div class="col-lg-10 textarea">
-								<textarea id="inputDesc" class="form-control" rows="5" id="input-intro" name="intro" placeholder="프로젝트를 소개해주세요."></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputDate" class="col-lg-2 control-label">기간:</label>
-							<div class="col-lg-10 inline-group">
-								<div class="col-4 date-picker">
-									<label class="input">
-										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="start" id="start" name="startDate" placeholder="프로젝트 시작">
-									</label>
+					<div class="panel-body sky-form">
+						<form id="imageForm" class="form-horizontal sky-form no-border" role="form"  method="post" enctype="multipart/form-data">
+						
+							<div class="form-group">
+								<label for="inputCategory" class="col-lg-2 control-label">분야</label>
+								<div id="input-field" class="col-lg-10 inline-group jen-checkbox">
+									<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기계/항공" ng-checked="true" ng-if="summary.field.indexOf('기계/항공') != -1"><i></i>기계/항공</label>
+									<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="전기/전자" ng-checked="true" ng-if="summary.field.indexOf('전기/전자') != -1"><i></i>전기/전자</label>
+									<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="소프트웨어" ng-checked="true" ng-if="summary.field.indexOf('소프트웨어') != -1"><i></i>소프트웨어</label>
+									<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="건축/환경" ng-checked="true" ng-if="summary.field.indexOf('건축/환경') != -1"><i></i>건축/환경</label>
+									<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="화공/에너지" ng-checked="true" ng-if="summary.field.indexOf('화공/에너지') != -1"><i></i>화공/에너지</label>
+									<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="자연과학" ng-checked="true" ng-if="summary.field.indexOf('자연과학') != -1"><i></i>자연과학</label>
+									<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="예술/디자인" ng-checked="true" ng-if="summary.field.indexOf('예술/디자인') != -1"><i></i>예술/디자인</label>
+									<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="생활/교육" ng-checked="true" ng-if="summary.field.indexOf('생활/교육') != -1"><i></i>생활/교육</label>
+									<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기타" ng-checked="true" ng-if="summary.field.indexOf('기타') != -1"><i></i>기타</label>
 								</div>
-								<div class="col-4 date-picker">
-									<label class="input">
-										<i class="icon-append fa fa-calendar"></i>
-										<input type="text" name="finish" id="finish" name="endDate" placeholder="종료 예정일">
-									</label>
+							</div>											
+							<div class="form-group">
+								<label for="inputTitle" class="col-lg-2 control-label">프로젝트명:</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="input-name" name="name" ng-model="formkey" ng-init="formkey=summary.name">
 								</div>
 							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
-							<div class="col-lg-10">
-								<label for="file" class="input input-file">
-									<div class="button"><input type="file" id="uploadFile" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
-								</label>
+							<div class="form-group">
+								<label for="inputIntro" class="col-lg-2 control-label">요약글:</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="input-short-intro" name="shortIntro" placeholder="{{summary.shortIntro}}">
+								</div>
 							</div>
-						</div>
-						<div class="modal-footer">
-						<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
-						<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
-						</div>
-					</form>
+							<div class="form-group">
+								<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
+								<div class="col-lg-10 textarea">
+									<textarea id="inputDesc" class="form-control" rows="5" id="input-intro" name="intro" placeholder="{{summary.intro}}"></textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputDate" class="col-lg-2 control-label">기간:</label>
+								<div class="col-lg-10 inline-group">
+									<div class="col-4 date-picker">
+										<label class="input">
+											<i class="icon-append fa fa-calendar"></i>
+											<input type="text" name="start" id="start" name="startDate" placeholder="{{summary.startDate|date:'yyyy.MM.dd'}}">
+										</label>
+									</div>
+									<div class="col-4 date-picker">
+										<label class="input">
+											<i class="icon-append fa fa-calendar"></i>
+											<input type="text" name="finish" id="finish" name="endDate" placeholder="{{summary.endDate|date:'yyyy.MM.dd'}}">
+										</label>
+									</div>
+								</div>
+							</div>
+	
+							<div class="form-group">
+								<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
+								<div class="col-lg-10">
+									<label for="file" class="input input-file">
+										<div class="button"><input type="file" id="uploadFile" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value" placeholder="/image/download/{{company.image}}" >Browse</div><input type="text" readonly>
+									</label>
+								</div>
+							</div>
+							<div class="modal-footer">
+							<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
+							<button type="submit" class="btn-u btn-u-primary">프로젝트 수정</button>
+							</div>
+						</form>
+					</div>
+	
+	
 				</div>
-
-
 			</div>
 		</div>
-	</div>
-	<!-- end 프로젝트 수정 -->
+		<!-- end 프로젝트 수정 -->		
+		
+	</div><!--/wrapper-->
+	
+
 	
 	<!-- JS Global Compulsory -->
 	<script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
@@ -456,17 +459,162 @@
 	<script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<!-- JS Implementing Plugins -->
 	<script type="text/javascript" src="assets/plugins/back-to-top.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.maskedinput.min.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="assets/plugins/smoothScroll.js"></script>
 	<script type="text/javascript" src="assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.min.js"></script>
+	<script src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 	<!-- JS Customization -->
 	<script type="text/javascript" src="assets/js/custom.js"></script>
 	<!-- JS Page Level -->
 	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/datepicker.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/validation.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/cube-portfolio/cube-portfolio-4.js"></script>
 	<!--[if lt IE 9]>
 	<script src="assets/plugins/respond.js"></script>
 	<script src="assets/plugins/html5shiv.js"></script>
 	<script src="assets/plugins/placeholder-IE-fixes.js"></script>
 	<![endif]-->
+		<script type="text/javascript">
+	function open_win() {
+		var singleText = "single";
+		var s = window.location.search;
+
+		if (s.indexOf(singleText) == -1) {
+		    window.location.href += (s.substring(0,1) == "?") ? "&" : "?" + singleText;
+		}
+	}
+	
+	var mid='592a7af2f8bc6d93b34216ef';
+	
+	var module=angular.module('searchApp', []);
+	module.controller('ProjectDisplayController', function($scope,$http) {
+		var sorting = '';
+		var args=window.location.search.substring(1).split('&');
+		var arg=args[0].split('=');
+        if(arg[0]==='newest' && arg[1]==='true') {
+        	sorting = '/project/all/new';
+        } else {
+        	sorting = '/project/all/view';
+        }
+        if(args[1]) sorting='/search/'+args[1].split('=')[1];
+        
+		
+		$http.get('http://'+document.location.host+sorting).then(function(res){
+			$scope.projects=res.data.result;
+			$scope.myprojects=res.data.result.slice(12,15);
+			$scope.count=res.data.result.length;
+			$scope.mid=mid;
+			$scope.map_one=function(fieldName){
+				switch(fieldName) {
+				case "기계/항공":
+					return "mech";
+				case "전기/전자":
+					return "elec";
+				case "소프트웨어":
+					return "soft";
+				case "건축/환경":
+					return "arch";
+				case "화공/에너지":
+					return "ener";
+				case "자연과학":
+					return "scie"; 
+				case "예술/디자인":
+					return "desi";
+				case "생활/교육":
+					return "educ";
+				case "기타":
+					return "misc";
+				}
+				return "";
+			};
+			$scope.comma=function(a){
+				return ', '+a;
+			};
+
+			$scope.map=function(fields,func){
+				var result='';
+				for(i in fields)
+					result+= ' '+func(fields[i]);
+				return result.substring(2);
+			};
+		});
+	});
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
+
+	function upload(callback){
+		return function(event){
+		event.preventDefault();
+		$.ajax({
+			contentType: false,
+			processData: false,
+	        data: new FormData($(this)[0]),
+	        type: $(this).attr('method'),
+	        url: '/image/upload',
+	        success: function(response) {
+	        	if(response.error) alert(response.error);
+	        	else{
+	        		callback(response);
+	        	}
+	        }
+	    });
+	}};
+
+	function ready() {
+		//App.init();
+		Datepicker.initDatepicker();
+		Validation.initValidation();
+		$.getScript("assets/js/plugins/cube-portfolio/cube-portfolio-3.js");
+		$("#imageForm").submit(upload(function(response){
+			if(response.error){
+				alert("Fail");
+				return;
+			}
+			var testdata={};
+			testdata.projectSummary={};
+			testdata.projectSummary.name=$("#input-name").val();
+			testdata.projectSummary.shortIntro=$("#input-short-intro").val();
+			testdata.projectSummary.intro=$("#input-intro").val();
+			testdata.projectSummary.status="신규";
+			testdata.projectSummary.startDate=$("#start").val();
+			testdata.projectSummary.endDate=$("#finish").val();
+			testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
+		        return $(el).attr('value');
+		    }).get();
+			testdata.projectSummary.image=response.result;
+			$.post('http://'+document.location.host+'/project/new',testdata,function(res){
+				// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+				//alert(JSON.stringify(res.result));
+				location.reload(true);
+			});
+		}));
+	}
+	
+	jQuery(document).ready(function() {
+		App.init();
+		$("#ajaxform").submit(function(event){
+			event.preventDefault();
+			var addr=''+document.location.href.split('?')[0]
+			+"?newest=true&search="+$("#keyword").val();
+			location.href=addr;
+		});
+	});
+	
+		
+	
+	
+	</script>
 </body>
 </html>
