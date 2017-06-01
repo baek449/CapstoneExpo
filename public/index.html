@@ -42,12 +42,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
 
-<body class="header-fixed">
-	<div class="wrapper">
+<body class="header-fixed" ng-app="searchApp" ng-element-ready>
+	<div class="wrapper" ng-controller="ProjectDisplayController">
 
 
 		<!--=== Header v6 ===-->
-		<div class="header-v6 header-classic-white">
+		<div class="header-v6 header-classic-white" >
 			<!-- Navbar -->
 			<div class="navbar" role="navigation">
 				<div class="container">
@@ -103,7 +103,7 @@
 										<li class="dropdown-submenu">
 											<a href="javascript:void(0);">My Projects</a>
 											<ul class="dropdown-menu submenu-left">
-												<li><a href="project_details.html">CapstoneExpo</a></li>
+												<li ng-repeat="p2 in projects2"><a href="jisu_timeline_angular.html?id={{p2._id}}">{{p2.name}}</a></li>
 											</ul>
 										</li>
 										<li><a href="blog_timeline.html">Sign out</a></li>
@@ -146,7 +146,7 @@
 
 		<!--=== Content ===-->
 		<div class="content-xs">
-			<div class="container" ng-app="searchApp" ng-element-ready>
+			<div class="container">
 				<div class="headline margin-bottom-30">
 					<h2>Popular projects</h2>
 					<button onclick="window.location.href='search_projects.html'" class="btn btn-default pull-right" type="button">전체보기</button>
@@ -158,7 +158,7 @@
 
 
 				<!-- Portfolio Box -->
-				<ul class="list-unstyled row portfolio-box" ng-controller="ProjectDisplayController">
+				<ul class="list-unstyled row portfolio-box">
 					<li class="col-sm-4 md-margin-bottom-50" ng-repeat="p in projects">
 						<a class="thumbnail fancybox" data-rel="gallery" title="{{p.name}}" href="project_details.html?id={{p._id}}">
 							<img class="full-width img-responsive" src="/image/download/{{p.image}}" alt="">
@@ -245,6 +245,7 @@
 		module.controller('ProjectDisplayController', function($scope,$http) {
 			$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
 				$scope.projects=res.data.result.slice(0,3);
+				$scope.projects2=res.data.result.slice(0,3);
 				$scope.map_one=function(fieldName){
 					switch(fieldName) {
 					case "기계/항공":
