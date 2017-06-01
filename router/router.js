@@ -6,6 +6,7 @@ module.exports = function(app,Model)
 	require('./routerProject')(app,Model);
 	require('./routerPost')(app,Model);
 	require('./routerImage')(app,Model);
+	require('./routerStatistics')(app,Model);
 	
 	
 	// TODO Additional page render

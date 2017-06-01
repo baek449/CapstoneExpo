@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 
 	<!-- CSS Header and Footer -->
-	<link rel="stylesheet" href="assets/css/headers/header-v6.css">
+	<link rel="stylesheet" href="assets/css/headers/header-default.css">
 	<link rel="stylesheet" href="assets/css/footers/footer-v1.css">
 
 	<!-- CSS Implementing Plugins -->
@@ -43,148 +43,185 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
+
+	<!-- AngularJS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
-	$(".cc-selector").outerHeight($(".cc-selector").outerWidth() * 1.00);
+	var mid='592a7af2f8bc6d93b34216ef';
+	var module=angular.module('timelineApp', []);
+	var id=document.location.href;
+	id=id.split("?")[1];
+	if(!id) alert("Error"); // TODO Error Processing
+	id=id.split("&")[0].split("=");
+	if(id[0]!="id") alert("Error"); // TODO Error Processing
+	id=id[1];
+	//alert(id);
+	//alert(0);
+	
+	module.controller('TimelineDisplayController', function($scope,$http) {
+		//alert(1);
+		//var id = "592a7c6ff8bc6d93b34216f1";
+		// Bring the members into scope variable members
+		$http.get('http://'+document.location.host+'/project/summary/'+id).then(function(res1) {
+			$scope.project_keyword = res1.data.result.keyword;
+		});
+		
+		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
+			$scope.members = res1.data.result;
+/* 			$scope.linebreak=function(str){
+				return str.replace(/\n/gi,'</p><p>');
+			}; */
+			// Bring the timeline into scope variable posts
+			$http.get('http://'+document.location.host+'/timeline/'+id,{memberId:mid}).then(function(res) {
+				$scope.posts=res.data.result;
+				$scope.posts2=res.data.result.slice(0,2);
+				$scope.id=id;
+				
+				$http.get('http://'+document.location.host+'/eval/download',{postID:posts._id,fromMember:mid}).then(function(res2) {
+					$scope.eval = res2.data.result;
+					$scope.evalStatus=function(toMember,detail){
+						for(e in $scope.eval)
+							if($scope.eval[e].toMember==toMember && $scope.eval[e].eval==detail)
+								return $scope.eval[e].eval;
+						return "";
+					};
+					$scope.evalSubmit=function(toMember,detail){
+						$http.post('http://'+document.location.host+'/eval/upload',{postID:posts._id,fromMember:mid,toMember:toMember,eval:detail,message:''});
+					};
+				});
+			});
+
+		});
+	});
+	
+
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+		//alert(2);
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
 	</script>
 </head>
 
-<body class="header-fixed">
-	<div class="wrapper">
+<body>
+	<div class="wrapper" ng-app="timelineApp" ng-element-ready>
 	
-		<!--=== Header v6 ===-->
-		<div class="header-v6 header-classic-white">
-			<!-- Navbar -->
-			<div class="navbar" role="navigation">
+		<!--=== Header ===-->
+		<div class="header">
+			<div class="container">
+				<!-- Logo -->
+				<a class="logo" href="index.html">
+					<img src="assets/img/logo1-default.png" alt="Logo">
+				</a>
+				<!-- End Logo -->
+
+				<!-- Topbar -->
+				<div class="topbar">
+				</div>
+				<!-- End Topbar -->
+
+				<!-- Toggle get grouped for better mobile display -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="fa fa-bars"></span>
+				</button>
+				<!-- End Toggle -->
+			</div><!--/end container-->
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
 				<div class="container">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="menu-container">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
+					<ul class="nav navbar-nav">
 
-						<!-- Navbar Brand -->
-						<div class="navbar-brand">
-							<a href="index.html">
-								<img class="shrink-logo" src="assets/img/icons/logo-2_s.png" alt="Logo">
+						<!-- Home -->
+						<li class="dropdown">
+							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+								Home
 							</a>
-						</div>
-						<!-- ENd Navbar Brand -->
+						</li>
+						<!-- End Home -->
 
-
-					</div>
-
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse navbar-responsive-collapse">
-						<div class="menu-container">
-							<ul class="nav navbar-nav">
-								<!-- Home -->
-								<li class="active">
-									<a href="index.html">
-										Home
-									</a>
+						<!-- Features -->
+						<li class="dropdown">
+							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+								My page
+							</a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-submenu">
+									<a href="javascript:void(0);">My Page</a>
 								</li>
-								<!-- End Home -->
-								
-								<!-- Discover -->
-								<li>
-									<a href="search_projects.html">
-										Discover Projects
-									</a>
-								</li>
-								<!-- End Discover -->
-								
-								<!-- My Menu -->
-								<li class="dropdown">
-									<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-										My Menu
-									</a>
-									<ul class="dropdown-menu pull-right">
-										<li>
-											<a href="my_page.html">My Page</a>
-										</li>
-										<li class="dropdown-submenu">
-											<a href="javascript:void(0);">My Projects</a>
-											<ul class="dropdown-menu submenu-left">
-												<li><a href="project_details.html">CapstoneExpo</a></li>
-											</ul>
-										</li>
-										<li><a href="blog_timeline.html">Sign out</a></li>
+								<li class="dropdown-submenu">
+									<a href="javascript:void(0);">My Projects</a>
+									<ul class="dropdown-menu">
+										<li><a href="feature_footer_default.html#footer-default">Capstone Expo</a></li>
+										<li><a href="feature_footer_v1.html#footer-v1">Footer v1</a></li>
 									</ul>
 								</li>
-								<!-- End My Menu -->
-
+								<li><a href="feature_gallery.html">Gallery Examples</a></li>
 							</ul>
-						</div>
-					</div><!--/navbar-collapse-->
-				</div>
-			</div>
-			<!-- End Navbar -->
-		</div>
-		<!--=== End Header v6 ===-->	
-	
-	
-	
-	
-		<!--=== Interactive Slider ===-->
-		<div class="breadcrumbs-v3 text-center no-bottom-padding project-detail-title-box">
-			<div class="container">
-				<div class="margin-bottom-100">
-					<h1>캡스톤 엑스포</h1>
-					<p>캡스톤 프로젝트 공유 플랫폼</p>
-				</div>
-				<div class="tab-v1">
-					<ul class="nav nav-tabs">
-						<li><a href="project_details.html">프로젝트 및 팀 소개</a></li>
-						<li class="active"><a href="#">타임라인</a></li>						
-						<li class="pull-right"><a href="#edit">프로젝트 수정</a></li>
+						</li>
+						<!-- End Features -->
+
+						<!-- Home -->
+						<li class="dropdown">
+							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+								Class Introduction
+							</a>
+						</li>
+						<!-- End Home -->
+
+						<!-- Search Block -->
+						<li>
+							<i class="search fa fa-search search-btn"></i>
+							<div class="search-open">
+								<div class="input-group animated fadeInDown">
+									<input type="text" class="form-control" placeholder="Search">
+									<span class="input-group-btn">
+										<button class="btn-u" type="button">Go</button>
+									</span>
+								</div>
+							</div>
+						</li>
+						<!-- End Search Block -->
 					</ul>
-				</div>
-			</div>
+				</div><!--/end container-->
+			</div><!--/navbar-collapse-->
 		</div>
-		<!--=== End Interactive Slider ===-->
+		<!--=== End Header ===-->
+
+		<!--=== Breadcrumbs ===-->
+		<div class="breadcrumbs">
+			<div class="container">
+				<h1 class="pull-left">Timeline</h1>
+				<ul class="pull-right breadcrumb">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="">Features</a></li>
+					<li class="active">Timeline</li>
+				</ul>
+			</div>
+		</div><!--/breadcrumbs-->
+		<!--=== End Breadcrumbs ===-->
+
+
 
 		<!--=== Content Part ===-->
-		<div class="container content">
+		
+		<div class="container content" ng-controller="TimelineDisplayController">
 			<div class="row">
-			
 				<!-- Right Side Bar -->
 				<div class="col-md-3 jisu_right_border_gray">
-					<div class="headline"><h2>팀원 목록</h2></div>
+					<div class="headline"><h2>Team Members</h2></div>
 					<!-- Team members -->
 						
 					<div class="posts margin-bottom-40">					
-						<dl class="dl-horizontal">
-							<dt><a href="#"><img src="assets/img/Capstone-image/jisukang.jpg" alt="" /></a></dt>
+						<dl class="dl-horizontal" ng-repeat="m in members">
+							<dt><a href="#"><img src="/image/download/{{m.image}}" alt="" /></a></dt>
 							<dd>
-								<p><a href="#"><strong>Jisu Kang</strong><br>Electrical Engineering</a></p>
-							</dd>
-						</dl>
-						<dl class="dl-horizontal">
-							<dt><a href="#"><img src="assets/img/Capstone-image/doyeon_kim.jpg" alt="" /></a></dt>
-							<dd>
-								<p><a href="#"><strong>Doyeon Kim</strong><br>Chemistry</a></p>
-							</dd>
-						</dl>
-						<dl class="dl-horizontal">
-							<dt><a href="#"><img src="assets/img/Capstone-image/sanha_park.jpg" alt="" /></a></dt>
-							<dd>
-								<p><a href="#"><strong>Sanha Park</strong><br>K-school</a></p>
-							</dd>
-						</dl>
-						<dl class="dl-horizontal">
-							<dt><a href="#"><img src="assets/img/Capstone-image/seunggeun_baek.png" alt="" /></a></dt>
-							<dd>
-								<p><a href="#"><strong>Seunggeun Baek</strong><br>Computer Science</a></p>
-							</dd>
-						</dl>
-						<dl class="dl-horizontal">
-							<dt><a href="#"><img src="assets/img/Capstone-image/jaeun_jang.jpg" alt="" /></a></dt>
-							<dd>
-								<p><a href="#"><strong>Jenny Chang</strong><br>KSchool/KSE</a></p>
+								<p><a href="my_page.html?{{m._id}}"><strong>{{m.name}}</strong><br>{{m.major}}</a></p>
 							</dd>
 						</dl>
 					</div>
@@ -195,11 +232,11 @@
 					<!-- projects -->
 						<ul class="list-unstyled blog-latest-posts margin-bottom-50">
 							<li>
-								<h3><a href="#">Capstone Expo</a></h3>
+								<h3><a href="project_details.html?id={{id}}"><strong>Capstone Expo</strong></a></h3>
 								<small>From 1 March, 2017 / To 1 June, 2017</small>
 							</li>
 							<li>
-								<h3><a href="#">Capstone Expo</a></h3>
+								<h3><a href="#"><strong>Capstone Expo</strong></a></h3>
 								<small>From 1 March, 2017 / To 1 June, 2017</small>
 							</li>
 						</ul>
@@ -208,41 +245,27 @@
 
 					<div class="headline"><h2>Latest Posts</h2></div>
 						<!-- Latest Links -->
-						<ul class="list-unstyled blog-latest-posts margin-bottom-50">
+						<ul class="list-unstyled blog-latest-posts margin-bottom-50" ng-repeat="p2 in posts2">
 							<li>
-								<h3><a href="#">Wireframe for the news view...</a></h3>
-								<small>5 Jan, 2015 / <a href="#">Web,</a> <a href="#">Webdesign</a></small>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam odio leo.</p>
-								</li>
-								<li>
-									<h3><a href="#">It is a long established fact that a reader</a></h3>
-									<small>17 Jan, 2015 / <a href="#">Artificial Intelligence</a></small>
-									<p>Pellentesque efficitur blandit dui, porta cursus velit imperdiet sit amet.</p>
-								</li>
+								<h3><a href="jisu_timeline_item.html?{{p2._id}}"><strong>{{p2.title}}</strong></a></h3>
+								<small>{{p2.writeTime|date:'yyyy.MM.dd'}} / <a href="#">Web,</a> <a href="#">Webdesign</a></small>
+								<p>{{p2.contents}}</p>
+							</li>
 						</ul>
 						<!-- End Latest Links -->
 
 						<div class="headline"><h2>Tags</h2></div>
 						<!-- Tags v2 -->
-						<ul class="list-inline tags-v2 margin-bottom-50">
-							<li><a href="#">Web Design</a></li>
-							<li><a href="#">Economy</a></li>
-							<li><a href="#">Sport</a></li>
-							<li><a href="#">Marketing</a></li>
-							<li><a href="#">Books</a></li>
-							<li><a href="#">Elections</a></li>
-							<li><a href="#">Flickr</a></li>
-							<li><a href="#">Politics</a></li>
-							<li><a href="#">Marketing</a></li>
-							<li><a href="#">Web Hosting</a></li>
-							<li><a href="#">Wrapbootstrap</a></li>
-							<li><a href="#">Art</a></li>
+						<ul class="list-inline tags-v2 margin-bottom-50" >
+							<li ng-repeat="tag in project_keyword"><a href="#">{{tag}}</a></li>
 						</ul>
 						<!-- End Tags v2 -->
 					</div>
-					<!-- End Right Side Bar -->												
+					<!-- End Right Side Bar -->
+							
+					
 				<!-- Begin Content -->
-				<div class="col-md-9">				
+				<div class="col-md-9">
 					<!-- new button -->
 					<div class="btn-group col-md-3 jisu_new_button_div">
 							<button class="btn-u dropdown-toggle" style="float:right" data-toggle="dropdown" type="button">
@@ -262,180 +285,89 @@
 							</ul>
 					</div>
 					<!-- End new button -->
-					
 					<br><br>
 				
 					<ul class="timeline-v2">
-						<li class="equal-height-columns">
-							<div class="cbp_tmtime equal-height-column"><span>2017/05/23</span> <span>5월</span></div>
+						<li class="equal-height-columns" ng-repeat="p in posts" print1>
+							<div class="cbp_tmtime equal-height-column"><span>{{p.writeTime|date:'yyyy.MM.dd'}}</span> <span>May</span></div>
 							<i class="cbp_tmicon rounded-x hidden-xs"></i>
-							<div class="cbp_tmlabel equal-height-column">
+							<div class="{{p.type}} cbp_tmlabel equal-height-column">
 												
 								<!-- Edit button -->
 								<h2>
-									<a href="blog_large_full_width_item1.html">조모임 하다가 축제 즐기러!!</a>
-									<a href="jisu_timeline_item_edit.html" class="jisu_edit_link">edit</a>
+									<a href="jisu_timeline_item.html?{{p._id}}">{{p.title}}</a>
+									<a href="jisu_timeline_item_edit.html?post={{p._id}}&project={{id}}" style="text-decoration:none" class="jisu_edit_link">edit</a>
 								</h2>	
 								<!-- End edit button -->
 									
 										
 								<div class="row">
 									<div class="col-md-4">
-										<img class="img-responsive" src="assets/img/Capstone-image/KakaoTalk_20170523.jpg" alt="">
+										<img class="img-responsive" src="/image/download/{{p.image}}" alt="">
 										<div class="md-margin-bottom-20"></div>
 									</div>
 									<div class="col-md-8">
-										<p>9시쯤 만나서 시작한 조모임.</p>
-										<p>조모임 주제 : web프로그래밍을 시작했기 때문에 서로의 진행 사항을 파악하고, backend프로그래밍에 대한 정보를 얻기 위해 만났다.</p>
-										<p>조모임을 하다가 11시에 시작하는 에일리 공연을 보기 위해 조원들과 다 함께 축제를 즐기러 갔다.</p>
-										<p>프로그래밍을 하러 왔다가 주점에서 다같이 술을 마심. 승근이는 처음으로 밤 12시를 넘게까지 술을 마신 색다른 경험!!</p>
-										
+										<p style="white-space:pre-wrap;" class="get_timeline_content" name="{{p.file}}">{{p.contents}}</p>
 										
 										<!-- Heart button -->
-                     					<i class="rounded-x icon-heart jisu_timeline_icon"></i>
+                     					<i class="rounded-x icon-heart jisu_heart_icon{{p.like.length}}" name="{{p._id}}"></i>
 										<!-- End heart button -->
-										
 										
 										<!-- Evaluation button -->
                      					<i class="rounded-x icon-share jisu_timeline_icon" data-toggle="modal" data-target="#evaluation1"></i>
 
                      					<div id="evaluation1" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-	                       					<div class="modal-dialog modal-sm">
+	                       					<div class="modal-dialog modal-md">
 	                          					<div class="modal-content">
 	                             					 <div class="modal-header">
 	                               					 	<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
 	                                					<h4 id="myLargeModalLabel3" class="modal-title">Evaluation</h4>
-	                            					 </div>
+	                            					 </div>	                            					 
+	                            					 
 	                              					 <div class="modal-body">
-	                                 					<div class = "btn-group">
-															<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">
-																<p style="font-size:10px"> 강지수 </p>
-																<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>
-															</button>
-															<ul class = "dropdown-menu" role="menu">
-																<li>
-																	<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">
-																		Excellent
-																	</button>
-																	<button class="jisu-good btn-u btn-u-blue grow rounded btn-u-xs fa-fixed">
-																		Good
-																	</button>
-																	<button class="jisu-soso btn-u btn-u-yellow grow rounded btn-u-xs fa-fixed">
-																		So So
-																	</button>
-																	<button class="jisu-bad btn-u btn-u-orange grow rounded btn-u-xs fa-fixed">
-																		Bad
-																	</button>
-																	<button class="jisu-verybad btn-u btn-u-red grow rounded btn-u-xs fa-fixed">
-																		Very Bad
-																	</button>
-																</li>
-															</ul>
+                        				             <!-- Accordion v1 -->
+														<div class="panel-group acc-v1" id="accordion-1">
+															<div class="panel panel-default" ng-repeat="m3 in members">
+																<div class="panel-heading">
+																	<h4 class="panel-title">
+																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse{{m3._id}}">
+																			{{m3.name}}
+																		</a>
+																	</h4>
+																</div>
+																<div id="collapse{{m3._id}}" class="panel-collapse collapse assess-form">
+																		<div class=" cc-selector">
+																	        <input id="idea{{m3._id}}" type="radio" name="assess{{m3._id}}" value="idea"/>
+																	        <label class="drinkcard-cc idea" for="idea{{m3._id}}"></label>
+																	        <span>CREATIVE</span>
+																        </div>
+																        <div class=" cc-selector">
+																	        <input id="leader{{m3._id}}" type="radio" name="assess{{m3._id}}" value="leader"/>
+																	        <label class="drinkcard-cc leader" for="leader{{m3._id}}"></label>
+																	        <span>LEADERSHIP</span>
+																        </div>
+																        <div class=" cc-selector">
+																	        <input id="skill{{m3._id}}" type="radio" name="assess{{m3._id}}" value="skill"/>
+																	        <label class="drinkcard-cc skill"for="skill{{m3._id}}"></label>
+																	        <span>SKILLED</span>
+																        </div>
+																        <div class=" cc-selector">
+																	        <input id="teamwork{{m3._id}}" type="radio" name="assess{{m3._id}}" value="teamwork"/>
+																	        <label class="drinkcard-cc teamwork"for="teamwork{{m3._id}}"></label>
+																	        <span>TEAMWORK</span>
+																        </div>
+																</div>
+															</div>
+																										
 														</div>
-														<div class = "btn-group">
-															<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">
-																<p style="font-size:10px"> 강지수 </p>
-																<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>
-															</button>
-															<ul class = "dropdown-menu" role="menu">
-																<li>
-																	<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">
-																		Excellent
-																	</button>
-																	<button class="jisu-good btn-u btn-u-blue grow rounded btn-u-xs fa-fixed">
-																		Good
-																	</button>
-																	<button class="jisu-soso btn-u btn-u-yellow grow rounded btn-u-xs fa-fixed">
-																		So So
-																	</button>
-																	<button class="jisu-bad btn-u btn-u-orange grow rounded btn-u-xs fa-fixed">
-																		Bad
-																	</button>
-																	<button class="jisu-verybad btn-u btn-u-red grow rounded btn-u-xs fa-fixed">
-																		Very Bad
-																	</button>
-																</li>
-															</ul>
-														</div>
-														<div class = "btn-group">
-															<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">
-																<p style="font-size:10px"> 강지수 </p>
-																<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>
-															</button>
-															<ul class = "dropdown-menu" role="menu">
-																<li>
-																	<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">
-																		Excellent
-																	</button>
-																	<button class="jisu-good btn-u btn-u-blue grow rounded btn-u-xs fa-fixed">
-																		Good
-																	</button>
-																	<button class="jisu-soso btn-u btn-u-yellow grow rounded btn-u-xs fa-fixed">
-																		So So
-																	</button>
-																	<button class="jisu-bad btn-u btn-u-orange grow rounded btn-u-xs fa-fixed">
-																		Bad
-																	</button>
-																	<button class="jisu-verybad btn-u btn-u-red grow rounded btn-u-xs fa-fixed">
-																		Very Bad
-																	</button>
-																</li>
-															</ul>
-														</div>
-														<div class = "btn-group">
-															<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">
-																<p style="font-size:10px"> 강지수 </p>
-																<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>
-															</button>
-															<ul class = "dropdown-menu" role="menu">
-																<li>
-																	<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">
-																		Excellent
-																	</button>
-																	<button class="jisu-good btn-u btn-u-blue grow rounded btn-u-xs fa-fixed">
-																		Good
-																	</button>
-																	<button class="jisu-soso btn-u btn-u-yellow grow rounded btn-u-xs fa-fixed">
-																		So So
-																	</button>
-																	<button class="jisu-bad btn-u btn-u-orange grow rounded btn-u-xs fa-fixed">
-																		Bad
-																	</button>
-																	<button class="jisu-verybad btn-u btn-u-red grow rounded btn-u-xs fa-fixed">
-																		Very Bad
-																	</button>
-																</li>
-															</ul>
-														</div>
-														<div class = "btn-group">
-															<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">
-																<p style="font-size:10px"> 강지수 </p>
-																<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>
-															</button>
-															<ul class = "dropdown-menu" role="menu">
-																<li>
-																	<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">
-																		Excellent
-																	</button>
-																	<button class="jisu-good btn-u btn-u-blue grow rounded btn-u-xs fa-fixed">
-																		Good
-																	</button>
-																	<button class="jisu-soso btn-u btn-u-yellow grow rounded btn-u-xs fa-fixed">
-																		So So
-																	</button>
-																	<button class="jisu-bad btn-u btn-u-orange grow rounded btn-u-xs fa-fixed">
-																		Bad
-																	</button>
-																	<button class="jisu-verybad btn-u btn-u-red grow rounded btn-u-xs fa-fixed">
-																		Very Bad
-																	</button>
-																</li>
-															</ul>
-														</div>
-	                             					 </div>
+														<!-- End Accordion v1 -->       
+	                             					 </div><!-- End modal-body --> 
 	                           					</div>
 	                        				</div>
                         				</div>
+                        				
+
+                        				
                         				<!-- End Evaluation button -->
                         				
                         				<!-- Reply button -->
@@ -448,242 +380,12 @@
 														<h4 id="myLargeModalLabel2" class="modal-title">Reply</h4>
 													</div>
 													<div class="modal-body">
-														<input type="text" class="form-control">
-															<div class="input-group-btn">
-																<button type="button" style="display: inline-block" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-																	Submit
-																	<span class="caret"></span>
-																</button>
-																<ul class="dropdownt-menu pull-right">
-																	<li>나만 보기</li>
-																	<li>팀원 공개</li>
-																	<li>전체 공개</li>
-																</ul>
-															</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- End reply button -->
-									
-									</div>
-								</div>
-							</div>
-						</li>
-						
-						<li class="equal-height-columns">
-							<div class="cbp_tmtime equal-height-column"><span>2017/05/21</span> <span>5월</span></div>
-							<i class="cbp_tmicon rounded-x hidden-xs"></i>
-							<div class="cbp_tmlabel equal-height-column">
-												
-								<!-- Edit button -->
-								<h2>
-									<a href="blog_large_full_width_item1.html">발표때 입을 옷 제작</a>
-									<a href="blog_large_full_width_item1_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a>
-								</h2>	
-								<!-- End edit button -->
-									
-										
-								<div class="row">
-									<div class="col-md-4">
-										<img class="img-responsive" src="assets/img/Capstone-image/KakaoTalk_20170523_1.png" alt="">
-										<div class="md-margin-bottom-20"></div>
-									</div>
-									<div class="col-md-8">
-										<p>다음주 발표때 입을 옷 제작</p>
-										<p>디자인 아이디어 있으면 댓글 남겨주셈</p>
-										
-										
-										<!-- Heart button -->
-                     					<i class="rounded-x icon-heart jisu_timeline_icon"></i>
-										<!-- End heart button -->
-										
-										
-										<!-- Evaluation button -->
-                     					<i class="rounded-x icon-share jisu_timeline_icon" data-toggle="modal" data-target="#evaluation2"></i>
-                     					
-                     					<div id="evaluation2" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-	                       					<div class="modal-dialog modal-sm">
-	                          					<div class="modal-content">
-	                             					 <div class="modal-header">
-	                               					 	<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-	                                					<h4 id="myLargeModalLabel3" class="modal-title">Evaluation</h4>
-	                            					 </div>
-	                              					 <div class="modal-body">
-														<div class = "btn-group">
-															<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">
-																<p style="font-size:10px"> 강지수 </p>
-																<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>
+														<input type="text" class="form-control reply_input"/>
+														<div class="input-group-btn">
+															<button type="button" name="{{p._id}}" style="display: inline-block" class="btn btn-danger reply_submit_button">
+																Submit
 															</button>
-															<ul class = "dropdown-menu" role="menu">
-																<li>
-																	<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">
-																		Excellent
-																	</button>
-																	<button class="jisu-good btn-u btn-u-blue grow rounded btn-u-xs fa-fixed">
-																		Good
-																	</button>
-																	<button class="jisu-soso btn-u btn-u-yellow grow rounded btn-u-xs fa-fixed">
-																		So So
-																	</button>
-																	<button class="jisu-bad btn-u btn-u-orange grow rounded btn-u-xs fa-fixed">
-																		Bad
-																	</button>
-																	<button class="jisu-verybad btn-u btn-u-red grow rounded btn-u-xs fa-fixed">
-																		Very Bad
-																	</button>
-																</li>
-															</ul>
 														</div>
-
-														
-	                             					 </div>
-	                           					</div>
-	                        				</div>
-                        				</div>
-                        				<!-- End Evaluation button -->
-                        				
-                        				<!-- Reply button -->
-										<i class="rounded-x icon-speech jisu_timeline_icon" data-toggle="modal" data-target="#reply2"></i>
-										<div id="reply2" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-lg">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-														<h4 id="myLargeModalLabel2" class="modal-title">Reply</h4>
-													</div>
-													<div class="modal-body">
-														<input type="text" class="form-control">
-															<div class="input-group-btn">
-																<button type="button" style="display: inline-block" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-																	Submit
-																	<span class="caret"></span>
-																</button>
-																<ul class="dropdownt-menu pull-right">
-																	<li>나만 보기</li>
-																	<li>팀원 공개</li>
-																	<li>전체 공개</li>
-																</ul>
-															</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- End reply button -->
-									
-									</div>
-								</div>
-							</div>
-						</li>
-
-						<li class="equal-height-columns">
-							<div class="cbp_tmtime equal-height-column"><span>2017/05/18</span> <span>5월</span></div>
-							<i class="cbp_tmicon rounded-x hidden-xs"></i>
-							<div class="cbp_tmlabel equal-height-column">
-												
-								<!-- Edit button -->
-								<h2>
-									<a href="blog_large_full_width_item1.html">캡스톤엑스포 어디까지 구현 가능할까?</a>
-									<a href="blog_large_full_width_item1_edit.html" style="text-decoration:none" class="jisu_edit_link">edit</a>
-								</h2>	
-								<!-- End edit button -->
-									
-										
-								<div class="row">
-									<div class="col-md-4">
-										<img class="img-responsive" src="assets/img/Capstone-image/KakaoTalk_20170523.jpg" alt="">
-										<div class="md-margin-bottom-20"></div>
-									</div>
-									<div class="col-md-8">
-										<p>9시쯤 만나서 시작한 조모임.</p>
-										<p>조모임 주제 : web프로그래밍을 시작했기 때문에 서로의 진행 사항을 파악하고, backend프로그래밍에 대한 정보를 얻기 위해 만났다.</p>
-										<p>조모임을 하다가 11시에 시작하는 에일리 공연을 보기 위해 조원들과 다 함께 축제를 즐기러 갔다.</p>
-										<p>프로그래밍을 하러 왔다가 주점에서 다같이 술을 마심. 승근이는 처음으로 밤 12시를 넘게까지 술을 마신 색다른 경험!!</p>
-										
-										
-										<!-- Heart button -->
-                     					<i class="rounded-x icon-heart jisu_timeline_icon"></i>
-										<!-- End heart button -->
-										
-										
-										<!-- Evaluation button -->
-                     					<i class="rounded-x icon-share jisu_timeline_icon" data-toggle="modal" data-target="#evaluation3"></i>
-                     					<div id="evaluation3" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-	                       					<div class="modal-dialog modal-md">
-	                          					<div class="modal-content">
-	                             					 <div class="modal-header">
-	                               					 	<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-	                                					<h4 id="myLargeModalLabel3" class="modal-title">Evaluation</h4>
-	                            					 </div>
-	                              					 <div class="modal-body">
-	                              					 
-                  					 
-    <!-- Accordion v1 -->
-	<div class="panel-group acc-v1" id="accordion-1">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-One">
-						강지수
-					</a>
-				</h4>
-			</div>
-			<div id="collapse-One" class="panel-collapse collapse assess-form in">
-					<div class=" cc-selector">
-				        <input id="ideamemberID1" type="radio" name="memberID1" value="idea" />
-				        <label class="drinkcard-cc idea" for="ideamemberID1"></label>
-			        </div>
-					<div class=" cc-selector">
-				        <input id="leadermemberID1" type="radio" name="memberID1" value="leader" />
-				        <label class="drinkcard-cc leader" for="leadermemberID1"></label>
-			        </div>
-					<div class=" cc-selector">
-				        <input id="skillmemberID1" type="radio" name="memberID1" value="skill" />
-				        <label class="drinkcard-cc skill"for="skillmemberID1"></label>
-			        </div>
-					<div class=" cc-selector">
-				        <input id="teamworkmemberID1" type="radio" name="memberID1" value="teamwork" />
-				        <label class="drinkcard-cc teamwork"for="teamworkmemberID1"></label>
-			        </div>
-			</div>
-		</div>
-													
-	</div>
-	<!-- End Accordion v1 -->       					 
-	                              					 
-	                              					 
-	                              					 
-
-
-														
-	                             					 </div>
-	                           					</div>
-	                        				</div>
-                        				</div>
-                        				<!-- End Evaluation button -->
-                        				
-                        				<!-- Reply button -->
-										<i class="rounded-x icon-speech jisu_timeline_icon" data-toggle="modal" data-target="#reply3"></i>
-										<div id="reply3" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-lg">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-														<h4 id="myLargeModalLabel2" class="modal-title">Reply</h4>
-													</div>
-													<div class="modal-body">
-														<input type="text" class="form-control">
-															<div class="input-group-btn">
-																<button type="button" style="display: inline-block" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-																	Submit
-																	<span class="caret"></span>
-																</button>
-																<ul class="dropdownt-menu pull-right">
-																	<li>나만 보기</li>
-																	<li>팀원 공개</li>
-																	<li>전체 공개</li>
-																</ul>
-															</div>
 													</div>
 												</div>
 											</div>
@@ -747,8 +449,8 @@
 					<h4 class="modal-title" id="myModalLabel4">타임라인 등록</h4>
 				</div>
 
+					<form id="new_post_submit" class="form-horizontal sky-form no-border" role="form" method="post" enctype="multipart/form-data">
 				<div class="panel-body sky-form">
-					<form class="form-horizontal sky-form no-border" role="form">
 		
 
 						<div class="form-group">
@@ -780,30 +482,18 @@
 							<label for="inputImage" class="col-lg-2 control-label">사진:</label>
 							<div class="col-lg-10">
 								<label for="file" class="input input-file">
-									<div class="button"><input type="file" id="file" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+									<div class="button"><input type="file" id="file" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
 								</label>
 							</div>
 						</div>
-						
-						<div class="form-group">
-							<label for="inputCategory" class="col-lg-2 control-label">참석:</label>
-							<div id="input-field" class="col-lg-10 inline-group jen-checkbox">
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="member1"><i></i>강지수</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="member2"><i></i>김도연</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="member3"><i></i>박산하</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="member4"><i></i>백승근</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="member5"><i></i>장자은</label>
 
-							</div>
-						</div>		
-						
-					</form>
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
-					<button type="submit" class="btn-u btn-u-primary">등록</button>
+					<input type="submit" class="btn-u btn-u-primary" id='new_timeline_submit'>
 				</div>
+			</form>
 			</div>
 		</div>
 	</div>
@@ -836,141 +526,41 @@
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
 	<script type="text/javascript">
-	
-	$(document).ready(function() {
-		  $("#assess-finish").click(function() {
-		    var assessList = [];
-		    //Loop over all questions
-		    $(".assess-form").each(function() {
-
-		      var memberId = $(this).attr("id");
-		      var assessItem = $("input[name='assess']:checked", $(this)).val();
-
-		      //if Answer isnt provided do not update the answersList
-		      if (answer !== undefined) {
-		    	assessList.push({
-		          memberid: memberId,
-		          assessScore: assessItem
-		        });
-		      }
-		    });
-		    console.log(answersList);
-		  });
-		});
-	
-	$('#sites input:radio').addClass('input_hidden');
-	$('#sites label').click(function() {
-	    $(this).addClass('selected').siblings().removeClass('selected');
-	});
-	
-		jQuery(document).ready(function() {
+		//window.onload=(function(){
+			function upload(callback){
+				return function(event){
+					//alert($("#file").val());
+					if(!$("#file").val()){
+						alert("사진 없이 업로드 하시겠습니까?");
+						callback({result:""});
+						return;
+					}
+				event.preventDefault();
+				$.ajax({
+					contentType: false,
+					processData: false,
+			        data: new FormData($(this)[0]),
+			        type: $(this).attr('method'),
+			        url: '/image/upload',
+			        success: function(response) {
+			        	if(response.error) alert(response.error);
+			        	else{
+			        		callback(response);
+			        	}
+			        }
+	   			});
+			}};
+			
+			function ready() {
+					//alert(1);
 			App.init();
 			StyleSwitcher.initStyleSwitcher();
 			Datepicker.initDatepicker();
 			Validation.initValidation();
 			
-			var monthNames = ["January", "February", "March", "April", "May", "June",
-				  "July", "August", "September", "October", "November", "December"
-				];
+			var heart_clicked = 0;
 			
-			var id = "592a7c6ff8bc6d93b34216f1";
-			
-			$.getJSON('http://'+document.location.host+'/project/member/'+id,function(res) {
-
-				var member = res.result;
-				for(k in member){
-					var image_sidebar = member[k].image;
-					image_sidebar = "/image/download/" + image_sidebar; 
-					var html='<dl class="dl-horizontal">';
-					html += '<dt><a href="#"><img src="'+image_sidebar+'" alt="" /></a></dt>';
-					html += '<dd><p><a href="#"><strong>'+member[k].name+'</strong><br>'+member[k].major+'</a></p></dd>';
-					html += '</dl>';
-					$('.margin-bottom-40').append(html);
-				}
-			
-				$.getJSON('http://'+document.location.host+'/timeline/'+id,function(res) {
-
-					for(i in res.result){
-						
-						var id2 = res.result[i]._id;
-						
-						var date = new Date(res.result[i].writeTime);
-						var year = date.getFullYear();
-						var month = date.getMonth() + 1;
-						var day = date.getDate();
-						var date_string = month + '/' + day + '/' + year;
-						var subject = res.result[i].title;
-						var image = res.result[i].image;
-						image = "/image/download/"+image;
-						var content = res.result[i].contents;
-						var num = i;
-						
-						var html = '<li class="equal-height-columns">';
-						html += '<div class="cbp_tmtime equal-height-column"><span>'+date_string+'</span> <span>'+monthNames[month-1]+'</span></div>';
-						html += '<i class="cbp_tmicon rounded-x hidden-xs"></i>';
-						html += '<div class="cbp_tmlabel equal-height-column">';
-						html += '<h2><a href="blog_large_full_width_item1.html">'+subject+'</a>';
-						html += '<a href="jisu_timeline_item_edit.html?'+id2+'" style="text-decoration:none" class="jisu_edit_link">edit</a></h2>';
-						html += '<div class="row">';
-						html += '<div class="col-md-4">';
-						html += '<img class="img-responsive" src="'+image+'" alt="">';
-						html += '<div class="md-margin-bottom-20"></div>';
-						html += '</div>';
-						html += '<div style="color:black" class="col-md-8">';
-						html += content;
-						
-						html += '<i class="rounded-x icon-heart jisu_timeline_icon"></i>';
-						
-						html += '<i class="rounded-x icon-share jisu_timeline_icon" data-toggle="modal" data-target="#evaluation'+num+'"></i>';
-						html += '<div id="evaluation'+num+'"class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">';
-						html += '<div class="modal-dialog modal-sm">';
-						html += '<div class="modal-content">';
-						html += '<div class="modal-header">';
-						html += '<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>';
-						html += '<h4 id="myLargeModalLabel3" class="modal-title">Evaluation</h4>';
-						html += '</div>';
-						html += '<div class="modal-body">';
-						for(j in member){
-							html += '<div class = "btn-group">';
-							html += '<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">';
-							html += '<p style="font-size:10px">'+member[j].name+'</p>';
-							html += '<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>';
-							html += '</button>';
-							html += '<ul class = "dropdown-menu" role="menu">';
-							html += '<li>';
-							html += '<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Excellent</button>';
-							html += '<button class="jisu-good btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Good</button>';
-							html += '<button class="jisu-soso btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">So So</button>';
-							html += '<button class="jisu-bad btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Bad</button>';
-							html += '<button class="jisu-verybad btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">Very Bad</button>';
-							html += '</li>';
-							html +=	'</ul>';
-							html += '</div>';
-						}
-						html += '</div></div></div>';
-						html += '</div>';
-						
-						html += '<i class="rounded-x icon-speech jisu_timeline_icon" data-toggle="modal" data-target="#reply'+num+'"></i>';
-						html += '<div id="reply'+num+'"class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">';
-						html += '<div class="modal-dialog modal-lg">';
-						html += '<div class="modal-content">';
-						html += '<div class="modal-header">';
-						html += '<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>';
-						html += '<h4 id="myLargeModalLabel2" class="modal-title">Reply</h4>';
-						html += '</div>';
-						html += '<div class="modal-body">';
-						html += '<input type="text" class="form-control">';
-						html += '<div class="input-group-btn">';
-						html += '<button type="button" style="display: inline-block" class="btn btn-danger">Submit</button>';
-						html += '</div></div></div></div></div>';
-						html += '</div></div></div></li>';
-						
-						$('.timeline-v2').append(html);
-					}
-				});
-			
-			});
-			
+			//새로운 타임라인 포스트 등록 버튼
 			$('.jisu_timeline_new_link').mouseenter(function(){
 				$(this).css('color','#72c02c');
 				$(this).css('font-size','17px');
@@ -980,7 +570,33 @@
 				$(this).css('color','#999');
 				$(this).css('font-size','15px');
 			});
+				
+				//새로운 타임라인 포스트 등록
+				var new_timeline_subject = $('#inputTitle').val();
+				var new_timeline_date = $('#start').val();
+				var new_timeline_content = $('#inputDesc').val();
+				var new_timeline_picture = $('#file').val();
+				
+				 $("#new_post_submit").submit(upload(function(x){
+					   var report={projectId:id,type:"general"};
+					   report.title=$('#inputTitle').val();
+					   report.writeDate=$('#start').val();
+					   report.contents=$('#inputDesc').val();
+					   if(x.result!="")report.image=x.result;
+					   //alert(JSON.stringify(x));
+					   //alert(JSON.stringify(report));
+					   $.post('http://'+document.location.host+'/post/new',report,function(res){
+							// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+							//alert(JSON.stringify(res.result));
+							alert("업로드 성공"); 
+							location.reload();
+						});
+					   
+				 }));
+				//새로운 타임라인 포스트 등록 완료
+			//새로운 타임라인 포스트 등록 버튼 완료
 			
+			//포스트 편집 버튼
 			$('.jisu_edit_link').mouseenter(function(){
 				$(this).css('color','#72c02c');
 				$(this).css('font-size','11px');
@@ -988,7 +604,7 @@
 			
 			$('.jisu_edit_link').mouseleave(function(){
 				$(this).css('color','#999');
-				$(this).css('font-size','11px');
+				$(this).css('font-size','10px');
 			});
 			
 			$('.jisu_edit_button').mouseenter(function(){
@@ -1001,7 +617,9 @@
 				$(this).css('color','#555');
 				$(this).css('background-color','#f3f3f3');
 			});
+			//포스트 편집 버튼 완료
 			
+			//댓글, 평가 아이콘
 			$('.jisu_timeline_icon').mouseenter(function(){
 				$(this).css('color','#ffffff');
 				$(this).css('background-color','#4a9706');
@@ -1012,13 +630,115 @@
 				$(this).css('color','#ffffff');
 				$(this).css('background-color','#5fb611');
 			});
+			//댓글, 평가 아이콘 완료
 			
+			//좋아요 버튼
+			$(document).on('mouseenter','.jisu_heart_icon0',function(){
+					$(this).css('color','#ffffff');
+					$(this).css('background-color','#4a9706');
+					$(this).css('transition','all 0.3s ease-in-out');
+			});
+			
+
+			$(document).on('mouseenter','.jisu_heart_icon1',function(){
+					$(this).css('color','#ffffff');
+					$(this).css('background-color','#c90000');
+					$(this).css('transition','all 0.3s ease-in-out');
+			});
+			
+			$(document).on('mouseleave','.jisu_heart_icon0',function(){
+					$(this).css('color','#ffffff');
+					$(this).css('background-color','#5fb611');
+			});
+
+			$(document).on('mouseleave','.jisu_heart_icon1',function(){
+					$(this).css('color','#ffffff');
+					$(this).css('background-color','red');
+			});
+			
+			$(document).on('click','.jisu_heart_icon0',function(){
+					$(this).css('background-color','#c90000');
+					$(this).removeClass('jisu_heart_icon0');
+					$(this).addClass('jisu_heart_icon1');
+					var id = $(this).attr("name");
+					$.post('http://'+document.location.host+'/post/like/'+id,{memberId:mid},function(res) {
+						
+					});
+			});		
+			
+			
+			$(document).on('click','.jisu_heart_icon1',function(){
+					$(this).css('background-color','#4a9706');
+					$(this).removeClass('jisu_heart_icon1');
+					$(this).addClass('jisu_heart_icon0');
+					var id = $(this).attr("name");
+					$.post('http://'+document.location.host+'/post/unlike/'+id,{memberId:mid},function(res) {
+						
+					});
+			});
+			//좋아요 버튼 완료
+			
+			//댓글 제출 버튼
+			$(document).on('click','.reply_submit_button',function(){
+					//alert(JSON.stringify($(this)[0]));
+					//alert(JSON.stringify($('.reply_submit_button')[0]));
+					var post_id = $(this).attr("name");
+					var report={projectId:id,type:"reply"};
+					//alert(post_id);
+					//alert(id);
+					report.contents=$(this).parent().prev().val();
+					report.writer=mid;
+					$.post('http://'+document.location.host+'/post/reply/'+post_id,report,function(res) {
+						alert(report.contents);
+						location.reload();
+					});
+			});
+			//댓글 제출 버튼 완료
+			
+			//new timeline 에서 제출 버튼 누르면 reload
+			$(document).on('click','#click_click',function(){
+				location.reload();
+			});
+			//new timeline 에서 제출 버튼 누르면 reload 완료
+			
+
+			
+			//final report 포스트 
+			$('.finalReport').prev('.cbp_tmicon').addClass('timeline_final_report_icon');
+			$('.finalReport').children('h2').children('.jisu_edit_link').addClass('timeline_final_report_color');
+			$('.finalReport').addClass('timeline_final_report_format');
+			$('.finalReport').children('.row').children('.col-md-4').remove();
+			$('.finalReport').children('.row').children('.col-md-8').addClass('col-md-12');
+			$('.finalReport').children('.row').children('.col-md-8').removeClass('col-md-8');
+			$('.finalReport').children('.row').children('.col-md-12').children('.jisu_heart_icon').before('<button style="float:left ; margin-top:5px" class="btn-u btn-brd btn-u-orange btn-u-xs report_download" type="button"><i class="fa fa-download"></i></button>');
+			$('.report_download').click(function(){
+				var fid = $(this).prev(".get_timeline_content").attr("name");
+				window.open('http://'+document.location.host+'/file/download/'+fid,'_blank');
+			});
+			//final report 포스트 완료
+			
+			//midterm report 포스트 
+			$('.midtermReport').prev('.cbp_tmicon').addClass('timeline_midterm_report_icon');
+			$('.midtermReport').children('h2').children('.jisu_edit_link').addClass('timeline_midterm_report_color');
+			$('.midtermReport').addClass('timeline_midterm_report_format');
+			$('.midtermReport').children('.row').children('.col-md-4').remove();
+			$('.midtermReport').children('.row').children('.col-md-8').addClass('col-md-12');
+			$('.midtermReport').children('.row').children('.col-md-8').removeClass('col-md-8');
+			$('.midtermReport').children('.row').children('.col-md-12').children('.jisu_heart_icon').before('<button style="float:left ; margin-top:5px" class="btn-u btn-brd btn-u-orange btn-u-xs report_download" type="button"><i class="fa fa-download"></i></button>');
+			$('.report_download').click(function(){
+				var fid = $(this).prev(".get_timeline_content").attr("name");
+				window.open('http://'+document.location.host+'/file/download/'+fid,'_blank');
+			});
+			//midterm report 포스트 완료
+			
+			//평가 버튼
 			$('.jisu-evaluation-button').css('background-color','#A4A4A4');
 			$('.jisu-evaluation-button').width('50px');
 			$('.jisu-evaluation-button').children('p').css('margin-top','0px');
 			$('.jisu-evaluation-button').children('p').css('margin-bottom','0px');
 			$('.jisu-evaluation-button').children().css('color','#FFFFFF');
 			$('.dropdown-menu').css('min-width','200px');
+
 			
 			$('.jisu-excellent').click(function() {
 				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
@@ -1040,7 +760,8 @@
 				$(this).parent().parent().prev().children('.jisu-evaluation-result').remove();
 				$(this).parent().parent().prev().children('p').after('<p style="font-size:10px; color:#FFFFFF; margin:0px 0px 0px 0px;" class="jisu-evaluation-result">Very Bad<i class="fa fa-angle-down"></i></p>');
 			});
-		});
+			//평가 버튼 완료
+		}//);
 	</script>
 	<!--[if lt IE 9]>
 	<script src="assets/plugins/respond.js"></script>

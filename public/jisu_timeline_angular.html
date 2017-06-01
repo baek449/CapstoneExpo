@@ -86,7 +86,7 @@
 						return "";
 					};
 					$scope.evalSubmit=function(toMember,detail){
-						$http.post('http://'+document.location.host+'/eval/upload',{postID:id,fromMember:mid,toMember:toMember,eval:detail,message:''});
+						$http.post('http://'+document.location.host+'/eval/upload',{postID:posts._id,fromMember:mid,toMember:toMember,eval:detail,message:''});
 					};
 				});
 			});
@@ -138,8 +138,8 @@
 					<ul class="nav navbar-nav">
 
 						<!-- Home -->
-						<li class="dropdown">
-							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+						<li>
+							<a href="index.html">
 								Home
 							</a>
 						</li>
@@ -337,7 +337,7 @@
 																</div>
 																<div id="collapse{{m3._id}}" class="panel-collapse collapse assess-form">
 																		<div class=" cc-selector">
-																	        <input id="idea{{m3._id}}" type="radio" name="assess{{m3._id}}" value="idea" ng-checked="m3.detail == 'creative'" ng-click="evalSubmit(m3._id,'creative')"/>
+																	        <input id="idea{{m3._id}}" type="radio" name="assess{{m3._id}}" value="idea" ng-checked="{{evalSTatus(m3._id,'creative')" ng-click="evalSubmit(m3._id,'creative')"/>
 																	        <label class="drinkcard-cc idea" for="idea{{m3._id}}"></label>
 																	        <span>CREATIVE</span>
 																        </div>
