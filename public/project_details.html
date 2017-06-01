@@ -67,27 +67,20 @@
 			$scope.company = res1.data.result.members.company;
 		});
 		// Bring the timeline into scope variable posts
+		//alert(5);
 		$http.get('http://'+document.location.host+'/timeline/'+project_id,{memberId:mid}).then(function(res) {
+			//alert(6);
 				$scope.posts=res.data.result;
-				alert(posts);
+				//alert(res.data.result);
 				$scope.id=project_id;
 		});
 	});
-	module.directive('ngElementReady', ['$timeout', function($timeout) {
-		//alert(2);
-        return {
-            restrict: "A", // attribute only
-            link: function($scope, $element, $attributes) {
-                angular.getTestability($element).whenStable(ready);
-            }
-        };
-    }]);
 	
 	</script>
 </head>
 
 
-<body class="header-fixed" ng-app="ProjectDetailApp" ng-element-ready>
+<body class="header-fixed" ng-app="ProjectDetailApp">
 	<div class="wrapper" ng-controller="ProjectDetailDisplayController">
 
 	
@@ -176,7 +169,7 @@
 				<div class="tab-v1">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#">프로젝트 및 팀 소개</a></li>
-						<li><a href="jisu_timeline.html">타임라인</a></li>						
+						<li><a href="jisu_timeline_angular.html?id={{id}}">타임라인</a></li>						
 						<li class="pull-right"><a href="#">프로젝트 수정</a></li>
 					</ul>
 				</div>

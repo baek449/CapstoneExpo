@@ -54,6 +54,7 @@
 		});
 		$http.get('http://'+document.location.host+'/post/'+id[1]).then(function(res) {
 			$scope.reply = res.data.result.reply;
+			alert(JSON.stringify($scope.reply));
 			// Bring the timeline into scope variable posts
 		});
 	});
