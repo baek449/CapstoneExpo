@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 
 	<!-- CSS Header and Footer -->
-	<link rel="stylesheet" href="assets/css/headers/header-default.css">
+	<link rel="stylesheet" href="assets/css/headers/header-v6.css">
 	<link rel="stylesheet" href="assets/css/footers/footer-v1.css">
 
 	<!-- CSS Implementing Plugins -->
@@ -32,6 +32,8 @@
 	<link rel="stylesheet" href="assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.css">
 	<link rel="stylesheet" href="assets/plugins/cube-portfolio/cubeportfolio/custom/custom-cubeportfolio.css">
 	<link rel="stylesheet" href="assets/plugins/owl-carousel/owl-carousel/owl.carousel.css">
+	<link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/css/sky-forms.css">
+	<link rel="stylesheet" href="assets/plugins/sky-forms-pro/skyforms/custom/custom-sky-forms.css">
 
 	<!-- CSS Page Style -->
 	<link rel="stylesheet" href="assets/css/pages/page_search.css">
@@ -107,9 +109,85 @@
 	</script>
 </head>
 
-<body>
+<body class="header-fixed" >
 	<div class="wrapper" ng-app="mypageApp" ng-element-ready ng-controller="MypageDisplayController">
+		<!--=== Header v6 ===-->
+		<div class="header-v6 header-classic-white" >
+			<!-- Navbar -->
+			<div class="navbar" role="navigation">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="menu-container">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+
+						<!-- Navbar Brand -->
+						<div class="navbar-brand">
+							<a href="index.html">
+								<img class="shrink-logo" src="assets/img/icons/logo-2_s.png" alt="Logo">
+							</a>
+						</div>
+						<!-- ENd Navbar Brand -->
+
+
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse navbar-responsive-collapse">
+						<div class="menu-container">
+							<ul class="nav navbar-nav">
+								<!-- Home -->
+								<li class="active">
+									<a href="index.html">
+										Home
+									</a>
+								</li>
+								<!-- End Home -->
+								
+								<!-- Discover -->
+								<li>
+									<a href="search_projects.html">
+										Discover Projects
+									</a>
+								</li>
+								<!-- End Discover -->
+								
+								<!-- My Menu -->
+								<li class="dropdown">
+									<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+										My Menu
+									</a>
+									<ul class="dropdown-menu pull-right">
+										<li>
+											<a href="my_page.html?id={{mid}}">My Page</a>
+										</li>
+										<li class="dropdown-submenu">
+											<a href="javascript:void(0);">My Projects</a>
+											<ul class="dropdown-menu submenu-left">
+												<li ng-repeat="p2 in projects2"><a href="jisu_timeline_angular.html?id={{p2._id}}">{{p2.name}}</a></li>
+											</ul>
+										</li>
+										<li><a href="blog_timeline.html">Sign out</a></li>
+									</ul>
+								</li>
+								<!-- End My Menu -->
+
+							</ul>
+						</div>
+					</div><!--/navbar-collapse-->
+				</div>
+			</div>
+			<!-- End Navbar -->
+		</div>
+		<!--=== End Header v6 ===-->
+
 		<!--=== Container Part ===-->
+
+
 
 		<!--=== Breadcrumbs ===-->
 		<div class="breadcrumbs breadcrumbs-light">
@@ -139,13 +217,14 @@
 							<span>{{member.major}}</span>
 						</div>
 						<ul class="social-icons pull-right">
-							<li><a class="rounded-x social_facebook" data-original-title="Facebook" href="#"></a></li>
-							<li><a class="rounded-x social_twitter" data-original-title="Twitter" href="#"></a></li>
+							<li><a class="rounded-x social_facebook" data-original-title="Facebook" data-toggle="modal" data-target="#responsive"></a></li>
+
+							<!-- <li><a class="rounded-x social_twitter" data-original-title="Twitter" href="#"></a></li>
 							<li><a class="rounded-x social_googleplus" data-original-title="Google Plus" href="#"></a></li>
-							<li><a class="rounded-x social_linkedin" data-original-title="Linkedin" href="#"></a></li>
+							<li><a class="rounded-x social_linkedin" data-original-title="Linkedin" href="#"></a></li> -->
 						</ul>
 					</div>
-					<p>{{member.description}} </p>
+					<p>{{member.description}}</p>
 				
 
 					<div class="row">
@@ -212,14 +291,65 @@
 		<!--=== End Parallax Counter v4 ===-->
 		
 		
+		<!-- 프로필 수정 modal -->
+		<div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel4">프로필 수정</h4>
+					</div>
+	
+					<div class="panel-body sky-form">
+						<form id="imageForm" class="form-horizontal sky-form no-border" role="form"  method="post" enctype="multipart/form-data">
+							<div class="form-group">
+								<label for="inputTitle" class="col-lg-2 control-label">이름:</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="input-name" name="name" placeholder="{{member.name}}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputIntro" class="col-lg-2 control-label">전공학과:</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" id="input-short-intro" name="shortIntro" placeholder="{{member.major}}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
+								<div class="col-lg-10 textarea">
+									<textarea id="inputDesc" class="form-control" rows="5" id="input-intro" name="intro" placeholder="{{member.description}}"></textarea>
+								</div>
+							</div>
+	
+							<div class="form-group">
+								<label for="inputImage" class="col-lg-2 control-label">사진:</label>
+								<div class="col-lg-10">
+									<label for="file" class="input input-file">
+										<div class="button"><input type="file" id="uploadFile" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+									</label>
+								</div>
+							</div>
+							<div class="modal-footer">
+							<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
+							<button type="submit" class="btn-u btn-u-primary">저장</button>
+							</div>
+						</form>
+					</div>
+	
+	
+				</div>
+			</div>
+		</div>
+		<!-- end 신규 프로젝트 생성 -->		
+		
 		<!-- Portfolio -->
-		<div class="container content-sm">
+<!-- 		<div class="container content-sm">
 			<div class="text-center">
 				<h2 class="title-v2 title-center">내 프로젝트 목록</h2>
 				<p class="space-lg-hor">과거 참여했거나 현재 참여하고 있는 <span class="color-green">프로젝트</span> 목록</p><br>
 			</div>
 
-			<!-- Cube Portfolio -->
+			Cube Portfolio
 			<div class="cube-portfolio container margin-bottom-20">
 
 
@@ -272,58 +402,11 @@
 							</div>
 						</a>
 					</div>
-					<div class="cbp-item web-design illustration">
-						<a href="assets/ajax/cube-portfolio/project4.html" class="cbp-caption cbp-singlePageInline"
-							data-title="iDevices<br>by Tiberiu Neamu">
-							<div class="cbp-caption-defaultWrap">
-								<img src="assets/img/main/img1.jpg" alt="">
-							</div>
-							<div class="cbp-caption-activeWrap">
-								<div class="cbp-l-caption-alignLeft">
-									<div class="cbp-l-caption-body">
-										<div class="cbp-l-caption-title">Tiberiu Neamu</div>
-										<div class="cbp-l-caption-desc">Illustration</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="cbp-item web-design graphic">
-						<a href="assets/ajax/cube-portfolio/project5.html" class="cbp-caption cbp-singlePageInline"
-							data-title="Seemple* Music for iPad<br>by Tiberiu Neamu">
-							<div class="cbp-caption-defaultWrap">
-								<img src="assets/img/main/img1.jpg" alt="">
-							</div>
-							<div class="cbp-caption-activeWrap">
-								<div class="cbp-l-caption-alignLeft">
-									<div class="cbp-l-caption-body">
-										<div class="cbp-l-caption-title">Tiberiu Neamu</div>
-										<div class="cbp-l-caption-desc">Illustration</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-					<div class="cbp-item illustration web-design graphic">
-						<a href="assets/ajax/cube-portfolio/project6.html" class="cbp-caption cbp-singlePageInline"
-							data-title="Remind~Me Widget<br>by Tiberiu Neamu">
-							<div class="cbp-caption-defaultWrap">
-								<img src="assets/img/main/img1.jpg" alt="">
-							</div>
-							<div class="cbp-caption-activeWrap">
-								<div class="cbp-l-caption-alignLeft">
-									<div class="cbp-l-caption-body">
-										<div class="cbp-l-caption-title">Tiberiu Neamu</div>
-										<div class="cbp-l-caption-desc">Web-Design</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</div>
-				</div><!--/end Grid Container-->
+					
+				</div>/end Grid Container
 			</div>
-			<!-- End Cube Portfolio -->
-		</div>
+			End Cube Portfolio
+		</div> -->
 		<!-- End Portfolio -->	
 	</div><!--/End Wrapper-->
 
@@ -340,6 +423,9 @@
 	<script type="text/javascript" src="assets/plugins/counter/jquery.counterup.min.js"></script>
 	<script type="text/javascript" src="assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.js"></script>
 	<script type="text/javascript" src="assets/plugins/circles-master/circles.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/sky-forms-pro/skyforms/js/jquery.validate.min.js"></script>
 	<!-- JS Customization -->
 	<script type="text/javascript" src="assets/js/custom.js"></script>
 	<!-- JS Page Level -->
@@ -348,12 +434,112 @@
 	<script type="text/javascript" src="assets/js/plugins/circles-master.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/progress-bar.js"></script>
 	<script type="text/javascript">
-		function ready() {
-			App.init();
-			App.initCounter();
-			App.initParallaxBg();
-			ProgressBar.initProgressBarVertical();
+	
+	
+	function open_win() {
+		var singleText = "single";
+		var s = window.location.search;
+
+		if (s.indexOf(singleText) == -1) {
+		    window.location.href += (s.substring(0,1) == "?") ? "&" : "?" + singleText;
 		}
+	}
+	
+	var mid='592a7af2f8bc6d93b34216ef';
+	
+	var module=angular.module('searchApp', []);
+	module.controller('ProjectDisplayController', function($scope,$http) {
+		var sorting = '';
+		var args=window.location.search.substring(1).split('&');
+		var arg=args[0].split('=');
+        if(arg[0]==='newest' && arg[1]==='true') {
+        	sorting = '/project/all/new';
+        } else {
+        	sorting = '/project/all/view';
+        }
+        if(args[1]) sorting='/search/'+args[1].split('=')[1];
+        
+		
+		$http.get('http://'+document.location.host+sorting).then(function(res){
+			$scope.projects=res.data.result;
+			$scope.myprojects=res.data.result.slice(12,15);
+			$scope.count=res.data.result.length;
+			$scope.mid=mid;
+
+		});
+	});
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
+
+	function upload(callback){
+		return function(event){
+		event.preventDefault();
+		$.ajax({
+			contentType: false,
+			processData: false,
+	        data: new FormData($(this)[0]),
+	        type: $(this).attr('method'),
+	        url: '/image/upload',
+	        success: function(response) {
+	        	if(response.error) alert(response.error);
+	        	else{
+	        		callback(response);
+	        	}
+	        }
+	    });
+	}};
+	
+	$(".project-image-box").outerHeight($(".project-image-box").outerWidth() * 0.60);
+
+	function ready() {
+		App.init();
+		App.initCounter();
+		App.initParallaxBg();
+		ProgressBar.initProgressBarVertical();
+		
+		
+		$.getScript("assets/js/plugins/cube-portfolio/cube-portfolio-3.js");
+		$("#imageForm").submit(upload(function(response){
+			if(response.error){
+				alert("Fail");
+				return;
+			}
+			var testdata={};
+			testdata.projectSummary={};
+			testdata.projectSummary.name=$("#input-name").val();
+			testdata.projectSummary.shortIntro=$("#input-short-intro").val();
+			testdata.projectSummary.intro=$("#input-intro").val();
+			testdata.projectSummary.status="신규";
+			testdata.projectSummary.startDate=$("#start").val();
+			testdata.projectSummary.endDate=$("#finish").val();
+			testdata.projectSummary.field=$("#input-field input:checked").map(function(_, el) {
+		        return $(el).attr('value');
+		    }).get();
+			testdata.projectSummary.image=response.result;
+			$.post('http://'+document.location.host+'/project/new',testdata,function(res){
+				// 여기서 처리 결과를 가지고 오류 처리 등을 합니다. 자세한 내용은 testread.html을 참고합니다.
+				//alert(JSON.stringify(res.result));
+				location.reload(true);
+			});
+		}));
+	}
+	
+	jQuery(document).ready(function() {
+		App.init();
+		$("#ajaxform").submit(function(event){
+			event.preventDefault();
+			var addr=''+document.location.href.split('?')[0]
+			+"?newest=true&search="+$("#keyword").val();
+			location.href=addr;
+		});
+	});
+
 	</script>
 
 

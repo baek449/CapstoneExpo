@@ -17,7 +17,7 @@ module.exports = function(app,Model)
 	app.post('/post/new',function(req,res){
 		// 작성한 새로운 게시글을 올립니다.
 		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
-		
+		console.log(req.body);
 		PostController.create(req.body,function(x){
 			// x.result에는 새로운 게시글의 id값이 들어 있습니다.
 			res.send(x);
