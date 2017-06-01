@@ -41,7 +41,7 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
-
+	$.post(address,data,callback)
 	<!-- AngularJS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
@@ -53,6 +53,28 @@
 		//alert(mid);
 		$http.get('http://'+document.location.host+'/member/get/'+mid).then(function(res){
 			$scope.member=res.data.result;
+		});
+		$http.get('http://'+document.location.host+'/stat/evalcount/'+mid).then(function(res){
+			$scope.evalcount=res.data.result;
+		});
+		$http.get('http://'+document.location.host+'/stat/attendance/'+mid).then(function(res){
+			$scope.attendance=res.data.result;
+		});
+		$http.get('http://'+document.location.host+'/stat/replycount/'+mid).then(function(res){
+			$scope.replycount=res.data.result;
+		});
+		$http.get('http://'+document.location.host+'/stat/postcount/'+mid).then(function(res){
+			$scope.postcount=res.data.result;
+		});
+		
+		$http.get('http://'+document.location.host+'/eval/download',{fromMember:mid}).then(function(res2) {
+			$scope.eval = res2.data.result;
+			$scope.evalStatus=function(toMember,detail){
+				for(e in $scope.eval)
+					if($scope.eval[e].toMember==toMember && $scope.eval[e].eval==detail)
+						return $scope.eval[e].eval;
+				return "";
+			};
 		});
 	});
 
@@ -134,7 +156,7 @@
 		<!-- End About Me Block -->
 		
 		<!-- Parallax Counter -->
-		<div class="parallax-counter-v2 parallaxBg1" style="background-position: 50% 31px;">
+		<div class="parallax-counter-v2 parallaxBg1" style="background-position: 50% 31px;" ng-controller="MypageDisplayController">
 			<div class="container">
 
 				
@@ -167,19 +189,19 @@
 
 							<div class="row list-row margin-bottom-40">
 								<div class="counters col-md-3 col-sm-3">
-									<span class="counter">52147</span>
+									<span class="counter">{{attendance}}</span>
 									<h4>출석률</h4>
 								</div>
 								<div class="counters col-md-3 col-sm-3">
-									<span class="counter">24583</span>
+									<span class="counter">{{postcount}}</span>
 									<h4>회의록 작성 수</h4>
 								</div>
 								<div class="counters col-md-3 col-sm-3">
-									<span class="counter">7349</span>
+									<span class="counter">{{replycount}}</span>
 									<h4>댓글 작성 수</h4>
 								</div>
 								<div class="counters col-md-3 col-sm-3">
-									<span class="counter">87904</span>
+									<span class="counter">{{evalcount}}</span>
 									<h4>평가 참여 수</h4>
 								</div>
 							</div>
@@ -331,8 +353,6 @@
 			App.init();
 			App.initCounter();
 			App.initParallaxBg();
-			CirclesMaster.initCirclesMaster1();
-			CirclesMaster.initCirclesMaster2();
 			ProgressBar.initProgressBarVertical();
 		});
 	</script>
