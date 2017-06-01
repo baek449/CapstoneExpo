@@ -80,7 +80,7 @@ var PostController=function(Model){
 		    });
 		},
 		reply:function(childPost,parentPost,callback){
-			Model.Post.findByIdAndUpdate(parentPost, {$pull:{reply:childPost}}, {upsert:false}, function(err, data){
+			Model.Post.findByIdAndUpdate(parentPost, {$addToSet:{reply:childPost}}, {upsert:false}, function(err, data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});

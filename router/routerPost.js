@@ -58,6 +58,7 @@ module.exports = function(app,Model)
 		console.log(req.body);
 		PostController.create(req.body,function(x){
 			// x.result에는 새로운 댓글의 id값이 들어 있습니다.
+			console.log("LOG");
 			console.log(x.result._id);
 			PostController.reply(x.result._id,req.params.id,function(x){res.send({result:1});});
 		});
