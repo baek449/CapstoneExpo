@@ -29,11 +29,12 @@ var PostController=function(Model){
 		},
 		//[Must] readAll: 프로젝트 ID에 대한 모든 게시글을 불러옵니다.
 		readAll:function(projectId,mid,callback){
-			Model.Post.find({projectId:Model.id(projectId)})
+			Model.Post.find({projectId:Model.id(projectId), type:{$ne:"reply"}})
 			.populate({
 			    path: 'like',
 			    match: { _id: mid }
 			})
+			.populate("reply")
 			.exec(function(err,data){
 		        if(err){
 		            console.error(err);
@@ -68,6 +69,16 @@ var PostController=function(Model){
 		//[Should] postUnlike: 게시글의 좋아요 목록에서 자신을 제거합니다.
 		postUnlike:function(id,mid,callback){
 			Model.Post.findByIdAndUpdate(id, {$pull:{like:mid}}, {upsert:false}, function(err, data){
+		        if(err){
+		            console.error(err);
+		            callback({error: 1});
+		            return;
+		        }
+		        callback({});
+		    });
+		},
+		reply:function(childPost,parentPost,callback){
+			Model.Post.findByIdAndUpdate(parentPost, {$pull:{reply:childPost}}, {upsert:false}, function(err, data){
 		        if(err){
 		            console.error(err);
 		            callback({error: 1});
