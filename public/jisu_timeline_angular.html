@@ -71,9 +71,25 @@
 			$http.get('http://'+document.location.host+'/timeline/'+id,{memberId:mid}).then(function(res) {
 				$scope.posts=res.data.result;
 				$scope.id=id;
+				
+				$http.get('http://'+document.location.host+'/eval/download',{postID:id,fromMember:mid}).then(function(res2) {
+					$scope.eval = res2.data.result;
+					$scope.evalStatus=function(toMember,detail){
+						for(e in $scope.eval)
+							if($scope.eval[e].toMember==toMember && $scope.eval[e].eval==detail)
+								return $scope.eval[e].eval;
+						return "";
+					};
+					$scope.evalSubmit=function(toMember,detail){
+						$http.post('http://'+document.location.host+'/eval/upload',{postID:id,fromMember:mid,toMember:toMember,eval:detail,message:''});
+					};
+				});
 			});
+
 		});
 	});
+	
+
 	module.directive('ngElementReady', ['$timeout', function($timeout) {
 		//alert(2);
         return {
@@ -312,42 +328,58 @@
                      					<i class="rounded-x icon-share jisu_timeline_icon" data-toggle="modal" data-target="#evaluation1"></i>
 
                      					<div id="evaluation1" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-	                       					<div class="modal-dialog modal-sm">
+	                       					<div class="modal-dialog modal-md">
 	                          					<div class="modal-content">
 	                             					 <div class="modal-header">
 	                               					 	<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
 	                                					<h4 id="myLargeModalLabel3" class="modal-title">Evaluation</h4>
-	                            					 </div>
+	                            					 </div>                            					 
+	                            					 
+	                            					 
 	                              					 <div class="modal-body">
-	                                 					<div class = "btn-group" ng-repeat="m2 in members">
-															<button class="btn-u dropdown-toggle btn-u-sm rounded grow jisu-evaluation-button" data-toggle = "dropdown" aria-expanded = "false">
-																<p style="font-size:10px"> {{m2.name}} </p>
-																<p style="font-size:10px" class="jisu-evaluation-result">선택하세요<i class="fa fa-angle-down"></i></p>
-															</button>
-															<ul class = "dropdown-menu" role="menu">
-																<li>
-																	<button class="jisu-excellent btn-u btn-u-dark-blue grow rounded btn-u-xs fa-fixed">
-																		Excellent
-																	</button>
-																	<button class="jisu-good btn-u btn-u-blue grow rounded btn-u-xs fa-fixed">
-																		Good
-																	</button>
-																	<button class="jisu-soso btn-u btn-u-yellow grow rounded btn-u-xs fa-fixed">
-																		So So
-																	</button>
-																	<button class="jisu-bad btn-u btn-u-orange grow rounded btn-u-xs fa-fixed">
-																		Bad
-																	</button>
-																	<button class="jisu-verybad btn-u btn-u-red grow rounded btn-u-xs fa-fixed">
-																		Very Bad
-																	</button>
-																</li>
-															</ul>
+                        				             <!-- Accordion v1 -->
+														<div class="panel-group acc-v1" id="accordion-1">
+															<div class="panel panel-default" ng-repeat="m3 in members">
+																<div class="panel-heading">
+																	<h4 class="panel-title">
+																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-One">
+																			{{m3.name}}
+																		</a>
+																	</h4>
+																</div>
+																<div id="collapse-One" class="panel-collapse collapse assess-form in">
+																		<div class=" cc-selector">
+																	        <input id="idea{{m3._ID}}" type="radio" name="assess{{m3._ID}}" value="idea" ng-checked="{{evalStatus(m3._id,'creative')}}" onclick="evalSubmit()"/>
+																	        <label class="drinkcard-cc idea" for="idea{{m3._ID}}"></label>
+																	        <span>CREATIVE</span>
+																        </div>
+																		<div class=" cc-selector">
+																	        <input id="leader{{m3._ID}}" type="radio" name="assess{{m3._ID}}" value="leader" ng-checked="{{evalStatus(m3._id,'leadership')}}" onclick="evalSubmit()"/>
+																	        <label class="drinkcard-cc leader" for="leader{{m3._ID}}"></label>
+																	        <span>LEADERSHIP</span>
+																        </div>
+																		<div class=" cc-selector">
+																	        <input id="skill{{m3._ID}}" type="radio" name="assess{{m3._ID}}" value="skill" ng-checked="{{evalStatus(m3._id,'skilled')}}" onclick="evalSubmit()"/>
+																	        <label class="drinkcard-cc skill"for="skill{{m3._ID}}"></label>
+																	        <span>SKILLED</span>
+																        </div>
+																		<div class=" cc-selector">
+																	        <input id="teamwork{{m3._ID}}" type="radio" name="assess{{m3._ID}}" value="teamwork" ng-checked="{{evalStatus(m3._id,'teamwork')}}" onclick="evalSubmit()"/>
+																	        <label class="drinkcard-cc teamwork"for="teamwork{{m3._ID}}"></label>
+																	        <span>TEAMWORK</span>
+																        </div>
+																</div>
+															</div>
+																										
 														</div>
-	                             					 </div>
+														<!-- End Accordion v1 -->       
+	                             					 </div><!-- End modal-body --> 
 	                           					</div>
 	                        				</div>
                         				</div>
+                        				
+
+                        				
                         				<!-- End Evaluation button -->
                         				
                         				<!-- Reply button -->
@@ -651,7 +683,8 @@
 					$.post('http://'+document.location.host+'/post/like/'+id,{memberId:mid},function(res) {
 						
 					});
-			});
+			});		
+			
 			
 			$(document).on('click','.jisu_heart_icon1',function(){
 					$(this).css('background-color','#4a9706');
@@ -669,6 +702,8 @@
 				location.reload();
 			});
 			//new timeline 에서 제출 버튼 누르면 reload 완료
+			
+
 			
 			//final report 포스트 
 			$('.finalReport').prev('.cbp_tmicon').addClass('timeline_final_report_icon');
