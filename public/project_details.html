@@ -58,6 +58,10 @@
 	module.controller('ProjectDetailDisplayController', function($scope,$http) {
 		//alert(1);
 		// Bring the members into scope variable members
+		$http.get('http://'+document.location.host+'/project/all/view').then(function(res2) {
+			$scope.every_projects=res2.data.result.slice(12,15);
+		});
+		
 		$http.get('http://'+document.location.host+'/project/get/'+project_id).then(function(res1) {
 			$scope.members = res1.data.result.members.student;
 			$scope.summary = res1.data.result.projectSummary;
@@ -73,6 +77,7 @@
 				$scope.posts=res.data.result;
 				//alert(res.data.result);
 				$scope.id=project_id;
+				$scope.mid=mid;
 		});
 	});
 	
@@ -134,12 +139,12 @@
 									</a>
 									<ul class="dropdown-menu pull-right">
 										<li>
-											<a href="my_page.html">My Page</a>
+											<a href="my_page.html?id={{mid}}">My Page</a>
 										</li>
 										<li class="dropdown-submenu">
 											<a href="javascript:void(0);">My Projects</a>
 											<ul class="dropdown-menu submenu-left">
-												<li><a href="project_details.html">CapstoneExpo</a></li>
+												<li ng-repeat="ep in every_projects"><a href="jisu_timeline_angular.html?id={{ep._id}}">{{ep.name}}</a></li>
 											</ul>
 										</li>
 										<li><a href="blog_timeline.html">Sign out</a></li>

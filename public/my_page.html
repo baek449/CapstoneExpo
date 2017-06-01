@@ -47,8 +47,11 @@
 	<script type="text/javascript">
 	angular.module('mypageApp', []).controller('MypageDisplayController', function($scope,$http) {
 		var mid = document.location.href.split("?");
-		var id = mid[1];
-		$http.get('http://'+document.location.host+'/member/get/'+id).then(function(res){
+		mid = mid[1];
+		mid = mid.split("=");
+		mid = mid[1];
+		//alert(mid);
+		$http.get('http://'+document.location.host+'/member/get/'+mid).then(function(res){
 			$scope.member=res.data.result;
 		});
 	});
@@ -65,7 +68,7 @@
 			<div class="container">
 				<h1 class="pull-left">My page</h1>
 				<ul class="pull-right breadcrumb">
-					<li><a href="">Home</a></li>
+					<li><a href="index.html">Home</a></li>
 					<li class="active">My page</li>
 				</ul>
 			</div>
