@@ -70,7 +70,7 @@ var ProjectController=function(Model){
 			console.log("I'm is fucking SEARCH!!!!!");
 			console.log(keyword);
 			Model.Project.find({
-				"projectSummary.name":{$regex:keyword}				
+				"projectSummary.name":{$regex:keyword,$options: 'i'}
 			}).sort(sortCondition).exec(function(err,data){
 		        if(err){
 		            console.error(err);
