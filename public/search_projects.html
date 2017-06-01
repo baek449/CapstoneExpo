@@ -331,12 +331,15 @@
 	var module=angular.module('searchApp', []);
 	module.controller('ProjectDisplayController', function($scope,$http) {
 		var sorting = '';
-		var arg=window.location.search.substring(1).split('&')[0].split('=');
+		var args=window.location.search.substring(1).split('&');
+		var arg=args[0].split('=');
         if(arg[0]==='newest' && arg[1]==='true') {
         	sorting = '/project/all/new';
         } else {
         	sorting = '/project/all/view';
         }
+        if(args[1]) sorting='/search/'+args[1].split('=')[1];
+        
 		
 		$http.get('http://'+document.location.host+sorting).then(function(res){
 			$scope.projects=res.data.result;
@@ -365,14 +368,14 @@
 				return "";
 			};
 			$scope.comma=function(a){
-				return a+', ';
+				return ', '+a;
 			};
 
 			$scope.map=function(fields,func){
 				var result='';
 				for(i in fields)
-					result+= func(fields[i])+' ';
-				return result;
+					result+= ' '+func(fields[i]);
+				return result.substring(2);
 			};
 		});
 	});
@@ -437,20 +440,11 @@
 	
 	jQuery(document).ready(function() {
 		App.init();
-		
-		$(function(){
-			$("#ajaxform").submit(function(){
-				event.preventDefault();
-				var keyword = $("#keyword").val();
-					alert(keyword);
-				$.getJSON('http://'+document.location.host+'/search/'+$("#keyword").val(), function(res){
-					alert(keyword+" 전송완료");
-					alert(JSON.stringify(res.result));
-					
-					
-					$scope.projects=res.result;
-				});			
-			});
+		$("#ajaxform").submit(function(event){
+			event.preventDefault();
+			var addr=''+document.location.href.split('?')[0]
+			+"?newest=true&search="+$("#keyword").val();
+			location.href=addr;
 		});
 	});
 	
