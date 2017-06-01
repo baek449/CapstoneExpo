@@ -50,24 +50,40 @@
 	var mid='592a7af2f8bc6d93b34216ef';
 	var module=angular.module('timelineApp', []);
 	var id=document.location.href;
-	id=id.split("?")[1];
+	id=id.split("?")[1].split("#")[0];
 	if(!id) alert("Error"); // TODO Error Processing
 	id=id.split("&")[0].split("=");
 	if(id[0]!="id") alert("Error"); // TODO Error Processing
 	id=id[1];
-	//alert(id);
+	alert(id);
 	//alert(0);
 	
 	module.controller('TimelineDisplayController', function($scope,$http) {
 		//alert(1);
 		//var id = "592a7c6ff8bc6d93b34216f1";
 		// Bring the members into scope variable members
+		$scope.examineEval=
+			function (evals,toMember){
+			//alert("examineEval");
+
+			//alert(JSON.stringify(evals));
+			//alert(JSON.stringify(toMember));
+			for(i in evals)
+				if(evals[i].toMember==toMember){
+					//alert(JSON.stringify(evals[i].eval));
+					return evals[i].eval;
+				}
+			return "";
+		}
+			//examineEval(a,b);
+		$scope.uploadEval=uploadEval;
 		$http.get('http://'+document.location.host+'/project/summary/'+id).then(function(res1) {
 			$scope.project_keyword = res1.data.result.keyword;
 		});
 		
 		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
 			$scope.members = res1.data.result;
+			$scope.members2 = res1.data.result;
 /* 			$scope.linebreak=function(str){
 				return str.replace(/\n/gi,'</p><p>');
 			}; */
@@ -78,12 +94,8 @@
 				$scope.id=id;
 				
 				alert(0);
-				alert(posts._id);
-				$http.post('http://'+document.location.host+'/eval/download',{postID:posts._id,fromMember:mid}).then(function(res2) {
-					$scope.eval = res2.data.result;
-					alert(1);
-					alert('res2.data.result[0].postID');
-				});
+				$scope.evals={};
+				downloadEvals($scope.evals,$scope.posts,0);
 			});
 
 		});
@@ -322,7 +334,7 @@
 	                              					 <div class="modal-body">
                         				             <!-- Accordion v1 -->
 														<div class="panel-group acc-v1" id="accordion-1">
-															<div class="panel panel-default" ng-repeat="m3 in members" ng-class='memberClass(m3, $index)'>
+															<div class="panel panel-default" ng-repeat="m3 in members2" ng-class='memberClass(m3, $index)'>
 																<div class="panel-heading">
 																	<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse{{m3._id}}">
@@ -332,22 +344,22 @@
 																</div>
 																<div id="collapse{{m3._id}}" class="panel-collapse collapse assess-form">
 																		<div class=" cc-selector">
-																	        <input id="idea{{m3._id}}" type="radio" name="assess{{m3._id}}" value="idea" ng-checked="{{evalSTatus(m3._id,'creative')" ng-click="evalSubmit(m3._id,'creative')"/>
+																	        <input id="idea{{m3._id}}" type="radio" name="assess{{m3._id}}" value="idea"  ng-click="uploadEval(p._id,m3._id,'Creativity')" ng-checked="examineEval(evals[p._id],m3._id)=='Creativity'"/>
 																	        <label class="drinkcard-cc idea" for="idea{{m3._id}}"></label>
 																	        <span>CREATIVE</span>
 																        </div>
 																        <div class=" cc-selector">
-																	        <input id="leader{{m3._id}}" type="radio" name="assess{{m3._id}}" value="leader" ng-checked="m3.detail == 'leader'" ng-click="evalSubmit(m3._id,'leader')"/>
+																	        <input id="leader{{m3._id}}" type="radio" name="assess{{m3._id}}" value="leader" ng-click="uploadEval(p._id,m3._id,'Leadership')" ng-checked="examineEval(evals[p._id],m3._id)=='Leadership'"/>
 																	        <label class="drinkcard-cc leader" for="leader{{m3._id}}"></label>
 																	        <span>LEADERSHIP</span>
 																        </div>
 																        <div class=" cc-selector">
-																	        <input id="skill{{m3._id}}" type="radio" name="assess{{m3._id}}" value="skill" ng-checked="m3.detail == 'skill'" ng-click="evalSubmit(m3._id,'skill')"/>
+																	        <input id="skill{{m3._id}}" type="radio" name="assess{{m3._id}}" value="skill" ng-click="uploadEval(p._id,m3._id,'Skilled')" ng-checked="examineEval(evals[p._id],m3._id)=='Skilled'"/>
 																	        <label class="drinkcard-cc skill"for="skill{{m3._id}}"></label>
 																	        <span>SKILLED</span>
 																        </div>
 																        <div class=" cc-selector">
-																	        <input id="teamwork{{m3._id}}" type="radio" name="assess{{m3._id}}" value="teamwork" ng-checked="m3.detail == 'teamwork'" ng-click="evalSubmit(m3._id,'teamwork')"/>
+																	        <input id="teamwork{{m3._id}}" type="radio" name="assess{{m3._id}}" value="teamwork" ng-click="uploadEval(p._id,m3._id,'Teamwork')" ng-checked="examineEval(evals[p._id],m3._id)=='Teamwork'"/>
 																	        <label class="drinkcard-cc teamwork"for="teamwork{{m3._id}}"></label>
 																	        <span>TEAMWORK</span>
 																        </div>
@@ -533,7 +545,34 @@
 	<script type="text/javascript" src="assets/js/app.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/style-switcher.js"></script>
 	<script type="text/javascript">
-		//window.onload=(function(){
+		function uploadEval(postID,toMember,eval){
+			var arg={postID:postID,fromMember:mid,toMember:toMember,eval:eval};
+			$.post('http://'+document.location.host+'/eval/upload',arg);
+			//alert("평가가 등록되었습니다.");
+			//location.reload();
+		}
+		function downloadEvals(accum,postIDArray,index){
+			if(index>=postIDArray.length) return;
+			var arg={postID:postIDArray[index]._id,fromMember:mid};
+			$.post('http://'+document.location.host+'/eval/download',arg,function(x){
+				// 여기에서 동적으로 값을 집어넣습니다.
+				accum[postIDArray[index]._id]=x.result;
+				downloadEvals(accum,postIDArray,index+1);
+			});
+		}
+		function examineEval(evals,toMember){
+			alert("examineEval");
+
+			alert(JSON.stringify(evals));
+			alert(JSON.stringify(toMember));
+			for(i in evals)
+				if(evals[i].toMember==toMember){
+					alert(JSON.stringify(evals[i].eval));
+					return evals[i].eval;
+				}
+			alert("None");
+			return "";
+		}
 			function upload(callback){
 				return function(event){
 					//alert($("#file").val());

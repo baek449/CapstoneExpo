@@ -63,7 +63,7 @@ module.exports = function(app,Model)
 			PostController.reply(x.result._id,req.params.id,function(x){res.send({result:1});});
 		});
 	});
-	app.post('eval/upload',function(req,res){
+	app.post('/eval/upload',function(req,res){
 		// 평가를 올리거나 갱신합니다.
 		// postID, fromMember, toMember는 필수입니다.
 		var key={postID:	req.body.postID,
@@ -77,14 +77,10 @@ module.exports = function(app,Model)
 			res.send(x);
 		});
 	});
-	app.post('eval/download',function(req,res){
+	app.post('/eval/download',function(req,res){
 		// 평가 목록을 가져옵니다.
 		// postID, fromMember는 필수입니다.
-		var key={postID:	req.body.postID,
-				fromMember:	req.body.fromMember};
-		console.log(1);
-		EvaluationController.get(key,function(x){
-			console.log(2);
+		EvaluationController.get(req.body.postID,req.body.fromMember,function(x){
 			// x.result에는 여러 댓글이 있습니다. 이는 응답으로 넘어가기 전에 Mongoose 객체에서 일반 객체로 바뀌어야 합니다.
 			if(x.result)
 				for(i in x.result)
