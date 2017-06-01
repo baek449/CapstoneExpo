@@ -374,26 +374,15 @@
 	margin-top: 5px;
 }
 
-.width {
-    width: 45%;
-    background: #F9D237;
-    position: relative;
-    display: inline-block;
-    margin: 1%;
-    vertical-align: top;
-    box-shadow: 0 0 4px rgba(0,0,0,.3);
+/*counter*/
+.jen-counter-box {
+
+  z-index: 1;
+  height: auto;
+  padding: 30px 0;
+  overflow: hidden;
+  text-align: center;
+  position: relative;
+  background: url(/assets/img/bg/counter.jpg) 50% 0 fixed !important;
 }
-.width:before {
-    content: '';
-    display: block;
-}
-.ratio1-1:before {padding-top: 100%;}
-.ratio2-1:before {padding-top: 50%;}
-.ratio4-3:before {padding-top: 75%;}
-.ratio16-9:before {padding-top: 56.25%;}
-.contenido {    
-   position: absolute;
-   top: 0; left: 0; bottom: 0; right: 0;
-   font-size: 1.5rem;
-   color: #444;
 }

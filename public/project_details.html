@@ -175,7 +175,7 @@
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#">프로젝트 및 팀 소개</a></li>
 						<li><a href="jisu_timeline_angular.html?id={{id}}">타임라인</a></li>						
-						<li class="pull-right"><a href="#">프로젝트 수정</a></li>
+						<li class="pull-right" data-toggle="modal" data-target="#responsive"><a href="#">프로젝트 수정</a></li>
 					</ul>
 				</div>
 			</div>
@@ -365,7 +365,91 @@
 		
 		
 	</div><!--/wrapper-->
+	
+	<!-- 프로젝트 수정 modal -->
+	<div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel4">프로젝트 수정</h4>
+				</div>
 
+				<div class="panel-body sky-form">
+					<form id="imageForm" class="form-horizontal sky-form no-border" role="form"  method="post" enctype="multipart/form-data">
+					
+						<div class="form-group">
+							<label for="inputCategory" class="col-lg-2 control-label">분야</label>
+							<div id="input-field" class="col-lg-10 inline-group jen-checkbox">
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기계/항공"><i></i>기계/항공</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="전기/전자"><i></i>전기/전자</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="소프트웨어"><i></i>소프트웨어</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="건축/환경"><i></i>건축/환경</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="화공/에너지"><i></i>화공/에너지</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="자연과학"><i></i>자연과학</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="예술/디자인"><i></i>예술/디자인</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="생활/교육"><i></i>생활/교육</label>
+								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="기타"><i></i>기타</label>
+							</div>
+						</div>											
+
+						<div class="form-group">
+							<label for="inputTitle" class="col-lg-2 control-label">프로젝트명:</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" id="input-name" name="name" placeholder="프로젝트명">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputIntro" class="col-lg-2 control-label">요약글:</label>
+							<div class="col-lg-10">
+								<input type="text" class="form-control" id="input-short-intro" name="shortIntro" placeholder="한 줄 소개">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputDesc" class="col-lg-2 control-label">소개글:</label>
+							<div class="col-lg-10 textarea">
+								<textarea id="inputDesc" class="form-control" rows="5" id="input-intro" name="intro" placeholder="프로젝트를 소개해주세요."></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputDate" class="col-lg-2 control-label">기간:</label>
+							<div class="col-lg-10 inline-group">
+								<div class="col-4 date-picker">
+									<label class="input">
+										<i class="icon-append fa fa-calendar"></i>
+										<input type="text" name="start" id="start" name="startDate" placeholder="프로젝트 시작">
+									</label>
+								</div>
+								<div class="col-4 date-picker">
+									<label class="input">
+										<i class="icon-append fa fa-calendar"></i>
+										<input type="text" name="finish" id="finish" name="endDate" placeholder="종료 예정일">
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputImage" class="col-lg-2 control-label">대표이미지:</label>
+							<div class="col-lg-10">
+								<label for="file" class="input input-file">
+									<div class="button"><input type="file" id="uploadFile" name="uploadFile" onchange="this.parentNode.nextSibling.value = this.value">Browse</div><input type="text" readonly>
+								</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+						<button type="button" class="btn-u btn-u-default" data-dismiss="modal">취소</button>
+						<button type="submit" class="btn-u btn-u-primary">프로젝트 생성</button>
+						</div>
+					</form>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<!-- end 프로젝트 수정 -->
+	
 	<!-- JS Global Compulsory -->
 	<script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
 	<script type="text/javascript" src="assets/plugins/jquery/jquery-migrate.min.js"></script>
