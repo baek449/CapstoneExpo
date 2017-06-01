@@ -138,17 +138,16 @@
 
 				<h2 class="margin-bottom-20">Comments</h2>
 				<!-- Blog Comments -->
-				<div class="row blog-comments margin-bottom-30">
+				<div class="row blog-comments margin-bottom-30" ng-repeat="r in reply">
 					<div class="col-sm-2 sm-margin-bottom-40">
-						<img src="assets/img/team/img1-sm.jpg" alt="">
+						<img src="/image/download/{{r.writer.image}}" alt="">
 					</div>
 					<div class="col-sm-10">
 						<div class="comments-itself">
 							<h4>
-								Jalen Davenport
-								<span>5 hours ago / <a href="#">Reply</a></span>
+								{{r.writer}}
 							</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae, gravida pellentesque urna varius vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod..</p>
+							<p>{{r.contents}}</p>
 						</div>
 					</div>
 				</div>

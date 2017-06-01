@@ -688,6 +688,7 @@
 					//alert(post_id);
 					//alert(id);
 					report.contents=$(this).parent().prev().val();
+					report.writer=mid;
 					$.post('http://'+document.location.host+'/post/reply/'+post_id,report,function(res) {
 						alert(report.contents);
 						location.reload();
