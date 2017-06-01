@@ -98,7 +98,7 @@
 									</a>
 									<ul class="dropdown-menu pull-right">
 										<li>
-											<a href="my_page.html">My Page</a>
+											<a href="my_page.html?id={{mid}}">My Page</a>
 										</li>
 										<li class="dropdown-submenu">
 											<a href="javascript:void(0);">My Projects</a>
@@ -241,11 +241,13 @@
 	<script type="text/javascript">
 
 	var module=angular.module('searchApp', []);
+	var mid='592a7af2f8bc6d93b34216ef';
 
 		module.controller('ProjectDisplayController', function($scope,$http) {
 			$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
 				$scope.projects=res.data.result.slice(0,3);
 				$scope.projects2=res.data.result.slice(12,15);
+				$scope.mid=mid;
 				$scope.map_one=function(fieldName){
 					switch(fieldName) {
 					case "기계/항공":
