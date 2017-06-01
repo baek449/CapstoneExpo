@@ -77,17 +77,12 @@
 				$scope.posts2=res.data.result.slice(0,2);
 				$scope.id=id;
 				
+				alert(0);
+				alert(posts._id);
 				$http.post('http://'+document.location.host+'/eval/download',{postID:posts._id,fromMember:mid}).then(function(res2) {
 					$scope.eval = res2.data.result;
-					$scope.evalStatus=function(toMember,detail){
-						for(e in $scope.eval)
-							if($scope.eval[e].toMember==toMember && $scope.eval[e].eval==detail)
-								return $scope.eval[e].eval;
-						return "";
-					};
-					$scope.evalSubmit=function(toMember,detail){
-						$http.post('http://'+document.location.host+'/eval/upload',{postID:posts._id,fromMember:mid,toMember:toMember,eval:detail,message:''});
-					};
+					alert(1);
+					alert('res2.data.result[0].postID');
 				});
 			});
 

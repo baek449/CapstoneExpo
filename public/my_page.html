@@ -45,7 +45,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
 	
-	angular.module('mypageApp', []).controller('MypageDisplayController', function($scope,$http) {
+	var module=angular.module('mypageApp', []);
+	
+	module.controller('MypageDisplayController', function($scope,$http) {
 		var mid = document.location.href.split("?");
 		mid = mid[1];
 		mid = mid.split("=");
@@ -70,21 +72,37 @@
 		});
 		$http.get('http://'+document.location.host+'/stat/evallist/'+mid).then(function(res){
 			//$scope.evallist=res.data.result;
-			alert(res.data.result);
-			alert(typeof res.data.result);
-			$scope.eval_find = function(id){
-				alert(res.data.result);
+			//alert(res.data.result);
+			//alert(typeof res.data.result);
+			var eval_find = function(id){
+				//alert(res.data.result);
 				for(i in res.data.result){
 					if(res.data.result[i]._id==id){
-						alert(1);
-						return eval[i].count;
+						return res.data.result[i].count;
 					}
 				}
-				alert(0);
 				return 0;
 			};
+			$scope.arr=[eval_find('Creativity'),eval_find('Leadership'),eval_find('Expertise'),eval_find('Teamwork')];
+			//alert($scope.arr);
+			var mx=Math.max.apply(null,$scope.arr);
+			//alert(mx);
+			if(mx>0)
+				for(x in $scope.arr)
+					$scope.arr[x]=$scope.arr[x]*100.0/mx;
+			
 		});
 	});
+	
+	module.directive('ngElementReady', ['$timeout', function($timeout) {
+		//alert(2);
+        return {
+            restrict: "A", // attribute only
+            link: function($scope, $element, $attributes) {
+                angular.getTestability($element).whenStable(ready);
+            }
+        };
+    }]);
 
 	</script>
 </head>
@@ -133,25 +151,25 @@
 					<div class="row">
 						<div class="col-xs-3 text-center">
 							<div class="progress progress-u vertical bottom">
-								<div class="progress-bar progress-bar-u progress-bar-idea" role="progressbar" data-height="{{eval_find('Creativity')}}"></div>
+								<div class="progress-bar progress-bar-u progress-bar-idea" role="progressbar" data-height="{{arr[0]}}"></div>
 							</div>
 							<h5><img class="my-progress-icon" src="assets/img/icons/assess/idea.png">Creativity</h5>
 						</div>
 						<div class="col-xs-3 text-center">
 							<div class="progress progress-u vertical bottom">
-								<div class="progress-bar progress-bar-u progress-bar-leader" role="progressbar" data-height="{{eval_find('Leadership')}}"></div>
+								<div class="progress-bar progress-bar-u progress-bar-leader" role="progressbar" data-height="{{arr[1]}}"></div>
 							</div>
 							<h5><img class="my-progress-icon" src="assets/img/icons/assess/leader.png">Leadership</h5>
 						</div>
 						<div class="col-xs-3 text-center">
 							<div class="progress progress-u vertical bottom">
-								<div class="progress-bar progress-bar-u progress-bar-skills" role="progressbar" data-height="{{eval_find('Expertise')}}"></div>
+								<div class="progress-bar progress-bar-u progress-bar-skills" role="progressbar" data-height="{{arr[2]}}"></div>
 							</div>
 							<h5><img class="my-progress-icon" src="assets/img/icons/assess/skill.png">Expertise</h5>
 						</div>
 						<div class="col-xs-3 text-center">
 							<div class="progress progress-u vertical bottom">
-								<div class="progress-bar progress-bar-u progress-bar-team no-bottom-margin" role="progressbar" data-height="{{eval_find('Teamwork')}}"></div>
+								<div class="progress-bar progress-bar-u progress-bar-team no-bottom-margin" role="progressbar" data-height="{{arr[3]}}"></div>
 							</div>
 							<h5><img class="my-progress-icon" src="assets/img/icons/assess/teamwork.png">Teamwork</h5>
 						</div>
@@ -357,12 +375,12 @@
 	<script type="text/javascript" src="assets/js/plugins/circles-master.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/progress-bar.js"></script>
 	<script type="text/javascript">
-		jQuery(document).ready(function() {
+		function ready() {
 			App.init();
 			App.initCounter();
 			App.initParallaxBg();
 			ProgressBar.initProgressBarVertical();
-		});
+		}
 	</script>
 
 
