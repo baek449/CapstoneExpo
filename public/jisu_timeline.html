@@ -327,7 +327,7 @@
 	                              					 <div class="modal-body">
                         				             <!-- Accordion v1 -->
 														<div class="panel-group acc-v1" id="accordion-1">
-															<div class="panel panel-default" ng-repeat="m3 in members" ng-class='memberClass(m3, $index)'>
+															<div class="panel panel-default" ng-repeat="m3 in members">
 																<div class="panel-heading">
 																	<h4 class="panel-title">
 																		<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse{{m3._id}}">
@@ -337,22 +337,22 @@
 																</div>
 																<div id="collapse{{m3._id}}" class="panel-collapse collapse assess-form">
 																		<div class=" cc-selector">
-																	        <input id="idea{{m3._id}}" type="radio" name="assess{{m3._id}}" value="idea" ng-checked="{{evalSTatus(m3._id,'creative')" ng-click="evalSubmit(m3._id,'creative')"/>
+																	        <input id="idea{{m3._id}}" type="radio" name="assess{{m3._id}}" value="idea"/>
 																	        <label class="drinkcard-cc idea" for="idea{{m3._id}}"></label>
 																	        <span>CREATIVE</span>
 																        </div>
 																        <div class=" cc-selector">
-																	        <input id="leader{{m3._id}}" type="radio" name="assess{{m3._id}}" value="leader" ng-checked="m3.detail == 'leader'" ng-click="evalSubmit(m3._id,'leader')"/>
+																	        <input id="leader{{m3._id}}" type="radio" name="assess{{m3._id}}" value="leader"/>
 																	        <label class="drinkcard-cc leader" for="leader{{m3._id}}"></label>
 																	        <span>LEADERSHIP</span>
 																        </div>
 																        <div class=" cc-selector">
-																	        <input id="skill{{m3._id}}" type="radio" name="assess{{m3._id}}" value="skill" ng-checked="m3.detail == 'skill'" ng-click="evalSubmit(m3._id,'skill')"/>
+																	        <input id="skill{{m3._id}}" type="radio" name="assess{{m3._id}}" value="skill"/>
 																	        <label class="drinkcard-cc skill"for="skill{{m3._id}}"></label>
 																	        <span>SKILLED</span>
 																        </div>
 																        <div class=" cc-selector">
-																	        <input id="teamwork{{m3._id}}" type="radio" name="assess{{m3._id}}" value="teamwork" ng-checked="m3.detail == 'teamwork'" ng-click="evalSubmit(m3._id,'teamwork')"/>
+																	        <input id="teamwork{{m3._id}}" type="radio" name="assess{{m3._id}}" value="teamwork"/>
 																	        <label class="drinkcard-cc teamwork"for="teamwork{{m3._id}}"></label>
 																	        <span>TEAMWORK</span>
 																        </div>
