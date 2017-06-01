@@ -49,8 +49,8 @@
 	
 </head>
 
-<body class="header-fixed">
-	<div class="wrapper">
+<body class="header-fixed" ng-app="searchApp" ng-element-ready>
+	<div class="wrapper" ng-controller="ProjectDisplayController">
 		<!--=== Header v6 ===-->
 		<div class="header-v6 header-classic-white">
 			<!-- Navbar -->
@@ -101,12 +101,12 @@
 									</a>
 									<ul class="dropdown-menu pull-right">
 										<li>
-											<a href="my_page.html">My Page</a>
+											<a href="my_page.html?id={{mid}}">My Page</a>
 										</li>
 										<li class="dropdown-submenu">
-											<a href="javascript:void(0);">My Projects</a>
+											<a href="#">My Projects</a>
 											<ul class="dropdown-menu submenu-left">
-												<li><a href="project_details.html">CapstoneExpo</a></li>
+												<li ng-repeat="mp in myprojects"><a href="jisu_timeline_angular.html?id={{mp._id}}">{{mp.name}}</a></li>
 											</ul>
 										</li>
 										<li><a href="blog_timeline.html">Sign out</a></li>
@@ -142,7 +142,7 @@
 		<!--=== End Search Block Version 2 ===-->
 
 		<!--=== Search Results ===-->
-		<div class="container s-results margin-bottom-50" ng-app="searchApp" ng-element-ready>
+		<div class="container s-results margin-bottom-50">
 			<div class="row">
 				<div class="col-md-2 col-sm-12 hidden-xs related-search">
 
@@ -170,7 +170,7 @@
 					</ul>
 
 				</div><!--/col-md-2-->
-				<div class="col-md-10 col-sm-12" ng-controller="ProjectDisplayController">
+				<div class="col-md-10 col-sm-12">
 					<span class="results-number">총 {{count}} 프로젝트
 					<button class="btn-u pull-right" type="button" data-toggle="modal" data-target="#responsive">신규 프로젝트 등록</button>
 					</span>					
@@ -328,6 +328,8 @@
 		}
 	}
 	
+	var mid='592a7af2f8bc6d93b34216ef';
+	
 	var module=angular.module('searchApp', []);
 	module.controller('ProjectDisplayController', function($scope,$http) {
 		var sorting = '';
@@ -343,7 +345,9 @@
 		
 		$http.get('http://'+document.location.host+sorting).then(function(res){
 			$scope.projects=res.data.result;
+			$scope.myprojects=res.data.result.slice(12,15);
 			$scope.count=res.data.result.length;
+			$scope.mid=mid;
 			$scope.map_one=function(fieldName){
 				switch(fieldName) {
 				case "기계/항공":
