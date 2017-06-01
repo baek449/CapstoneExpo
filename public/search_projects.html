@@ -368,14 +368,14 @@
 				return "";
 			};
 			$scope.comma=function(a){
-				return a+', ';
+				return ', '+a;
 			};
 
 			$scope.map=function(fields,func){
 				var result='';
 				for(i in fields)
-					result+= func(fields[i])+' ';
-				return result;
+					result+= ' '+func(fields[i]);
+				return result.substring(2);
 			};
 		});
 	});
@@ -440,14 +440,11 @@
 	
 	jQuery(document).ready(function() {
 		App.init();
-		
-		$(function(){
-			$("#ajaxform").submit(function(){
-				location.href='http://'
-				//+document.location.href+
-				+'search_projects'+
-				'/true/'+$("#keyword");
-			});
+		$("#ajaxform").submit(function(event){
+			event.preventDefault();
+			var addr=''+document.location.href.split('?')[0]
+			+"?newest=true&search="+$("#keyword").val();
+			location.href=addr;
 		});
 	});
 	
