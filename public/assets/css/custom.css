@@ -9,6 +9,15 @@
 	font-weight: 400 !important;
 }
 
+.row [class*="col-"]{
+  margin-bottom: -99999px !important;
+  padding-bottom: 99999px !important;
+}
+
+.row{
+  overflow: hidden !important; 
+}
+
 .project_title {
     position: relative;
 	color: #555;
@@ -280,37 +289,41 @@
 
 /**************timeline**************/
 
-.assess-group .normal-assess-radio {
-	visibility: hidden;
-	position: absolute;
+.assess-form {
+	padding: 0px 20px 10px 20px;
 }
 
-.assess-group input{
-    margin:0;padding:0;
+.cc-selector {
+	display: inline-block;
+	padding: 5px;
+	position: relative;
+}
+
+.cc-selector input{
+    margin:0;
+    padding:0;
     -webkit-appearance:none;
        -moz-appearance:none;
             appearance:none;
 }
 
-/* .idea{background-image:url(../img/icons/assess/idea.png);}
+.idea{background-image:url(../img/icons/assess/idea.png); }
 .leader{background-image:url(../img/icons/assess/leader.png);}
 .skill{background-image:url(../img/icons/assess/skill.png);}
-.teamwork{background-image:url(../img/icons/assess/teamwork.png);} */
+.teamwork{background-image:url(../img/icons/assess/teamwork.png);}
 
-
-.assess-group input:active +.assess-button-label{opacity: .9;}
-.assess-group input:checked +.assess-button-label{
+.cc-selector input:active +.drinkcard-cc {opacity: .9;}
+.cc-selector input:checked +.drinkcard-cc {
     -webkit-filter: none;
        -moz-filter: none;
             filter: none;
 }
-.assess-button-label{
+.drinkcard-cc{
+    cursor:pointer;
     background-size:contain;
     background-repeat:no-repeat;
     display:inline-block;
-    width: 110px;
-    height: 110px;
-    margin-right:10px;
+    width:110px;height:130px;
     -webkit-transition: all 100ms ease-in;
        -moz-transition: all 100ms ease-in;
             transition: all 100ms ease-in;
@@ -318,9 +331,18 @@
        -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
             filter: brightness(1.8) grayscale(1) opacity(.7);
 }
-
-.assess-button-label:hover{
+.drinkcard-cc:hover{
     -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
        -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
             filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+.cc-selector span {
+	display: inline;
+	color: #7f7f7f;
+	position: absolute;
+	font-size: 12px;
+	top: 120px;
+	width: 100%;
+	text-align: center;
+	margin-top: 5px;
 }

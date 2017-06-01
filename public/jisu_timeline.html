@@ -43,6 +43,10 @@
 
 	<!-- CSS Customization -->
 	<link rel="stylesheet" href="assets/css/custom.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script type="text/javascript">
+	$(".cc-selector").outerHeight($(".cc-selector").outerWidth() * 1.00);
+	</script>
 </head>
 
 <body class="header-fixed">
@@ -236,13 +240,9 @@
 						</ul>
 						<!-- End Tags v2 -->
 					</div>
-					<!-- End Right Side Bar -->
-							
-					
+					<!-- End Right Side Bar -->												
 				<!-- Begin Content -->
-				<div class="col-md-9">
-				
-				
+				<div class="col-md-9">				
 					<!-- new button -->
 					<div class="btn-group col-md-3 jisu_new_button_div">
 							<button class="btn-u dropdown-toggle" style="float:right" data-toggle="dropdown" type="button">
@@ -618,7 +618,7 @@
 	                              					 <div class="modal-body">
 	                              					 
                   					 
-             						<!-- Accordion v1 -->
+    <!-- Accordion v1 -->
 	<div class="panel-group acc-v1" id="accordion-1">
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -628,101 +628,26 @@
 					</a>
 				</h4>
 			</div>
-			<div id="collapse-One" class=" panel-collapse collapse in">
-
-				
-
-				<form class="assess-form" id="1">
-				  <label class="assess-idea">
-				    <input type="radio" value="idea" name="assess" />
-				    <div class="radio-image"><img src="assets/img/icons/assess/idea.png" class="assess-icon"/><img class="selected" src="assets/img/icons/assess/selected.png"></div>
-				  </label>
-				  <label class="item2">
-				    <input type="assess-leader" value="leader" name="assess" />
-				    <div class="radio-image"><img src="assets/img/icons/assess/idea.png" class="assess-icon"/><img class="selected" src="assets/img/icons/assess/selected.png"></div>
-				  </label>
-				  <label class="item3">
-				    <input type="assess-skill" value="skill" name="assess" />
-				    <div class="radio-image"><img src="assets/img/icons/assess/idea.png" class="assess-icon"/><img class="selected" src="assets/img/icons/assess/selected.png"></div>
-				  </label>
-				  <label class="item4">
-				    <input type="assess-teamwork" value="teamwork" name="assess" />
-				    <div class="radio-image"><img src="assets/img/icons/assess/idea.png" class="assess-icon"/><img class="selected" src="assets/img/icons/assess/selected.png"></div>
-				  </label>
-				</form>
-
-				
-				<button id="finish">평가 완료하기</button>
+			<div id="collapse-One" class="panel-collapse collapse assess-form in">
+					<div class=" cc-selector">
+				        <input id="ideamemberID1" type="radio" name="memberID1" value="idea" />
+				        <label class="drinkcard-cc idea" for="ideamemberID1"></label>
+			        </div>
+					<div class=" cc-selector">
+				        <input id="leadermemberID1" type="radio" name="memberID1" value="leader" />
+				        <label class="drinkcard-cc leader" for="leadermemberID1"></label>
+			        </div>
+					<div class=" cc-selector">
+				        <input id="skillmemberID1" type="radio" name="memberID1" value="skill" />
+				        <label class="drinkcard-cc skill"for="skillmemberID1"></label>
+			        </div>
+					<div class=" cc-selector">
+				        <input id="teamworkmemberID1" type="radio" name="memberID1" value="teamwork" />
+				        <label class="drinkcard-cc teamwork"for="teamworkmemberID1"></label>
+			        </div>
 			</div>
 		</div>
-
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Two">
-						김도연
-					</a>
-				</h4>
-			</div>
-			<div id="collapse-Two" class="panel-collapse collapse">
- 				<div id="normal-assessment" class="row panel-body assess-group ">
-				    <input class="normal-assess-radio col-md-3" type="radio" name="assess" id="idea" value="idea"/>
-				    <label for="so" class="assess-button-label "><img src="assets/img/icons/assess/idea.png" class="assess-icon"/></label>
-				    <input class="normal-assess-radio col-md-3" type="radio" name="assess" id="leader" value="leader" />
-				    <label for="so" class="assess-button-label" ><img src="assets/img/icons/assess/leader.png" class="assess-icon"/></label>
-				    <input class="normal-assess-radio col-md-3" type="radio" name="assess" id="skill" value="skill" />
-				    <label for="so" class="assess-button-label "><img src="assets/img/icons/assess/skill.png" class="assess-icon"/></label>
-				    <input class="normal-assess-radio col-md-3" type="radio" name="assess" id="teamwork" value="teamwork" />
-				    <label for="so" class="assess-button-label "><img src="assets/img/icons/assess/teamwork.png" class="assess-icon"/></label>
-				</div>
-			</div>
-			
-	<div class="cc-selector">
-        <input id="visa" type="radio" name="credit-card" value="visa" />
-        <label class="drinkcard-cc visa" for="visa"></label>
-        <input id="mastercard" type="radio" name="credit-card" value="mastercard" />
-        <label class="drinkcard-cc mastercard"for="mastercard"></label>
-    </div>
-		</div>
-
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Three">
-						박산하
-					</a>
-				</h4>
-			</div>
-			<div id="collapse-Three" class="panel-collapse collapse">
-
-			</div>
-		</div>
-
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Four">
-						백승근
-					</a>
-				</h4>
-			</div>
-			<div id="collapse-Four" class="panel-collapse collapse">
-
-			</div>
-		</div>
-		
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Five">
-						장자은
-					</a>
-				</h4>
-			</div>
-			<div id="collapse-Five" class="panel-collapse collapse">
-
-			</div>
-		</div>															
+													
 	</div>
 	<!-- End Accordion v1 -->       					 
 	                              					 
@@ -951,7 +876,7 @@
 			var id = "592a7c6ff8bc6d93b34216f1";
 			
 			$.getJSON('http://'+document.location.host+'/project/member/'+id,function(res) {
-				alert(JSON.stringify(res));
+
 				var member = res.result;
 				for(k in member){
 					var image_sidebar = member[k].image;
@@ -964,7 +889,7 @@
 				}
 			
 				$.getJSON('http://'+document.location.host+'/timeline/'+id,function(res) {
-					alert(JSON.stringify(res));
+
 					for(i in res.result){
 						
 						var id2 = res.result[i]._id;
