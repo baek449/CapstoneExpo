@@ -24,6 +24,22 @@ var EvaluationController=function(Model){
 		        callback({result: data});
 		    });
 		},
+		evalList:function(toMember,callback){
+			Model.Evaluation.find({toMember:toMember})
+			.aggregate([{
+	            $group: {
+	                _id: 'eval',  //$region is the column name in collection
+	                count: {$sum: 1}
+	            }
+	        }]).exec(function(err,data){
+		        if(err){
+		            console.error(err);
+		            callback({error: 1});
+		            return;
+		        }
+		        callback({result: data});
+			});
+		},
 		evalCount:function(fromMember,callback){
 			Model.Evaluation.find({fromMember:fromMember},function(err,data){
 		        if(err){
