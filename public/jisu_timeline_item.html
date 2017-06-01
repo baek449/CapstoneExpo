@@ -52,6 +52,10 @@
 			$scope.post = res.data.result;
 			// Bring the timeline into scope variable posts
 		});
+		$http.get('http://'+document.location.host+'/post/'+id[1]).then(function(res) {
+			$scope.reply = res.data.result.reply;
+			// Bring the timeline into scope variable posts
+		});
 	});
 	</script>
 </head>
@@ -145,40 +149,6 @@
 								<span>5 hours ago / <a href="#">Reply</a></span>
 							</h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae, gravida pellentesque urna varius vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod..</p>
-						</div>
-					</div>
-				</div>
-				<!-- End Blog Comments -->
-
-				<!-- Blog Comments -->
-				<div class="row blog-comments blog-comments-reply margin-bottom-30">
-					<div class="col-sm-2 sm-margin-bottom-40">
-						<img src="assets/img/team/img3-sm.jpg" alt="">
-					</div>
-					<div class="col-sm-10">
-						<div class="comments-itself">
-							<h4>
-								Jorny Alnordussen
-								<span>6 hours ago / <a href="#">Reply</a></span>
-							</h4>
-							<p>Gravida pellentesque urna varius vitae, gravida pellentesque urna varius vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod..</p>
-						</div>
-					</div>
-				</div>
-				<!-- End Blog Comments -->
-
-				<!-- Blog Comments -->
-				<div class="row blog-comments margin-bottom-50">
-					<div class="col-sm-2 sm-margin-bottom-40">
-						<img src="assets/img/team/img5-sm.jpg" alt="">
-					</div>
-					<div class="col-sm-10">
-						<div class="comments-itself">
-							<h4>
-								Marcus Farrell
-								<span>7 hours ago / <a href="#">Reply</a></span>
-							</h4>
-							<p>Nam viverra euismod odio, gravida pellentesque urna varius vitae, gravida pellentesque urna varius vitae. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod..</p>
 						</div>
 					</div>
 				</div>

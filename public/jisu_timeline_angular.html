@@ -381,12 +381,12 @@
 														<h4 id="myLargeModalLabel2" class="modal-title">Reply</h4>
 													</div>
 													<div class="modal-body">
-														<input type="text" class="form-control">
-															<div class="input-group-btn">
-																<button type="button" style="display: inline-block" class="btn btn-danger reply_submit_button">
-																	Submit
-																</button>
-															</div>
+														<input type="text" class="form-control reply_input"/>
+														<div class="input-group-btn">
+															<button type="button" name="{{p._id}}" style="display: inline-block" class="btn btn-danger reply_submit_button">
+																Submit
+															</button>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -634,7 +634,6 @@
 			//댓글, 평가 아이콘 완료
 			
 			//좋아요 버튼
-			
 			$(document).on('mouseenter','.jisu_heart_icon0',function(){
 					$(this).css('color','#ffffff');
 					$(this).css('background-color','#4a9706');
@@ -682,9 +681,16 @@
 			
 			//댓글 제출 버튼
 			$(document).on('click','.reply_submit_button',function(){
-					var id = $(this).attr("name");
-					$.post('http://'+document.location.host+'/post/unlike/'+id,{memberId:mid},function(res) {
-						
+					//alert(JSON.stringify($(this)[0]));
+					//alert(JSON.stringify($('.reply_submit_button')[0]));
+					var post_id = $(this).attr("name");
+					var report={projectId:id,type:"reply"};
+					//alert(post_id);
+					//alert(id);
+					report.contents=$(this).parent().prev().val();
+					$.post('http://'+document.location.host+'/post/reply/'+post_id,report,function(res) {
+						alert(report.contents);
+						location.reload();
 					});
 			});
 			//댓글 제출 버튼 완료

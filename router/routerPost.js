@@ -54,7 +54,8 @@ module.exports = function(app,Model)
 	app.post('/post/reply/:id',function(req,res){
 		// 해당 글에 대해 새로 댓글을 올립니다.
 		// 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
-		
+		console.log("REPLY");
+		console.log(req.body);
 		PostController.create(req.body,function(x){
 			// x.result에는 새로운 댓글의 id값이 들어 있습니다.
 			console.log(x.result._id);
