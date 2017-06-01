@@ -112,7 +112,7 @@
 <body class="header-fixed" >
 	<div class="wrapper" ng-app="mypageApp" ng-element-ready ng-controller="MypageDisplayController">
 		<!--=== Header v6 ===-->
-		<div class="header-v6 header-classic-white" >
+		<div class="header-v6 header-classic-white">
 			<!-- Navbar -->
 			<div class="navbar" role="navigation">
 				<div class="container">
@@ -163,12 +163,12 @@
 									</a>
 									<ul class="dropdown-menu pull-right">
 										<li>
-											<a href="my_page.html?id={{mid}}">My Page</a>
+											<a href="my_page.html">My Page</a>
 										</li>
 										<li class="dropdown-submenu">
 											<a href="javascript:void(0);">My Projects</a>
 											<ul class="dropdown-menu submenu-left">
-												<li ng-repeat="p2 in projects2"><a href="jisu_timeline_angular.html?id={{p2._id}}">{{p2.name}}</a></li>
+												<li><a href="project_details.html">CapstoneExpo</a></li>
 											</ul>
 										</li>
 										<li><a href="blog_timeline.html">Sign out</a></li>
@@ -407,7 +407,40 @@
 			</div>
 			End Cube Portfolio
 		</div> -->
-		<!-- End Portfolio -->	
+		<!-- End Portfolio -->
+				<!--=== Footer v1 ===-->
+		<div id="footer-v1" class="footer-v1">
+			<div class="copyright">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<p>
+								2015 &copy; All Rights Reserved.
+								<a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+							</p>
+						</div>
+
+						<!-- Social Links -->
+						<div class="col-md-6">
+							<ul class="footer-socials list-inline">
+								<li>
+									<a href="https://www.facebook.com/kaistkschool/?fref=ts" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+										<i class="fa fa-facebook"></i>
+									</a>
+								</li>
+								<li>
+									<a href="https://www.youtube.com/channel/UC2sJC5hisC5dkXk6zODUnfA" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Youtube">
+										<i class="fa fa-youtube"></i>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<!-- End Social Links -->
+					</div>
+				</div>
+			</div><!--/copyright-->
+		</div>
+		<!--=== End Footer v1 ===-->	
 	</div><!--/End Wrapper-->
 
 	<!-- JS Global Compulsory -->

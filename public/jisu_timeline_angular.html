@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 
 	<!-- CSS Header and Footer -->
-	<link rel="stylesheet" href="assets/css/headers/header-default.css">
+	<link rel="stylesheet" href="assets/css/headers/header-v6.css">
 	<link rel="stylesheet" href="assets/css/footers/footer-v1.css">
 
 	<!-- CSS Implementing Plugins -->
@@ -55,7 +55,7 @@
 	id=id.split("&")[0].split("=");
 	if(id[0]!="id") alert("Error"); // TODO Error Processing
 	id=id[1];
-	alert(id);
+	//alert(id);
 	//alert(0);
 	
 	module.controller('TimelineDisplayController', function($scope,$http) {
@@ -94,7 +94,7 @@
 				$scope.posts2=res.data.result.slice(0,2);
 				$scope.id=id;
 				
-				alert(0);
+				//alert(0);
 				$scope.evals={};
 				downloadEvals($scope.evals,$scope.posts,0);
 			});
@@ -115,91 +115,82 @@
 	</script>
 </head>
 
-<body>
+<body class="header-fixed">
 	<div class="wrapper" ng-app="timelineApp" ng-element-ready>
 	
-		<!--=== Header ===-->
-		<div class="header">
-			<div class="container">
-				<!-- Logo -->
-				<a class="logo" href="index.html">
-					<img src="assets/img/logo1-default.png" alt="Logo">
-				</a>
-				<!-- End Logo -->
-
-				<!-- Topbar -->
-				<div class="topbar">
-				</div>
-				<!-- End Topbar -->
-
-				<!-- Toggle get grouped for better mobile display -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="fa fa-bars"></span>
-				</button>
-				<!-- End Toggle -->
-			</div><!--/end container-->
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+		<!--=== Header v6 ===-->
+		<div class="header-v6 header-classic-white">
+			<!-- Navbar -->
+			<div class="navbar" role="navigation">
 				<div class="container">
-					<ul class="nav navbar-nav">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="menu-container">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
 
-						<!-- Home -->
-						<li>
+						<!-- Navbar Brand -->
+						<div class="navbar-brand">
 							<a href="index.html">
-								Home
+								<img class="shrink-logo" src="assets/img/icons/logo-2_s.png" alt="Logo">
 							</a>
-						</li>
-						<!-- End Home -->
+						</div>
+						<!-- ENd Navbar Brand -->
 
-						<!-- Features -->
-						<li class="dropdown">
-							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-								My page
-							</a>
-							<ul class="dropdown-menu">
-								<li class="dropdown-submenu">
-									<a href="javascript:void(0);">My Page</a>
+
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse navbar-responsive-collapse">
+						<div class="menu-container">
+							<ul class="nav navbar-nav">
+								<!-- Home -->
+								<li class="active">
+									<a href="index.html">
+										Home
+									</a>
 								</li>
-								<li class="dropdown-submenu">
-									<a href="javascript:void(0);">My Projects</a>
-									<ul class="dropdown-menu">
-										<li><a href="feature_footer_default.html#footer-default">Capstone Expo</a></li>
-										<li><a href="feature_footer_v1.html#footer-v1">Footer v1</a></li>
+								<!-- End Home -->
+								
+								<!-- Discover -->
+								<li>
+									<a href="search_projects.html">
+										Discover Projects
+									</a>
+								</li>
+								<!-- End Discover -->
+								
+								<!-- My Menu -->
+								<li class="dropdown">
+									<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+										My Menu
+									</a>
+									<ul class="dropdown-menu pull-right">
+										<li>
+											<a href="my_page.html">My Page</a>
+										</li>
+										<li class="dropdown-submenu">
+											<a href="javascript:void(0);">My Projects</a>
+											<ul class="dropdown-menu submenu-left">
+												<li><a href="project_details.html">CapstoneExpo</a></li>
+											</ul>
+										</li>
+										<li><a href="blog_timeline.html">Sign out</a></li>
 									</ul>
 								</li>
-								<li><a href="feature_gallery.html">Gallery Examples</a></li>
+								<!-- End My Menu -->
+
 							</ul>
-						</li>
-						<!-- End Features -->
-
-						<!-- Home -->
-						<li class="dropdown">
-							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-								Class Introduction
-							</a>
-						</li>
-						<!-- End Home -->
-
-						<!-- Search Block -->
-						<li>
-							<i class="search fa fa-search search-btn"></i>
-							<div class="search-open">
-								<div class="input-group animated fadeInDown">
-									<input type="text" class="form-control" placeholder="Search">
-									<span class="input-group-btn">
-										<button class="btn-u" type="button">Go</button>
-									</span>
-								</div>
-							</div>
-						</li>
-						<!-- End Search Block -->
-					</ul>
-				</div><!--/end container-->
-			</div><!--/navbar-collapse-->
+						</div>
+					</div><!--/navbar-collapse-->
+				</div>
+			</div>
+			<!-- End Navbar -->
 		</div>
-		<!--=== End Header ===-->
+		<!--=== End Header v6 ===-->
 
 		<!--=== Breadcrumbs ===-->
 		<div class="breadcrumbs">
