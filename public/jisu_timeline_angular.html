@@ -68,6 +68,8 @@
 		
 		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
 			$scope.members = res1.data.result;
+			$scope.members2 = res1.data.result;
+			$scope.howmany=$scope.members.length;
 /* 			$scope.linebreak=function(str){
 				return str.replace(/\n/gi,'</p><p>');
 			}; */
@@ -103,7 +105,7 @@
 </head>
 
 <body>
-	<div class="wrapper" ng-app="timelineApp" ng-element-ready>
+	<div class="wrapper" ng-app="timelineApp" ng-element-ready ng-controller="TimelineDisplayController">
 	
 		<!--=== Header ===-->
 		<div class="header">
@@ -205,7 +207,7 @@
 
 		<!--=== Content Part ===-->
 		
-		<div class="container content" ng-controller="TimelineDisplayController">
+		<div class="container content">
 			<div class="row">
 				<!-- Right Side Bar -->
 				<div class="col-md-3 jisu_right_border_gray">
@@ -485,12 +487,7 @@
 						<div class="form-group">
 							<label for="inputMember" class="col-lg-2 control-label">출석:</label>
 							<div id="input-field" class="col-lg-10 inline-group jen-checkbox">
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="memberID"><i></i>Member1</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="memberID"><i></i>Member2</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="memberID"><i></i>Member3</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="memberID"><i></i>Member4</label>
-								<label class="checkbox jen-checkbox-item"><input type="checkbox" name="checkbox-inline" value="memberID"><i></i>Member5</label>
-
+								<label class="checkbox jen-checkbox-item attendance_check_parent" ng-repeat="m2 in members2"><input class='attendance_check' type="checkbox" name="{{howmany}}" value="{{m2._id}}"><i></i>{{m2.name}}</label>
 							</div>
 						</div>	
 
@@ -589,6 +586,22 @@
 					   report.title=$('#inputTitle').val();
 					   report.writeDate=$('#start').val();
 					   report.contents=$('#inputDesc').val();
+					   var howmany=$('.attendance_check').attr('name');
+					   //alert($('.attendance_check_parent:checked').size());
+					   var i=0;
+					   var DATA;
+					   $('.attendance_check').each(function() {
+					      if($(this).is(':checked')){
+					    	  if(i==0) DATA=($(this).val());
+					    	  else DATA += "|"+($(this).val());
+					    	  i++;
+					      }
+					   	  //alert(DATA);
+					   });
+					   DATA=DATA.split('|');
+					   alert(DATA);
+					   
+					   report.attend_member=DATA;
 					   if(x.result!="")report.image=x.result;
 					   //alert(JSON.stringify(x));
 					   //alert(JSON.stringify(report));
@@ -598,7 +611,6 @@
 							alert("업로드 성공"); 
 							location.reload();
 						});
-					   
 				 }));
 				//새로운 타임라인 포스트 등록 완료
 			//새로운 타임라인 포스트 등록 버튼 완료

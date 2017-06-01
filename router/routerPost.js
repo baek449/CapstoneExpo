@@ -17,7 +17,7 @@ module.exports = function(app,Model)
 	app.post('/post/new',function(req,res){
 		// 작성한 새로운 게시글을 올립니다.
 		// TODO 여기서 req.query에 대한 변수 체크를 해야 합니다. 이 부분은 실제 시스템으로 가동하기 전에 반드시 작업해야 합니다.
-		
+		console.log(req.body);
 		PostController.create(req.body,function(x){
 			// x.result에는 새로운 게시글의 id값이 들어 있습니다.
 			res.send(x);
@@ -63,7 +63,7 @@ module.exports = function(app,Model)
 			PostController.reply(x.result._id,req.params.id,function(x){res.send({result:1});});
 		});
 	});
-	app.post('eval/upload',function(req,res){
+	app.post('/eval/upload',function(req,res){
 		// 평가를 올리거나 갱신합니다.
 		// postID, fromMember, toMember는 필수입니다.
 		var key={postID:	req.body.postID,
@@ -77,7 +77,7 @@ module.exports = function(app,Model)
 			res.send(x);
 		});
 	});
-	app.post('eval/download',function(req,res){
+	app.post('/eval/download',function(req,res){
 		// 평가 목록을 가져옵니다.
 		// postID, fromMember는 필수입니다.
 		var key={postID:	req.body.postID,
