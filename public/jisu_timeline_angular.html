@@ -87,7 +87,9 @@
 		
 		$scope.uploadEval=uploadEval;
 		$http.get('http://'+document.location.host+'/project/summary/'+id).then(function(res1) {
+			$scope.project = res1.data.result;
 			$scope.project_keyword = res1.data.result.keyword;
+			
 		});
 		
 		$http.get('http://'+document.location.host+'/project/member/'+id).then(function(res1) {
@@ -202,18 +204,23 @@
 		</div>
 		<!--=== End Header v6 ===-->
 
-		<!--=== Breadcrumbs ===-->
-		<div class="breadcrumbs">
-			<div class="container">
-				<h1 class="pull-left">Timeline</h1>
-				<ul class="pull-right breadcrumb">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="">Features</a></li>
-					<li class="active">Timeline</li>
-				</ul>
+		<!--=== Interactive Slider ===-->
+		<div class="breadcrumbs breadcrumbs-light text-center no-bottom-padding project-detail-tabborder">
+			<div class="container project-title-box">
+				<div class="margin-bottom-60">
+					<h1>{{project.name}}</h1>
+					<p>{{project.shortIntro}}</p>
+				</div>
+				<div class="tab-v1">
+					<ul class="nav nav-tabs">
+						<li><a href="project_details.html?id={{id}}">프로젝트 및 팀 소개</a></li>
+						<li class="active"><a href="">타임라인</a></li>						
+						<li class="pull-right" data-toggle="modal" data-target="#responsive"><a href="#">프로젝트 수정</a></li>
+					</ul>
+				</div>
 			</div>
-		</div><!--/breadcrumbs-->
-		<!--=== End Breadcrumbs ===-->
+		</div>
+		<!--=== End Interactive Slider ===-->
 
 
 
