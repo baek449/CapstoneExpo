@@ -38,6 +38,7 @@ var PostController=function(Model){
 		//[Must] readAll: 프로젝트 ID에 대한 모든 게시글을 불러옵니다.
 		readAll:function(projectId,mid,callback){
 			Model.Post.find({projectId:Model.id(projectId), type:{$ne:"reply"}})
+			.sort({writeTime:-1})
 			.populate({
 			    path: 'like',
 			    match: { _id: mid }
