@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 
 	<!-- CSS Header and Footer -->
-	<link rel="stylesheet" href="assets/css/headers/header-default.css">
+	<link rel="stylesheet" href="assets/css/headers/header-v6.css">
 	<link rel="stylesheet" href="assets/css/footers/footer-v1.css">
 
 	<!-- CSS Implementing Plugins -->
@@ -43,7 +43,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
 	
-	
+	var mid='592a7af2f8bc6d93b34216ef';
 	var module=angular.module('timelineEditApp', []);
 	var project_id;
 	var post_id = document.location.href.split("?");
@@ -66,6 +66,8 @@
 		// Bring the members into scope variable members
 		$http.get('http://'+document.location.host+'/post/'+post_id).then(function(res) {
 			$scope.post = res.data.result;
+			$scope.mid = mid;
+			$scope.id = project_id;
 			// Bring the timeline into scope variable posts
 		});
 	});
@@ -82,39 +84,98 @@
 	</script>
 </head>
 
-<body>
-	<div class="wrapper" ng-app="timelineEditApp" ng-element-ready>
-		<!--=== Header ===-->
-		<div class="header">
-			<div class="container">
-				<!-- Logo -->
-				<a class="logo" href="index.html">
-					<img src="assets/img/logo1-default.png" alt="Logo">
-				</a>
-				<!-- End Logo -->
-			</div><!--/end container-->
-
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+<body class="header-fixed">
+	<div class="wrapper" ng-app="timelineEditApp" ng-element-ready ng-controller="TimelineEditDisplayController">
+		<!--=== Header v6 ===-->
+		<div class="header-v6 header-classic-white">
+			<!-- Navbar -->
+			<div class="navbar" role="navigation">
 				<div class="container">
-					<ul class="nav navbar-nav">
-					</ul>
-				</div><!--/end container-->
-			</div><!--/navbar-collapse-->
-		</div>
-		<!--=== End Header ===-->
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="menu-container">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
 
-		<!--=== Breadcrumbs v1 ===-->
-		<div class="breadcrumbs-v1 text-center">
-			<div class="container">
-				<span>Blog Item Page</span>
-				<h1>Basic Item Page</h1>
+						<!-- Navbar Brand -->
+						<div class="navbar-brand">
+							<a href="index.html">
+								<img class="shrink-logo" src="assets/img/icons/logo-2_s.png" alt="Logo">
+							</a>
+						</div>
+						<!-- ENd Navbar Brand -->
+
+
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse navbar-responsive-collapse">
+						<div class="menu-container">
+							<ul class="nav navbar-nav">
+								<!-- Home -->
+								<li class="active">
+									<a href="index.html">
+										Home
+									</a>
+								</li>
+								<!-- End Home -->
+								
+								<!-- Discover -->
+								<li>
+									<a href="search_projects.html">
+										Discover Projects
+									</a>
+								</li>
+								<!-- End Discover -->
+								
+								<!-- My Menu -->
+								<li class="dropdown">
+									<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+										My Menu
+									</a>
+									<ul class="dropdown-menu pull-right">
+										<li>
+											<a href="my_page.html?id={{mid}}">My Page</a>
+										</li>
+										<li class="dropdown-submenu">
+											<a href="javascript:void(0);">My Projects</a>
+											<ul class="dropdown-menu submenu-left">
+												<li><a href="project_details.html?id={{id}}">CapstoneExpo</a></li>
+											</ul>
+										</li>
+										<li><a href="blog_timeline.html">Sign out</a></li>
+									</ul>
+								</li>
+								<!-- End My Menu -->
+
+							</ul>
+						</div>
+					</div><!--/navbar-collapse-->
+				</div>
 			</div>
+			<!-- End Navbar -->
 		</div>
-		<!--=== End Breadcrumbs v1 ===-->
+		<!--=== End Header v6 ===-->
+
+
+		<!--=== Breadcrumbs ===-->
+		<div class="breadcrumbs breadcrumbs-light">
+			<div class="container">
+				<h1 class="pull-left">Timeline Edit</h1>
+				<ul class="pull-right breadcrumb">
+					<li><a href="index.html">Home</a></li>
+					<li><a href="">Features</a></li>
+					<li class="active">Timeline Edit</li>
+				</ul>
+			</div>
+		</div><!--/breadcrumbs-->
+		<!--=== End Breadcrumbs ===-->
 
 		<!--=== Blog Posts ===-->
-		<div class="bg-color-light" ng-controller="TimelineEditDisplayController" >
+		<div class="bg-color-light" >
 			<div class="container content-sm">
 				<!-- News v3 -->
 				<div name="{{post._id}}" class="news-v3 bg-color-white margin-bottom-30 have_name">
@@ -198,70 +259,8 @@
 		</div>
 		<!--=== End Blog Posts ===-->
 
-		<!--=== Footer Version 1 ===-->
-		<div class="footer-v1">
-			<div class="footer">
-				<div class="container">
-					<div class="row">
-						<!-- About -->
-						<div class="col-md-3 md-margin-bottom-40">
-							<a href="index.html"><img id="logo-footer" class="footer-logo" src="assets/img/logo2-default.png" alt=""></a>
-							<p>About Unify dolor sit amet, consectetur adipiscing elit. Maecenas eget nisl id libero tincidunt sodales.</p>
-							<p>Duis eleifend fermentum ante ut aliquam. Cras mi risus, dignissim sed adipiscing ut, placerat non arcu.</p>
-						</div><!--/col-md-3-->
-						<!-- End About -->
-
-						<!-- Latest -->
-						<div class="col-md-3 md-margin-bottom-40">
-							<div class="posts">
-								<div class="headline"><h2>Latest Posts</h2></div>
-								<ul class="list-unstyled latest-list">
-									<li>
-										<a href="#">Incredible content</a>
-										<small>May 8, 2014</small>
-									</li>
-									<li>
-										<a href="#">Best shoots</a>
-										<small>June 23, 2014</small>
-									</li>
-									<li>
-										<a href="#">New Terms and Conditions</a>
-										<small>September 15, 2014</small>
-									</li>
-								</ul>
-							</div>
-						</div><!--/col-md-3-->
-						<!-- End Latest -->
-
-						<!-- Link List -->
-						<div class="col-md-3 md-margin-bottom-40">
-							<div class="headline"><h2>Useful Links</h2></div>
-							<ul class="list-unstyled link-list">
-								<li><a href="#">About us</a><i class="fa fa-angle-right"></i></li>
-								<li><a href="#">Portfolio</a><i class="fa fa-angle-right"></i></li>
-								<li><a href="#">Latest jobs</a><i class="fa fa-angle-right"></i></li>
-								<li><a href="#">Community</a><i class="fa fa-angle-right"></i></li>
-								<li><a href="#">Contact us</a><i class="fa fa-angle-right"></i></li>
-							</ul>
-						</div><!--/col-md-3-->
-						<!-- End Link List -->
-
-						<!-- Address -->
-						<div class="col-md-3 map-img md-margin-bottom-40">
-							<div class="headline"><h2>Contact Us</h2></div>
-							<address class="md-margin-bottom-40">
-								25, Lorem Lis Street, Orange <br />
-								California, US <br />
-								Phone: 800 123 3456 <br />
-								Fax: 800 123 3456 <br />
-								Email: <a href="mailto:info@anybiz.com" class="">info@anybiz.com</a>
-							</address>
-						</div><!--/col-md-3-->
-						<!-- End Address -->
-					</div>
-				</div>
-			</div><!--/footer-->
-
+		<!--=== Footer v1 ===-->
+		<div id="footer-v1" class="footer-v1">
 			<div class="copyright">
 				<div class="container">
 					<div class="row">
@@ -271,11 +270,28 @@
 								<a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
 							</p>
 						</div>
+
+						<!-- Social Links -->
+						<div class="col-md-6">
+							<ul class="footer-socials list-inline">
+								<li>
+									<a href="https://www.facebook.com/kaistkschool/?fref=ts" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook">
+										<i class="fa fa-facebook"></i>
+									</a>
+								</li>
+								<li>
+									<a href="https://www.youtube.com/channel/UC2sJC5hisC5dkXk6zODUnfA" class="tooltips" data-toggle="tooltip" data-placement="top" title="" data-original-title="Youtube">
+										<i class="fa fa-youtube"></i>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<!-- End Social Links -->
 					</div>
 				</div>
 			</div><!--/copyright-->
 		</div>
-		<!--=== End Footer Version 1 ===-->
+		<!--=== End Footer v1 ===-->
 	</div><!--/wrapper-->
 
 	<!-- JS Global Compulsory -->

@@ -47,6 +47,9 @@
 	<!-- AngularJS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 	<script type="text/javascript">
+	var monthNames=["January", "February", "March", "April", "May", "June",
+		  "July", "August", "September", "October", "November", "December"
+		  ];
 	var mid='592a7af2f8bc6d93b34216ef';
 	var module=angular.module('timelineApp', []);
 	var id=document.location.href;
@@ -76,6 +79,12 @@
 			return "";
 		}
 			//examineEval(a,b);
+			
+		$scope.cal_month=function(month){
+			alert(month.getMonth());
+			return monthNames[month.getMonth()];
+		}
+		
 		$scope.uploadEval=uploadEval;
 		$http.get('http://'+document.location.host+'/project/summary/'+id).then(function(res1) {
 			$scope.project_keyword = res1.data.result.keyword;
@@ -90,13 +99,14 @@
 			}; */
 			// Bring the timeline into scope variable posts
 			$http.get('http://'+document.location.host+'/timeline/'+id,{memberId:mid}).then(function(res) {
+				
 				$scope.posts=res.data.result;
 				$scope.posts2=res.data.result.slice(0,2);
 				$scope.id=id;
+				$scope.mid=mid;
 				
 				//alert(0);
 				$scope.evals={};
-				downloadEvals($scope.evals,$scope.posts,0);
 			});
 
 		});
@@ -116,7 +126,7 @@
 </head>
 
 <body class="header-fixed">
-	<div class="wrapper" ng-app="timelineApp" ng-element-ready>
+	<div class="wrapper" ng-app="timelineApp" ng-element-ready ng-controller="TimelineDisplayController">
 	
 		<!--=== Header v6 ===-->
 		<div class="header-v6 header-classic-white">
@@ -170,12 +180,12 @@
 									</a>
 									<ul class="dropdown-menu pull-right">
 										<li>
-											<a href="my_page.html">My Page</a>
+											<a href="my_page.html?id={{mid}}">My Page</a>
 										</li>
 										<li class="dropdown-submenu">
 											<a href="javascript:void(0);">My Projects</a>
 											<ul class="dropdown-menu submenu-left">
-												<li><a href="project_details.html">CapstoneExpo</a></li>
+												<li><a href="project_details.html?id={{id}}">CapstoneExpo</a></li>
 											</ul>
 										</li>
 										<li><a href="blog_timeline.html">Sign out</a></li>
@@ -209,7 +219,7 @@
 
 		<!--=== Content Part ===-->
 		
-		<div class="container content" ng-controller="TimelineDisplayController">
+		<div class="container content">
 			<div class="row">
 				<!-- Right Side Bar -->
 				<div class="col-md-3 jisu_right_border_gray">
@@ -288,7 +298,7 @@
 				
 					<ul class="timeline-v2">
 						<li class="equal-height-columns" ng-repeat="p in posts" print1>
-							<div class="cbp_tmtime equal-height-column"><span>{{p.writeTime|date:'yyyy.MM.dd'}}</span> <span>May</span></div>
+							<div class="cbp_tmtime equal-height-column"><span>{{p.writeTime|date:'yyyy.MM.dd'}}</span> <span>{{p.writeTime|date:'MM'}}</span></div>
 							<i class="cbp_tmicon rounded-x hidden-xs"></i>
 							<div class="{{p.type}} cbp_tmlabel equal-height-column">
 												
