@@ -42,8 +42,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 </head>
 
-<body class="header-fixed" ng-app="searchApp" ng-element-ready>
-	<div class="wrapper" ng-controller="ProjectDisplayController">
+<body class="header-fixed" ng-app="searchApp" ng-element-ready ng-controller="ProjectDisplayController">
+	<div class="wrapper">
 
 
 		<!--=== Header v6 ===-->
@@ -243,7 +243,7 @@
 		module.controller('ProjectDisplayController', function($scope,$http) {
 			$http.get('http://'+document.location.host+'/project/all/view').then(function(res){
 				$scope.projects=res.data.result.slice(0,3);
-				$scope.projects2=res.data.result.slice(12,15);
+				$scope.projects2=res.data.result.slice(6,9);
 				$scope.mid=mid;
 				$scope.map_one=function(fieldName){
 					switch(fieldName) {
